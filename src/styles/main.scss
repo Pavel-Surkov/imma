@@ -50,7 +50,7 @@ html {
 @import 'layout/header', 'layout/main', 'layout/footer';
 
 // 6. Components
-@import 'components/app';
+@import 'components/app', 'components/home-main', 'components/video';
 
 // 7. Page-specific styles
 @import 'pages/home';

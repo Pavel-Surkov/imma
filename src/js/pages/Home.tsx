@@ -1,5 +1,10 @@
 import React from 'react';
+import { HomeMain } from '../components/HomeMain';
 
 export const Home: React.FC = () => {
-	return <div>Home</div>;
+	return (
+		<main className="main home">
+			<HomeMain />
+		</main>
+	);
 };

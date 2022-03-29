@@ -2,6 +2,7 @@
 	font-family: $title-font;
 	font-weight: 700;
 	color: $white;
+	margin: 0;
 	&_size {
 		&-l {
 			font-size: 6.4rem;
@@ -18,6 +19,28 @@
 		&-xs {
 			font-size: 2rem;
 			line-height: calc(28 / 20);
+		}
+	}
+}
+
+@media screen and(max-width: 1230px) {
+	.title {
+		&_size {
+			&-l {
+				font-size: 5.4rem;
+				line-height: calc(80 / 64);
+			}
+		}
+	}
+}
+
+@media screen and(max-width: 767px) {
+	.title {
+		&_size {
+			&-l {
+				font-size: 3rem;
+				line-height: calc(40 / 30);
+			}
 		}
 	}
 }

@@ -7,8 +7,8 @@ export const Header: React.FC = () => {
 		<header className="header">
 			<div className="header-wrapper">
 				<div className="container">
-					<Link to="/">
-						<img src={logo} alt=""></img>
+					<Link className="header-logo" to="/">
+						<img src={logo} alt="logo"></img>
 					</Link>
 				</div>
 			</div>

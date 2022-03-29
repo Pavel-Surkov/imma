@@ -29,10 +29,13 @@ b,
 strong {
 	font-weight: bold;
 }
+p {
+	margin: 0;
+}
 body {
 	font-family: $font;
 	font-weight: 400;
-	color: $black;
+	color: $gray-400;
 	font-size: 1.6rem;
 	height: 100%;
 	&.locked {
