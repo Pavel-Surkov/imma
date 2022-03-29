@@ -1,0 +1,7 @@
+.link,
+.logo {
+	&:hover,
+	&:focus {
+		opacity: 0.8;
+	}
+}

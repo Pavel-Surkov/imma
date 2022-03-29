@@ -1,0 +1,38 @@
+.btn {
+	font-family: $title-font;
+	display: inline-block;
+	font-size: 1.8rem;
+	line-height: calc(25 / 18);
+	padding: 1.11em 3.18em;
+	padding-bottom: 1em;
+	padding-right: calc(3.18em + 33px);
+	text-transform: uppercase;
+	font-weight: 700;
+	background: rgba($white, 0.07);
+	color: $white;
+	position: relative;
+	&::after {
+		content: '';
+		position: absolute;
+		right: 3.18em;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 25px;
+		height: 9px;
+		background: icon('arrow-white.svg') no-repeat 50% / cover;
+	}
+	&:hover {
+		background: $lightgreen;
+		color: $black;
+		&::after {
+			background: icon('arrow-black.svg') no-repeat 50% / cover;
+		}
+	}
+	&:active {
+		opacity: 0.8;
+	}
+	&_border_green {
+		border: 2px solid $lightgreen;
+		background: transparent;
+	}
+}
