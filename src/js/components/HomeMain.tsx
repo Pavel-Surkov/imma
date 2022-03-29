@@ -5,7 +5,7 @@ import homeNft2x from '../../assets/images/nft1@2x.jpg';
 import sign from '../../assets/images/sign.svg';
 import play from '../../assets/images/icons/play.svg';
 
-export const HomeMain = () => {
+export const HomeMain: React.FC = () => {
 	return (
 		<section className="home-main">
 			<div className="home-main__wrapper">
@@ -15,7 +15,7 @@ export const HomeMain = () => {
 							<h1 className="title title_size-l home-main__title">
 								Add sentimental value to any NFT
 							</h1>
-							<div className="home-main__note">
+							<div className="note home-main__note">
 								<p>
 									With IMMA anyone can sign on any NFT in order to&nbsp;increase
 									it's sentimental value.

@@ -23,6 +23,7 @@
 		}
 	}
 	&_wrapped {
+		position: relative;
 		display: inline-block;
 		&::after {
 			content: '';

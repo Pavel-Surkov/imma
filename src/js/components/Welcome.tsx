@@ -4,10 +4,10 @@ import welcomeBig2x from '../../assets/images/welcome_big@2x.png';
 import welcomeSm from '../../assets/images/welcome_sm.png';
 import welcomeSm2x from '../../assets/images/welcome_sm@2x.png';
 
-export const Welcome = () => {
+export const Welcome: React.FC = () => {
 	return (
-		<section className="welcome">
-			<div className="welcome-wrapper">
+		<section className="section welcome">
+			<div className=" section-wrapper welcome-wrapper">
 				<div className="container">
 					<div className="welcome-content">
 						<div className="welcome__title-wrapper">

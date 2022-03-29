@@ -11,9 +11,6 @@
 	&__note {
 		max-width: 400px;
 		margin-bottom: 50px;
-		& p {
-			@include font(1.8rem, calc(25 / 18));
-		}
 	}
 	&__btn {
 		margin-right: 20px;

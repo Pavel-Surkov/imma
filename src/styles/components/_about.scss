@@ -1,0 +1,25 @@
+.about {
+	&-title {
+		margin-bottom: 11px;
+		max-width: 290px;
+		& .title_wrapped {
+			&::after {
+				width: 198px;
+				height: 62px;
+				z-index: 10;
+				position: absolute;
+			}
+		}
+	}
+	&-note {
+		margin-bottom: 30px;
+	}
+	&-subtitle {
+		margin-bottom: 40px;
+	}
+	&-content {
+		position: relative;
+		display: grid;
+		grid-gap: 30px;
+	}
+}

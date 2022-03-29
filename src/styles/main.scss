@@ -44,13 +44,14 @@ html {
 @import 'base/base', 'base/fonts', 'base/typography', 'base/helpers';
 
 //4. Components
-@import 'components/title', 'components/button';
+@import 'components/title', 'components/button', 'components/section', 'components/note', 'components/list';
 
 // 5. Layout-related sections
 @import 'layout/header', 'layout/main', 'layout/footer';
 
 // 6. Components
-@import 'components/app', 'components/home-main', 'components/video', 'components/welcome';
+@import 'components/app', 'components/home-main', 'components/video', 'components/welcome', 'components/about',
+	'components/block-numbered';
 
 // 7. Page-specific styles
 @import 'pages/home';
