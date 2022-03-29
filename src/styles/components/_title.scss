@@ -3,6 +3,7 @@
 	font-weight: 700;
 	color: $white;
 	margin: 0;
+	position: relative;
 	&_size {
 		&-l {
 			font-size: 6.4rem;
@@ -21,14 +22,36 @@
 			line-height: calc(28 / 20);
 		}
 	}
+	&_wrapped {
+		display: inline-block;
+		&::after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 207px;
+			height: 68px;
+			background: image('title_wrap.svg') no-repeat 50% / contain;
+		}
+	}
 }
 
 @media screen and(max-width: 1230px) {
 	.title {
 		&_size {
 			&-l {
-				font-size: 5.4rem;
-				line-height: calc(80 / 64);
+				@include font(5.4rem, calc(80 / 64));
+			}
+		}
+	}
+}
+
+@media screen and(max-width: 991px) {
+	.title {
+		&_wrapped {
+			&::after {
+				content: none;
 			}
 		}
 	}
@@ -38,8 +61,10 @@
 	.title {
 		&_size {
 			&-l {
-				font-size: 3rem;
-				line-height: calc(40 / 30);
+				@include font(3rem, clac(40/30));
+			}
+			&-m {
+				@include font(2.6rem, calc(34 / 26));
 			}
 		}
 	}

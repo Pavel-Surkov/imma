@@ -25,7 +25,7 @@ export const HomeMain = () => {
 								<Button
 									className="btn btn_border_green home-main__btn"
 									text="Create"
-									link={{ ref: '/' }}
+									link={{ ref: '#create' }}
 								/>
 								<Button
 									className="btn home-main__btn"
