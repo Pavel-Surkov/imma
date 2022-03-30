@@ -12,8 +12,8 @@ interface State {
 	wallet: Wallet;
 	price: null | number;
 	blockchain: 'ethereum' | 'polygon';
-	video: null;
-	signature: null;
+	video: null | File;
+	signature: null | File;
 	verification: {
 		social: 'instagram' | 'twitter';
 		isVerified: boolean;
