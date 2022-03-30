@@ -2,6 +2,8 @@
 	background: rgba($white, 0.07);
 	backdrop-filter: blur(25px);
 	padding: 30px 35px;
+	color: $white;
+	border-radius: 2px;
 	&__number {
 		padding-bottom: 20px;
 		position: relative;
@@ -22,6 +24,18 @@
 		margin-bottom: 15px;
 		&:last-child {
 			margin-bottom: 0;
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.block-numbered {
+		padding: 20px;
+		&__number {
+			padding-bottom: 15px;
+		}
+		&__content {
+			padding-top: 15px;
 		}
 	}
 }

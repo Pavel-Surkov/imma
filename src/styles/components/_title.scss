@@ -67,6 +67,9 @@
 			&-m {
 				@include font(2.6rem, calc(34 / 26));
 			}
+			&-xs {
+				@include font(1.6rem, calc(21 / 16));
+			}
 		}
 	}
 }

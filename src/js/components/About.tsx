@@ -1,8 +1,10 @@
 import React from 'react';
 import { NumberedBlockProps, NumberedBlock } from './NumberedBlock';
+import aboutImg from '../../assets/images/about_img.png';
+import aboutImg2x from '../../assets/images/about_img@2x.png';
 
 const aboutItems: NumberedBlockProps[] = [
-	{ number: '01', title: 'NFT token address that you want to sign on' },
+	{ number: '01', title: 'NFT token address that you want to&nbsp;sign&nbsp;on' },
 	{
 		number: '02',
 		title: 'Your wallet address for receiving related funds:',
@@ -45,6 +47,12 @@ export const About: React.FC = () => {
 								/>
 							);
 						})}
+						<img
+							data-img="decorative"
+							src={aboutImg}
+							srcSet={`${aboutImg} 1x, ${aboutImg2x} 2x`}
+							alt=""
+						/>
 					</div>
 				</div>
 			</div>

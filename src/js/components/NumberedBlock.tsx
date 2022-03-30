@@ -14,7 +14,12 @@ export const NumberedBlock = ({ number, title, list }: NumberedBlockProps) => {
 		<div className="block-numbered">
 			<h4 className="title title_size-xs block-numbered__number">{number}</h4>
 			<div className="block-numbered__content">
-				{title && <p className="title title_size-xs block-numbered__title">{title}</p>}
+				{title && (
+					<p
+						className="title title_size-xs block-numbered__title"
+						dangerouslySetInnerHTML={{ __html: title }}
+					></p>
+				)}
 				{list && (
 					<>
 						<p className="block-numbered__list-title">{list.title}</p>
@@ -22,7 +27,7 @@ export const NumberedBlock = ({ number, title, list }: NumberedBlockProps) => {
 							{list.items.map((text) => {
 								console.log(text);
 								return (
-									<li className="list-item block-numbered__item" key={text}>
+									<li className="list__item block-numbered__item" key={text}>
 										{text}
 									</li>
 								);
