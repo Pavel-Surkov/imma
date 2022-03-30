@@ -49,7 +49,7 @@ function reducer(state: State, action: ActionType) {
 			};
 		}
 		default: {
-			throw new Error();
+			throw new TypeError('Action type is uncorrect');
 		}
 	}
 }
@@ -58,8 +58,8 @@ export const Creation = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	return (
-		<section className="creation">
-			<div className="creation-wrapper">
+		<section className="section creation">
+			<div className="section-wrapper creation-wrapper">
 				<div className="container"></div>
 			</div>
 		</section>

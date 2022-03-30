@@ -1,0 +1,49 @@
+.lifefeed {
+	&-container {
+		overflow: scroll;
+		margin-left: auto;
+		max-width: calc(100% - ((100% - 1170px) / 2));
+		padding-right: calc((100% - 1170px) / 2);
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
+	&-title {
+		margin-bottom: 40px;
+	}
+}
+
+@media screen and (max-width: 1230px) {
+	.lifefeed {
+		&-container {
+			max-width: calc(100% - ((100% - 930px) / 2));
+			padding-right: calc((100% - 930px) / 2);
+		}
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.lifefeed {
+		&-container {
+			margin: 0;
+			max-width: none;
+			padding: 0 calc((100% - 690px) / 2);
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.lifefeed {
+		&-container {
+			padding: 0 calc((100% - 510px) / 2);
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.lifefeed {
+		&-container {
+			padding: 0 15px;
+		}
+	}
+}
