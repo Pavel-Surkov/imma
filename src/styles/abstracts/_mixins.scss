@@ -14,3 +14,10 @@
 	font-size: $size;
 	line-height: $lineheight;
 }
+
+@mixin grid($grid-gap: 30px, $align-items: start, $justify-items: start) {
+	display: grid;
+	grid-gap: $grid-gap;
+	align-items: $align-items;
+	justify-items: $justify-items;
+} ;

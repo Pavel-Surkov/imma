@@ -1,5 +1,6 @@
 import React from 'react';
 import { NumberedBlockProps, NumberedBlock } from './NumberedBlock';
+import { AboutDefine } from './AboutDefine';
 import aboutImg from '../../assets/images/about_img.png';
 import aboutImg2x from '../../assets/images/about_img@2x.png';
 
@@ -48,12 +49,14 @@ export const About: React.FC = () => {
 							);
 						})}
 						<img
+							width="185"
 							data-img="decorative"
 							src={aboutImg}
 							srcSet={`${aboutImg} 1x, ${aboutImg2x} 2x`}
 							alt=""
 						/>
 					</div>
+					<AboutDefine />
 				</div>
 			</div>
 		</section>

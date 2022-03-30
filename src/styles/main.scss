@@ -51,7 +51,7 @@ html {
 
 // 6. Components
 @import 'components/app', 'components/home-main', 'components/video', 'components/welcome', 'components/about',
-	'components/block-numbered';
+	'components/block-numbered', 'components/about-define';
 
 // 7. Page-specific styles
 @import 'pages/home';
