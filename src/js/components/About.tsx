@@ -5,20 +5,43 @@ import aboutImg from '../../assets/images/about_img.png';
 import aboutImg2x from '../../assets/images/about_img@2x.png';
 
 const aboutItems: NumberedBlockProps[] = [
-	{ number: '01', title: 'NFT token address that you want to&nbsp;sign&nbsp;on' },
+	{
+		number: '01',
+		data: [
+			{
+				type: 'text_bold',
+				paragraphs: ['NFT token address that you want to&nbsp;sign&nbsp;on']
+			}
+		]
+	},
 	{
 		number: '02',
-		title: 'Your wallet address for receiving related funds:',
-		list: {
-			items: [
-				'Consistently receive a percentage when the created IMMA NFT will sell in the future',
-				'Payment for creating the IMMA NFT (optional)'
-			]
-		}
+		data: [
+			{
+				type: 'text_bold',
+				paragraphs: ['Your wallet address for receiving related funds:']
+			},
+			{
+				type: 'list',
+				list: {
+					items: [
+						'Consistently receive a percentage when the created IMMA NFT will sell in the future',
+						'Payment for creating the IMMA NFT (optional)'
+					]
+				}
+			}
+		]
 	},
 	{
 		number: '03',
-		title: '3rd party/broker wallet address to consistently receive a percentage when the created IMMA NFT will sell in the future (optional)'
+		data: [
+			{
+				type: 'text_bold',
+				paragraphs: [
+					'3rd party/broker wallet address to consistently receive a percentage when the created IMMA NFT will sell in the future (optional)'
+				]
+			}
+		]
 	}
 ];
 
@@ -42,8 +65,7 @@ export const About: React.FC = () => {
 							return (
 								<NumberedBlock
 									number={numberedBlock.number}
-									title={numberedBlock.title}
-									list={numberedBlock.list}
+									data={numberedBlock.data}
 									key={i}
 								/>
 							);

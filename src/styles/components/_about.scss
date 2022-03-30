@@ -23,7 +23,7 @@
 		grid-gap: 30px;
 		grid-template-columns: 1fr 1fr;
 		& .block-numbered:nth-child(2) {
-			grid-area: 1 / 2 / 3/ 4;
+			grid-area: 1 / 2 / 3/ 3;
 		}
 		& img[data-img='decorative'] {
 			pointer-events: none;

@@ -76,6 +76,9 @@
 
 @media screen and (max-width: 767px) {
 	.welcome {
+		&-wrapper {
+			padding-top: 100px;
+		}
 		&__text {
 			& p {
 				@include font(1.4rem, calc(20 / 14));

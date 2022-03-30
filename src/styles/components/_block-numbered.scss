@@ -20,10 +20,18 @@
 	&__content {
 		padding-top: 20px;
 	}
-	&__title {
+	&__paragraph {
 		margin-bottom: 15px;
 		&:last-child {
 			margin-bottom: 0;
+		}
+		&_thin {
+			margin-bottom: 15px;
+			font-weight: 400;
+			font-family: $font;
+			&:last-child {
+				margin-bottom: 0;
+			}
 		}
 	}
 }
