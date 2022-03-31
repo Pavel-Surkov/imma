@@ -11,6 +11,10 @@ export interface NftVideo {
 	sign: string;
 	tag: string;
 	date: Date;
+	picture: {
+		quality1x: string;
+		quality2x: string;
+	};
 }
 
 // Array for converting number of month to string
@@ -29,7 +33,12 @@ export const monthConvertArr: Array<string> = [
 	'December'
 ];
 
-export const NftVideoItem = ({ properties }: { properties: NftVideo }) => {
+interface NftVideoItemProps {
+	properties: NftVideo;
+	isBig: boolean;
+}
+
+export const NftVideoItem = ({ properties, isBig }: NftVideoItemProps) => {
 	const [convertedDate, setConvertedDate] = useState<null | string>(null);
 
 	useEffect(() => {
@@ -47,7 +56,7 @@ export const NftVideoItem = ({ properties }: { properties: NftVideo }) => {
 	}, [properties]);
 
 	return (
-		<div className="video home-main__video">
+		<div className={`video home-main__video ${isBig ? 'home-main__video_big' : ''}`}>
 			<img
 				width="370"
 				className="home-main__video-preview"
@@ -61,18 +70,29 @@ export const NftVideoItem = ({ properties }: { properties: NftVideo }) => {
 				<Link to={properties.slug} className="video-play">
 					<svg
 						data-svg="play"
-						width="27"
-						height="32"
-						viewBox="0 0 27 32"
+						width="21"
+						height="26"
+						viewBox="0 0 21 26"
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"
 					>
 						<path
-							d="M0 16.0474V2.15586C0 0.584988 1.7279 -0.372697 3.06 0.459863L25.2864 14.3514C26.5397 15.1347 26.5397 16.96 25.2864 17.7434L3.06 31.6349C1.7279 32.4674 0 31.5097 0 29.9389V16.0474Z"
+							d="M0.200195 12.9473V2.55576C0.200195 0.98489 1.9281 0.0272036 3.26019 0.859764L19.8866 11.2513C21.1399 12.0346 21.1399 13.8599 19.8866 14.6433L3.26019 25.0348C1.9281 25.8673 0.200195 24.9096 0.200195 23.3388V12.9473Z"
 							fill="#D6FF7E"
 						/>
 					</svg>
 				</Link>
+			</div>
+			<div className="video-icon">
+				<img
+					width={isBig ? '60' : '44'}
+					height={isBig ? '60' : '44'}
+					src={properties.picture.quality1x}
+					srcSet={`${properties.picture.quality1x} 1x, ${
+						properties.picture.quality2x ? properties.picture.quality2x : ''
+					} 2x`}
+					alt=""
+				/>
 			</div>
 			<div className="video-bottom">
 				<div className="video-bottom__sign">

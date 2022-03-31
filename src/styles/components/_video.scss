@@ -26,8 +26,8 @@
 	}
 	&-play {
 		display: block;
-		width: 100px;
-		height: 100px;
+		width: 80px;
+		height: 80px;
 		position: relative;
 		background: rgba(255, 255, 255, 0.2);
 		backdrop-filter: blur(24px);
@@ -50,6 +50,11 @@
 				fill: $black;
 			}
 		}
+	}
+	&-icon {
+		position: absolute;
+		bottom: 88px;
+		left: 10px;
 	}
 }
 

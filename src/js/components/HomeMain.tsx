@@ -1,6 +1,8 @@
 import React from 'react';
 import Button from './Button';
 import { NftVideoItem, NftVideo } from './NftVideoItem';
+import nftPicture from '../../assets/images/nft-picture.png';
+import nftPicture2x from '../../assets/images/nft-picture@2x.png';
 import homeNft from '../../assets/images/nft1.jpg';
 import homeNft2x from '../../assets/images/nft1@2x.jpg';
 import sign from '../../assets/images/sign.svg';
@@ -14,7 +16,11 @@ const MainNftVideo: NftVideo = {
 	slug: 'adam-smith-1',
 	sign: sign,
 	tag: '@AdamSmith',
-	date: new Date('05-09-2021')
+	date: new Date('05-09-2021'),
+	picture: {
+		quality1x: nftPicture,
+		quality2x: nftPicture2x
+	}
 };
 
 export const HomeMain: React.FC = () => {
@@ -77,7 +83,7 @@ export const HomeMain: React.FC = () => {
 									strokeLinecap="round"
 								/>
 							</svg>
-							<NftVideoItem properties={MainNftVideo} />
+							<NftVideoItem properties={MainNftVideo} isBig={true} />
 						</div>
 					</div>
 				</div>
