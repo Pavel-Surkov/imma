@@ -96,7 +96,7 @@ const tableData: Array<TableDataT> = [
 			quality1x: table_img,
 			quality2x: table_img2x
 		},
-		priceInDollars: 7,
+		priceInDollars: 14,
 		serial: {
 			type: 'Common',
 			hash: '#992/60000+'
@@ -203,7 +203,7 @@ export const LifeFeed: React.FC = () => {
 						</thead>
 						<tbody className="table-body">
 							{tableData.map((row) => {
-								const dateOutput = dateConvert(row.time);
+								const dateOutput: string = dateConvert(row.time);
 
 								return (
 									<tr className="table-row" key={row.id}>

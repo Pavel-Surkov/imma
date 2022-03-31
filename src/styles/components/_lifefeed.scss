@@ -34,6 +34,9 @@
 
 @media screen and (max-width: 767px) {
 	.lifefeed {
+		&-title {
+			margin-bottom: 30px;
+		}
 		&-container {
 			padding: 0 calc((100% - 510px) / 2);
 		}
