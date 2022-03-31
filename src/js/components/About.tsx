@@ -74,7 +74,7 @@ export const About: React.FC = () => {
 							width="185"
 							data-img="decorative"
 							src={aboutImg}
-							srcSet={`${aboutImg} 1x, ${aboutImg2x} 2x`}
+							srcSet={`${aboutImg} 1x, ${aboutImg2x ? aboutImg2x : ''} 2x`}
 							alt=""
 						/>
 					</div>

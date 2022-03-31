@@ -1,0 +1,11 @@
+.all-nft {
+	&-wrapper {
+		margin-left: auto;
+		padding-right: calc((100% - 1170px) / 2);
+		max-width: calc(100% - ((100% - 1170px) / 2));
+	}
+	&__title {
+		text-transform: uppercase;
+		margin-bottom: 40px;
+	}
+}

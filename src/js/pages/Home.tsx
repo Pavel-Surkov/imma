@@ -4,6 +4,7 @@ import { Welcome } from '../components/Welcome';
 import { About } from '../components/About';
 import { Creation } from '../components/Creation';
 import { LifeFeed } from '../components/LifeFeed';
+import { AllNft } from '../components/AllNft';
 
 export const Home: React.FC = () => {
 	return (
@@ -13,6 +14,7 @@ export const Home: React.FC = () => {
 			<About />
 			{/* <Creation /> */}
 			<LifeFeed />
+			<AllNft />
 		</main>
 	);
 };

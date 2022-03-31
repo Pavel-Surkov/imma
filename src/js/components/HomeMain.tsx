@@ -1,9 +1,21 @@
 import React from 'react';
 import Button from './Button';
+import { NftVideoItem, NftVideo } from './NftVideoItem';
 import homeNft from '../../assets/images/nft1.jpg';
 import homeNft2x from '../../assets/images/nft1@2x.jpg';
 import sign from '../../assets/images/sign.svg';
-import play from '../../assets/images/icons/play.svg';
+
+const MainNftVideo: NftVideo = {
+	id: '1',
+	image: {
+		quality1x: homeNft,
+		quality2x: homeNft2x
+	},
+	slug: 'adam-smith-1',
+	sign: sign,
+	tag: '@AdamSmith',
+	date: new Date('05-09-2021')
+};
 
 export const HomeMain: React.FC = () => {
 	return (
@@ -65,27 +77,7 @@ export const HomeMain: React.FC = () => {
 									strokeLinecap="round"
 								/>
 							</svg>
-							<div className="video home-main__video">
-								<img
-									width="370"
-									className="home-main__video-preview"
-									src={homeNft}
-									srcSet={`${homeNft} 1x, ${homeNft2x} 2x`}
-									alt=""
-								></img>
-								<a href="/" className="video-play">
-									<img src={play} alt="play" />
-								</a>
-								<div className="video-bottom">
-									<div className="video-bottom__sign">
-										<img src={sign} alt="sign"></img>
-									</div>
-									<div className="video-bottom__tag">
-										<p>@AdamSmith</p>
-										<time className="video-bottom__tag-date">May 09, 2021</time>
-									</div>
-								</div>
-							</div>
+							<NftVideoItem properties={MainNftVideo} />
 						</div>
 					</div>
 				</div>

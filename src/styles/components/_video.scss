@@ -25,15 +25,31 @@
 		}
 	}
 	&-play {
+		display: block;
 		width: 100px;
 		height: 100px;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		background: rgba($white, 0.2);
-		backdrop-filter: blur(25px);
+		position: relative;
+		background: rgba(255, 255, 255, 0.2);
+		backdrop-filter: blur(24px);
 		border-radius: 2px;
+		& svg[data-svg='play'] {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(calc(-50% + 3px), -50%);
+		}
+		&__wrapper {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		&:hover {
+			background: $lightgreen;
+			& svg[data-svg='play'] path {
+				fill: $black;
+			}
+		}
 	}
 }
 

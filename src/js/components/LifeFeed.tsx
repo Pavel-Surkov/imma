@@ -212,7 +212,9 @@ export const LifeFeed: React.FC = () => {
 												width="70"
 												height="70"
 												src={row.image.quality1x}
-												srcSet={`${row.image.quality1x} 1x, ${row.image.quality2x} 2x`}
+												srcSet={`${row.image.quality1x} 1x, ${
+													row.image.quality2x ? row.image.quality2x : ''
+												} 2x`}
 												alt=""
 											></img>
 										</td>

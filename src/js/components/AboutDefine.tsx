@@ -67,7 +67,7 @@ export const AboutDefine: React.FC = () => {
 					<img
 						width="328"
 						src={unsplash}
-						srcSet={`${unsplash} 1x, ${unsplash2x} 2x`}
+						srcSet={`${unsplash} 1x, ${unsplash2x ? unsplash2x : ''} 2x`}
 						alt=""
 					/>
 				</div>

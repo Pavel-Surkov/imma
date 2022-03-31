@@ -19,7 +19,7 @@ export const Welcome: React.FC = () => {
 							<img
 								height="570"
 								src={welcomeBig}
-								srcSet={`${welcomeBig} 1x, ${welcomeBig2x} 2x`}
+								srcSet={`${welcomeBig} 1x, ${welcomeBig2x ? welcomeBig2x : ''} 2x`}
 								alt=""
 							></img>
 						</div>
@@ -39,7 +39,7 @@ export const Welcome: React.FC = () => {
 							<img
 								height="232"
 								src={welcomeSm}
-								srcSet={`${welcomeSm} 1x, ${welcomeSm2x} 2x`}
+								srcSet={`${welcomeSm} 1x, ${welcomeSm2x ? welcomeSm2x : ''} 2x`}
 								alt=""
 							></img>
 						</div>
