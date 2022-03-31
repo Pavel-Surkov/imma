@@ -1,27 +1,7 @@
 import React from 'react';
 import Button from './Button';
 import { NftVideoItem, NftVideo } from './NftVideoItem';
-import nftPicture from '../../assets/images/nft-picture.png';
-import nftPicture2x from '../../assets/images/nft-picture@2x.png';
-import homeNft from '../../assets/images/nft1.jpg';
-import homeNft2x from '../../assets/images/nft1@2x.jpg';
-import sign from '../../assets/images/sign.svg';
-
-const MainNftVideo: NftVideo = {
-	id: '1',
-	image: {
-		quality1x: homeNft,
-		quality2x: homeNft2x
-	},
-	slug: 'adam-smith-1',
-	sign: sign,
-	tag: '@AdamSmith',
-	date: new Date('05-09-2021'),
-	picture: {
-		quality1x: nftPicture,
-		quality2x: nftPicture2x
-	}
-};
+import { MainNftVideoData } from './AllNft';
 
 export const HomeMain: React.FC = () => {
 	return (
@@ -42,13 +22,13 @@ export const HomeMain: React.FC = () => {
 							<div className="home-main__btns">
 								<Button
 									className="btn btn_border_green home-main__btn"
-									text="Create"
-									link={{ ref: '#create' }}
+									type="link"
+									properties={{ text: 'Create', href: '#creation' }}
 								/>
 								<Button
 									className="btn home-main__btn"
-									text="To all Imma NFTs"
-									link={{ ref: '/' }}
+									type="route"
+									properties={{ text: 'To all Imma NFTs', to: '/' }}
 								/>
 							</div>
 						</div>
@@ -83,7 +63,7 @@ export const HomeMain: React.FC = () => {
 									strokeLinecap="round"
 								/>
 							</svg>
-							<NftVideoItem properties={MainNftVideo} isBig={true} />
+							<NftVideoItem properties={MainNftVideoData[0]} isBig={true} />
 						</div>
 					</div>
 				</div>

@@ -1,29 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-type BtnProps = {
-	className: string;
+type Properties = {
 	text: string;
 	action?: () => void;
-	link?: {
-		ref: string;
-	};
+	to?: string;
+	href?: string;
 };
 
-const Button: React.FC<BtnProps> = ({ className, text, action, link }) => {
-	if (link) {
+interface ButtonProps {
+	className: string;
+	type: 'button' | 'link' | 'route' | 'submit';
+	properties: Properties;
+}
+
+const Button: React.FC<ButtonProps> = ({ type, className, properties }) => {
+	if (type === 'route') {
 		return (
-			<Link className={className} to={link.ref}>
-				{text}
+			<Link className={className} to={properties.to}>
+				{properties.text}
 			</Link>
 		);
+	} else if (type === 'link') {
+		return (
+			<a
+				href={properties.href}
+				className={className}
+				onClick={properties.action && properties.action}
+			>
+				{properties.text}
+			</a>
+		);
+	} else if (type === 'button' || type === 'submit') {
+		return (
+			<button
+				className={className}
+				type={type}
+				onClick={properties.action && properties.action}
+			>
+				{properties.text}
+			</button>
+		);
 	}
-
-	return (
-		<button className={className} onClick={action}>
-			{text}
-		</button>
-	);
 };
 
 export default Button;

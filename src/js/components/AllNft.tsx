@@ -8,7 +8,7 @@ import homeNft from '../../assets/images/nft1.jpg';
 import homeNft2x from '../../assets/images/nft1@2x.jpg';
 import sign from '../../assets/images/sign.svg';
 
-const MainNftVideoData: Array<NftVideo> = [
+export const MainNftVideoData: Array<NftVideo> = [
 	{
 		id: '1',
 		image: {

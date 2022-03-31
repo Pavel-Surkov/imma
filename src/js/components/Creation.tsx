@@ -58,7 +58,7 @@ export const Creation = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	return (
-		<section className="section creation">
+		<section id="creation" className="section creation">
 			<div className="section-wrapper creation-wrapper">
 				<div className="container"></div>
 			</div>
