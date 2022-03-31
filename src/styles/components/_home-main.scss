@@ -21,36 +21,33 @@
 	&__video {
 		position: relative;
 		top: -36px;
-		&-wrapper {
-			max-width: 370px;
-			position: relative;
-			& svg[data-svg='top'] {
-				position: absolute;
-				z-index: 1;
-				pointer-events: none;
-				top: -54px;
-				left: -76px;
-			}
-			& svg[data-svg='star'] {
-				position: absolute;
-				z-index: 1;
-				pointer-events: none;
-				bottom: 212px;
-				right: -41px;
+		max-width: 370px;
+		position: relative;
+		& .video-icon img {
+			width: 60px;
+			height: 60px;
+		}
+		& .video-play {
+			width: 100px;
+			height: 100px;
+			& svg[data-svg='play'] {
+				width: 28px;
+				height: 35px;
 			}
 		}
-		&-preview {
-			border-radius: 2px;
+		& svg[data-svg='top'] {
+			position: absolute;
+			z-index: 1;
+			pointer-events: none;
+			top: -54px;
+			left: -76px;
 		}
-		&_big {
-			& .video-play {
-				width: 100px;
-				height: 100px;
-				& svg[data-svg='play'] {
-					width: 28px;
-					height: 35px;
-				}
-			}
+		& svg[data-svg='star'] {
+			position: absolute;
+			z-index: 1;
+			pointer-events: none;
+			bottom: 212px;
+			right: -41px;
 		}
 	}
 }
@@ -76,10 +73,8 @@
 		&__video {
 			top: 0;
 			margin-top: 100px;
-			&-wrapper {
-				& svg[data-svg='top'] {
-					display: none;
-				}
+			& svg[data-svg='top'] {
+				display: none;
 			}
 		}
 		&__btns {
@@ -109,10 +104,12 @@
 			}
 		}
 		&__video {
-			&-wrapper {
-				& svg[data-svg='star'] {
-					display: none;
-				}
+			& .video-icon img {
+				width: 47px;
+				height: 47px;
+			}
+			& svg[data-svg='star'] {
+				display: none;
 			}
 		}
 	}

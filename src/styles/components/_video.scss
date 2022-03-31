@@ -51,14 +51,31 @@
 			}
 		}
 	}
+	&-preview {
+		border-radius: 2px;
+	}
 	&-icon {
 		position: absolute;
 		bottom: 88px;
 		left: 10px;
 	}
+	&_big {
+		& .video-play {
+			width: 100px;
+			height: 100px;
+			& svg[data-svg='play'] {
+				width: 28px;
+				height: 35px;
+			}
+		}
+		& .video-icon img {
+			width: 60px;
+			height: 60px;
+		}
+	}
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
 	.video {
 		&-play {
 			width: 78px;
@@ -77,6 +94,12 @@
 			}
 			& img {
 				max-height: 43px;
+			}
+		}
+		&_big {
+			& .video-icon img {
+				width: 47px;
+				height: 47px;
 			}
 		}
 	}

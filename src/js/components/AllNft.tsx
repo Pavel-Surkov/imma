@@ -6,8 +6,8 @@ import nftPicture from '../../assets/images/nft-picture.png';
 import nftPicture2x from '../../assets/images/nft-picture@2x.png';
 import nft1 from '../../assets/images/nft1.jpg';
 import nft1_2x from '../../assets/images/nft1@2x.jpg';
-import nft2 from '../../assets/images/nft1.jpg';
-import nft2_2x from '../../assets/images/nft1@2x.jpg';
+import nft2 from '../../assets/images/nft2.jpg';
+import nft2_2x from '../../assets/images/nft2@2x.jpg';
 import nft3 from '../../assets/images/nft3.jpg';
 import nft3_2x from '../../assets/images/nft3@2x.jpg';
 import nft4 from '../../assets/images/nft4.jpg';
@@ -16,7 +16,7 @@ import nft5 from '../../assets/images/nft5.jpg';
 import nft5_2x from '../../assets/images/nft5@2x.jpg';
 import sign from '../../assets/images/sign.svg';
 
-export const MainNftVideoData: Array<NftVideo> = [
+export const mainNftVideoData: Array<NftVideo> = [
 	{
 		id: '1',
 		image: {
@@ -98,9 +98,25 @@ export const AllNft: React.FC = () => {
 	return (
 		<section className="section all-nft">
 			<div className="section-wrapper all-nft-wrapper">
-				<h2 className="title title_size-m all-nft__title">All Imma NFT</h2>
-				<Swiper className="all-nft__title">
-					<SwiperSlide>{/* <NftVideoItem /> */}</SwiperSlide>
+				<div className="container">
+					<h2 className="title title_size-m all-nft__title">All Imma NFT</h2>
+				</div>
+				<Swiper
+					className="all-nft__swiper"
+					onSwiper={(swiper) => console.log(swiper)}
+					slidesPerView={4.3}
+					spaceBetween={30}
+				>
+					{mainNftVideoData.map((video) => {
+						return (
+							// TODO: Add id that matches number of the slide in Swiper API
+							// Add isBig prop based on number of an active slide (from Swiper API)
+							// Number of active slide can be in state (set it using onSwiper)
+							<SwiperSlide slide-id={video.id} key={video.id}>
+								<NftVideoItem properties={video} />
+							</SwiperSlide>
+						);
+					})}
 				</Swiper>
 			</div>
 		</section>

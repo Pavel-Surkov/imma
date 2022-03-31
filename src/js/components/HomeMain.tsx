@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 import { NftVideoItem, NftVideo } from './NftVideoItem';
-import { MainNftVideoData } from './AllNft';
+import { mainNftVideoData } from './AllNft';
 
 export const HomeMain: React.FC = () => {
 	return (
@@ -32,7 +32,7 @@ export const HomeMain: React.FC = () => {
 								/>
 							</div>
 						</div>
-						<div className="home-main__video-wrapper">
+						<div className="home-main__video">
 							<svg
 								data-svg="top"
 								width="146"
@@ -63,7 +63,7 @@ export const HomeMain: React.FC = () => {
 									strokeLinecap="round"
 								/>
 							</svg>
-							<NftVideoItem properties={MainNftVideoData[0]} isBig={true} />
+							<NftVideoItem properties={mainNftVideoData[0]} />
 						</div>
 					</div>
 				</div>

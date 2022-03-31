@@ -33,12 +33,7 @@ export const monthConvertArr: Array<string> = [
 	'December'
 ];
 
-interface NftVideoItemProps {
-	properties: NftVideo;
-	isBig: boolean;
-}
-
-export const NftVideoItem = ({ properties, isBig }: NftVideoItemProps) => {
+export const NftVideoItem = ({ properties }: { properties: NftVideo }) => {
 	const [convertedDate, setConvertedDate] = useState<null | string>(null);
 
 	useEffect(() => {
@@ -56,10 +51,10 @@ export const NftVideoItem = ({ properties, isBig }: NftVideoItemProps) => {
 	}, [properties]);
 
 	return (
-		<div className={`video home-main__video ${isBig ? 'home-main__video_big' : ''}`}>
+		<div className="video">
 			<img
 				width="370"
-				className="home-main__video-preview"
+				className="video-preview"
 				src={properties.image.quality1x}
 				srcSet={`${properties.image.quality1x} 1x, ${
 					properties.image.quality2x ? properties.image.quality2x : ''
@@ -85,8 +80,8 @@ export const NftVideoItem = ({ properties, isBig }: NftVideoItemProps) => {
 			</div>
 			<div className="video-icon">
 				<img
-					width={isBig ? '60' : '44'}
-					height={isBig ? '60' : '44'}
+					width="44"
+					height="44"
 					src={properties.picture.quality1x}
 					srcSet={`${properties.picture.quality1x} 1x, ${
 						properties.picture.quality2x ? properties.picture.quality2x : ''
