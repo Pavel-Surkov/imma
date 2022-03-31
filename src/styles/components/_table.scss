@@ -18,14 +18,23 @@
 			padding: 20px 0;
 		}
 		& .table-col {
+			padding-right: 12px;
+			box-sizing: border-box;
 			&:first-child {
 				width: calc((99 / 1170) * 100%);
 			}
 			&:nth-child(2) {
+				padding-right: 31px;
 				width: calc((201 / 1170) * 100%);
+				font-family: $title-font;
+				font-weight: 700;
+				@include font(1.6rem, calc(21 / 16));
 			}
 			&:nth-child(3) {
 				width: calc((99 / 1170) * 100%);
+				font-family: $title-font;
+				font-weight: 700;
+				@include font(2.4rem, calc(32 / 24));
 			}
 			&:nth-child(4) {
 				width: calc((116 / 1170) * 100%);
@@ -45,8 +54,9 @@
 			&:nth-child(9) {
 				width: calc((125 / 1170) * 100%);
 			}
-			&:nth-child(10) {
+			&:last-child {
 				width: calc((20 / 1170) * 100%);
+				padding-right: 0;
 				text-align: right;
 			}
 		}
