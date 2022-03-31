@@ -1,15 +1,6 @@
 .table {
 	width: 100%;
 	@include font(1.4rem, calc(18 / 14));
-	&-header {
-		font-family: $title-font;
-		@include font(1.6rem, calc(21 / 16));
-		font-weight: 700;
-		& .table-col {
-			padding: 0;
-			padding-bottom: 16px;
-		}
-	}
 	&-row {
 		position: relative;
 		border-bottom: 1px solid $white;
@@ -58,6 +49,19 @@
 				width: calc((20 / 1170) * 100%);
 				padding-right: 0;
 				text-align: right;
+			}
+		}
+	}
+	&-header {
+		font-family: $title-font;
+		@include font(1.6rem, calc(21 / 16));
+		font-weight: 700;
+		& .table-col {
+			@include font(1.6rem, calc(21 / 16));
+			padding: 0;
+			padding-bottom: 16px;
+			&:nth-child(3) {
+				@include font(1.6rem, calc(21 / 16));
 			}
 		}
 	}

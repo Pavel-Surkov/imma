@@ -168,6 +168,19 @@ const dateConvert = (date: Date): string => {
 	return output;
 };
 
+const tableColumnsNames: Array<string> = [
+	'',
+	'Moment',
+	'Price',
+	'Serial',
+	'Set',
+	'Series',
+	'Buyer',
+	'Seller',
+	'Date/Time',
+	'TX'
+];
+
 export const LifeFeed: React.FC = () => {
 	return (
 		<section className="section lifefeed">
@@ -179,16 +192,13 @@ export const LifeFeed: React.FC = () => {
 					<table className="table lifefeed-table">
 						<thead className="table-header">
 							<tr className="table-row">
-								<th className="table-col"></th>
-								<th className="table-col">Moment</th>
-								<th className="table-col">Price</th>
-								<th className="table-col">Serial</th>
-								<th className="table-col">Set</th>
-								<th className="table-col">Series</th>
-								<th className="table-col">Buyer</th>
-								<th className="table-col">Seller</th>
-								<th className="table-col">Date/Time</th>
-								<th className="table-col">TX</th>
+								{tableColumnsNames.map((columnName, i) => {
+									return (
+										<td className="table-col" key={i}>
+											{columnName}
+										</td>
+									);
+								})}
 							</tr>
 						</thead>
 						<tbody className="table-body">
