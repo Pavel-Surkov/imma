@@ -104,14 +104,11 @@ export const AllNft: React.FC = () => {
 				<Swiper
 					className="all-nft__swiper"
 					onSwiper={(swiper) => console.log(swiper)}
-					slidesPerView={4.3}
+					slidesPerView={'auto'}
 					spaceBetween={30}
 				>
 					{mainNftVideoData.map((video) => {
 						return (
-							// TODO: Add id that matches number of the slide in Swiper API
-							// Add isBig prop based on number of an active slide (from Swiper API)
-							// Number of active slide can be in state (set it using onSwiper)
 							<SwiperSlide slide-id={video.id} key={video.id}>
 								<NftVideoItem properties={video} />
 							</SwiperSlide>

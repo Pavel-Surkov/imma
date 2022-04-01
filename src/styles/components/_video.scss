@@ -9,19 +9,23 @@
 		background: rgba($white, 0.07);
 		backdrop-filter: blur(25px);
 		border-radius: 2px;
-		padding: 12px 30px;
+		padding: 9px 20px;
 		@include flex(row, center, space-between);
 		&__tag {
 			text-align: right;
 			& p {
 				margin-bottom: 4px;
-				@include font(1.6rem, calc(21 / 16));
+				@include font(1.2rem, calc(16 / 12));
 				font-weight: 700;
 				font-family: $title-font;
 			}
 			&-date {
-				@include font(1.4rem, calc(18 / 14));
+				@include font(1rem, calc(13 / 10));
+				font-family: Questrial;
 			}
+		}
+		&__sign img {
+			max-height: 40px;
 		}
 	}
 	&-play {
@@ -56,8 +60,8 @@
 	}
 	&-icon {
 		position: absolute;
-		bottom: 88px;
-		left: 10px;
+		bottom: 64px;
+		left: 7px;
 	}
 	&_big {
 		& .video-play {
@@ -68,9 +72,21 @@
 				height: 35px;
 			}
 		}
+		& .video-icon {
+			bottom: 88px;
+		}
 		& .video-icon img {
 			width: 60px;
 			height: 60px;
+		}
+		& .video-bottom {
+			padding: 12px 30px;
+			&__sign img {
+				max-height: 55px;
+			}
+			&__tag p {
+				@include font(1.6rem, calc(21 / 16));
+			}
 		}
 	}
 }
