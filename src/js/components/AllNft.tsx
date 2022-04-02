@@ -19,8 +19,6 @@ import nft5 from '../../assets/images/nft5.jpg';
 import nft5_2x from '../../assets/images/nft5@2x.jpg';
 import sign from '../../assets/images/sign.svg';
 
-SwiperCore.use([Navigation]);
-
 export const mainNftVideoData: Array<NftVideo> = [
 	{
 		id: '1',
@@ -100,6 +98,15 @@ export const mainNftVideoData: Array<NftVideo> = [
 ];
 
 export const AllNft: React.FC = () => {
+	// const slideChange = (swiper) => {
+	// 	const activeSlideIndex = swiper.activeIndex;
+	// 	const activeSlide = swiper.slides[activeSlideIndex];
+
+	// 	swiper.slides.map((slide) => (slide.style.width = '270px'));
+
+	// 	activeSlide.style.width = '370px';
+	// };
+
 	return (
 		<section className="section all-nft">
 			<div className="section-wrapper all-nft-wrapper">
@@ -140,13 +147,31 @@ export const AllNft: React.FC = () => {
 						</div>
 					</div>
 					<Swiper
+						modules={[Navigation]}
 						className="all-nft__swiper"
 						onSwiper={(swiper) => console.log(swiper)}
-						slidesPerView={'auto'}
 						spaceBetween={30}
+						slidesPerView={'auto'}
+						centeredSlides={false}
+						loop={true}
+						// onSlideChange={(swiper) => slideChange(swiper)}
+						// onTransitionEnd={(swiper) => slideChange(swiper)}
+						onSlideChangeTransitionStart={(swiper) =>
+							setTimeout(() => swiper.update(), 110)
+						}
 						navigation={{
 							prevEl: '.all-nft__swiper-wrapper .left-btn',
 							nextEl: '.all-nft__swiper-wrapper .right-btn'
+						}}
+						breakpoints={{
+							767: {
+								slidesPerView: 'auto',
+								centeredSlides: false
+							},
+							320: {
+								slidesPerView: 1,
+								centeredSlides: true
+							}
 						}}
 					>
 						{mainNftVideoData.map((video) => {

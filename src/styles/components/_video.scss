@@ -93,9 +93,15 @@
 
 @media screen and (max-width: 767px) {
 	.video {
+		width: 100%;
+		margin: 0 auto;
 		&-play {
 			width: 78px;
 			height: 78px;
+		}
+		&-preview {
+			width: 100%;
+			height: auto;
 		}
 		&-bottom {
 			padding: 10px 23px;

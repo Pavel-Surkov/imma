@@ -18,3 +18,50 @@
 		margin-bottom: 40px;
 	}
 }
+
+@media screen and (max-width: 1230px) {
+	.all-nft {
+		&__swiper {
+			&-wrapper {
+				max-width: calc(100% - ((100% - 930px) / 2));
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.all-nft {
+		&__swiper {
+			&-wrapper {
+				max-width: calc(100% - ((100% - 690px) / 2));
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.all-nft {
+		&__title {
+			margin-bottom: 30px;
+		}
+		&__swiper {
+			grid-area: 2 / 1 / 3 / 2;
+			&-wrapper {
+				grid-template-columns: 100%;
+				max-width: 510px;
+				margin: 0 auto;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.all-nft {
+		&__swiper {
+			&-wrapper {
+				max-width: 515px;
+				margin: 0 15px;
+			}
+		}
+	}
+}

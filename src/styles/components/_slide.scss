@@ -23,3 +23,16 @@
 		}
 	}
 }
+
+@media screen and (max-width: 767px) {
+	.slide {
+		&-btns {
+			position: relative;
+			top: initial;
+			left: initial;
+			&__wrapper {
+				grid-column-start: 1;
+			}
+		}
+	}
+}
