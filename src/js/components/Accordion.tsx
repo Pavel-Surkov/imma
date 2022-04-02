@@ -6,16 +6,6 @@ export type AccordionItemT = {
 	answer: string;
 };
 
-export const Accordion = ({ items }: { items: Array<AccordionItemT> }) => {
-	return (
-		<ul className="accordion">
-			{items.map((item: AccordionItemT) => {
-				return <AccordionItem key={item.id} item={item} />;
-			})}
-		</ul>
-	);
-};
-
 export const AccordionItem = ({ item }: { item: AccordionItemT }) => {
 	const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -30,5 +20,15 @@ export const AccordionItem = ({ item }: { item: AccordionItemT }) => {
 			</button>
 			<p className="accordion-answer">{item.answer}</p>
 		</li>
+	);
+};
+
+export const Accordion = ({ items }: { items: Array<AccordionItemT> }) => {
+	return (
+		<ul className="accordion">
+			{items.map((item: AccordionItemT) => {
+				return <AccordionItem key={item.id} item={item} />;
+			})}
+		</ul>
 	);
 };
