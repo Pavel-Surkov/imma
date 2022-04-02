@@ -98,15 +98,6 @@ export const mainNftVideoData: Array<NftVideo> = [
 ];
 
 export const AllNft: React.FC = () => {
-	// const slideChange = (swiper) => {
-	// 	const activeSlideIndex = swiper.activeIndex;
-	// 	const activeSlide = swiper.slides[activeSlideIndex];
-
-	// 	swiper.slides.map((slide) => (slide.style.width = '270px'));
-
-	// 	activeSlide.style.width = '370px';
-	// };
-
 	return (
 		<section className="section all-nft">
 			<div className="section-wrapper all-nft-wrapper">
@@ -157,7 +148,7 @@ export const AllNft: React.FC = () => {
 						// onSlideChange={(swiper) => slideChange(swiper)}
 						// onTransitionEnd={(swiper) => slideChange(swiper)}
 						onSlideChangeTransitionStart={(swiper) =>
-							setTimeout(() => swiper.update(), 110)
+							setTimeout((): void => swiper.update(), 110)
 						}
 						navigation={{
 							prevEl: '.all-nft__swiper-wrapper .left-btn',

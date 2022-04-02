@@ -1,0 +1,9 @@
+.faq {
+	&-title {
+		margin-bottom: 55px;
+	}
+	&-content {
+		@include grid();
+		grid-template-columns: 6fr 6fr;
+	}
+}
