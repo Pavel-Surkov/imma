@@ -1,4 +1,7 @@
 .faq {
+	&-wrapper {
+		padding-bottom: 200px;
+	}
 	&-title {
 		margin-bottom: 48px;
 	}
@@ -49,10 +52,77 @@
 			@include font(1.6rem, calc(22 / 16));
 			background: rgba($black, 0.05);
 			color: $white;
+			&:hover,
+			&:focus {
+				background: rgba($black, 0.11);
+			}
 		}
 		&__submit {
 			&-wrapper {
 				margin-top: 40px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1230px) {
+	.faq {
+		&-form {
+			&__wrapper {
+				min-width: 400px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.faq {
+		&-wrapper {
+			padding-bottom: 100px;
+		}
+		&-content {
+			grid-template-columns: 100%;
+			grid-gap: 100px;
+		}
+		&-form {
+			&__wrapper {
+				width: 100%;
+				min-width: auto;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.faq {
+		&-form {
+			padding: 20px;
+			padding-top: 25px;
+			&__note {
+				margin-bottom: 26px;
+				& p {
+					@include font(1.6rem, calc(21 / 16));
+					max-width: 240px;
+					margin-bottom: 15px;
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+			&__label {
+				@include font(1.4rem, calc(18 / 14));
+				margin-bottom: 20px;
+			}
+			&__input {
+				margin-top: 4px;
+				@include font(1.4rem, calc(20 / 14));
+				padding: 0.93em 1.357em;
+				padding-bottom: 0.857em;
+			}
+			&__submit {
+				&-wrapper {
+					margin-top: 20px;
+				}
 			}
 		}
 	}

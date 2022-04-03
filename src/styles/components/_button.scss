@@ -81,10 +81,11 @@
 			padding-right: calc(2.285em + 37px);
 		}
 		&-arrow {
-			padding-right: calc(1em + 40px);
+			@include font(1.4rem, calc(20 / 14));
+			padding-right: calc(0.5em + 40px);
 			&::after {
 				@include font(1.4rem, calc(20 / 14));
-				right: 1.5em;
+				right: 0.9em;
 				background: icon('arrow-white.svg') no-repeat 50% / cover;
 			}
 		}
