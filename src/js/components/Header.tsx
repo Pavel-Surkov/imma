@@ -4,7 +4,7 @@ import logo from '../../assets/images/logo.svg';
 
 export const Header: React.FC = () => {
 	return (
-		<header className="header">
+		<header id="header" className="header">
 			<div className="header-wrapper">
 				<div className="container">
 					<Link className="header-logo" to="/">
