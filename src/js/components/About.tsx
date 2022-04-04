@@ -4,7 +4,7 @@ import { AboutDefine } from './AboutDefine';
 import aboutImg from '../../assets/images/about_img.png';
 import aboutImg2x from '../../assets/images/about_img@2x.png';
 
-const aboutItems: NumberedBlockProps[] = [
+const aboutItems: Array<NumberedBlockProps> = [
 	{
 		number: '01',
 		data: [

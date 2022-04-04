@@ -5,6 +5,7 @@ import { About } from '../components/About';
 import { Creation } from '../components/Creation';
 import { LifeFeed } from '../components/LifeFeed';
 import { AllNft } from '../components/AllNft';
+import { ImmaProtocol } from '../components/ImmaProtocol';
 import { Faq } from '../components/Faq';
 
 export const Home: React.FC = () => {
@@ -16,6 +17,7 @@ export const Home: React.FC = () => {
 			<Creation />
 			<LifeFeed />
 			<AllNft />
+			<ImmaProtocol />
 			<Faq />
 		</main>
 	);
