@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { CreationStep } from './CreationStep';
 
 // Adding types to reducer
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
@@ -60,7 +61,12 @@ export const Creation = () => {
 	return (
 		<section id="creation" className="section creation">
 			<div className="section-wrapper creation-wrapper">
-				<div className="container"></div>
+				<div className="container">
+					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
+					<CreationStep number="01" title="Add wallet">
+						<div></div>
+					</CreationStep>
+				</div>
 			</div>
 		</section>
 	);
