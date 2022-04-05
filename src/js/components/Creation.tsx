@@ -24,7 +24,7 @@ interface State {
 export type ActionType = Action<'SET_WALLET_NUMBER', { value: string }>;
 
 const initialState: State = {
-	// TODO: Add correct wallet state because there is not only one wallet
+	// TODO: Add correct wallet state because there is not only one wallet!
 	wallet: {
 		walletNumber: null,
 		isVerified: false
