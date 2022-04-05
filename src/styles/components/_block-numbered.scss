@@ -47,5 +47,13 @@
 		&__content {
 			padding-top: 15px;
 		}
+		&__paragraph {
+			&_thin {
+				margin-bottom: 10px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
 	}
 }
