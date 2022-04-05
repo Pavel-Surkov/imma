@@ -9,8 +9,9 @@ type CreationStepProps = {
 export const CreationStep = ({ number, title, children }: CreationStepProps) => {
 	return (
 		<div className="step">
-			<h3 className="title title_size-s">
-				{number} {title}
+			<h3 className="title title_size-s step-title">
+				<span>{number}</span>
+				{title}
 			</h3>
 			{children}
 		</div>

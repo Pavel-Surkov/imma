@@ -24,6 +24,7 @@ interface State {
 export type ActionType = Action<'SET_WALLET_NUMBER', { value: string }>;
 
 const initialState: State = {
+	// TODO: Add correct wallet state because there is not only one wallet
 	wallet: {
 		walletNumber: null,
 		isVerified: false
@@ -64,7 +65,49 @@ export const Creation = () => {
 				<div className="container">
 					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
 					<CreationStep number="01" title="Add wallet">
-						<div></div>
+						<div className="step-wrapper">
+							<div className="step-block__wrapper">
+								<form action="" className="step-block">
+									<h4 className="title title_size-xs step-block__title">
+										Original NFT for your imma NFT to follow
+									</h4>
+									<input
+										className="input step-block__input"
+										type="text"
+										name="wallet"
+										required
+									/>
+									<button type="submit" className="btn-arrow step-block__submit">
+										Confirm
+									</button>
+								</form>
+							</div>
+							<div className="step-block__wrapper">
+								<form action="" className="step-block">
+									<h4 className="title title_size-xs step-block__title">
+										The imma NFT creator wallet
+									</h4>
+									<input
+										className="input step-block__input"
+										type="text"
+										name="wallet"
+										required
+									/>
+									<button type="submit" className="btn-arrow step-block__submit">
+										Confirm
+									</button>
+								</form>
+							</div>
+							<div className="step-block_add">
+								<button type="button" className="step-block__add-btn">
+									<span></span>
+									<span></span>
+								</button>
+								<p className="step-block__add-note">
+									*add another wallet (third party, intermediary)
+								</p>
+							</div>
+						</div>
 					</CreationStep>
 				</div>
 			</div>

@@ -1,0 +1,16 @@
+.input {
+	background: #f3f3f333;
+	@include font(1.6rem, calc(22 / 16));
+	padding: 0.75em 1.185em;
+	padding-bottom: 0.6875em;
+	width: 100%;
+	color: $white;
+}
+
+@media screen and (max-width: 767px) {
+	.input {
+		@include font(1.4rem, calc(20 / 14));
+		padding: 0.928em 20px;
+		padding-bottom: 0.857em;
+	}
+}

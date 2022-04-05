@@ -45,7 +45,7 @@ html {
 
 //4. Components
 @import 'components/title', 'components/button', 'components/section', 'components/note', 'components/list',
-	'components/table', 'components/swiper';
+	'components/table', 'components/swiper', 'components/input';
 
 // 5. Layout-related sections
 @import 'layout/header', 'layout/main', 'layout/footer';
@@ -53,7 +53,8 @@ html {
 // 6. Components
 @import 'components/app', 'components/home-main', 'components/video', 'components/welcome', 'components/about',
 	'components/block-numbered', 'components/about-define', 'components/lifefeed', 'components/all-nft',
-	'components/slide', 'components/accordion', 'components/faq', 'components/protocol', 'components/info';
+	'components/slide', 'components/accordion', 'components/faq', 'components/protocol', 'components/info',
+	'components/creation', 'components/step';
 
 // 7. Page-specific styles
 @import 'pages/home';
