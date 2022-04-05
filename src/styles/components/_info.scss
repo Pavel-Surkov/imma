@@ -1,7 +1,6 @@
 .info {
 	&-top {
 		width: 100%;
-		margin-bottom: 15px;
 		@include flex(row, center, space-between);
 		&__title {
 			text-transform: uppercase;
@@ -37,22 +36,20 @@
 		padding: 60px 0;
 		border-bottom: 1px solid $white;
 		&__subtitle {
+			margin-top: 15px;
 			@include font(2rem, calc(28 / 20));
-			margin-bottom: 40px;
 		}
-		&_open {
+		&_closed {
 			& .info-top__btn span:last-child {
 				opacity: 0;
 			}
 			& .info-content {
 				display: none;
 			}
-			& .info-block__subtitle {
-				margin: 0;
-			}
 		}
 	}
 	&-content {
+		margin-top: 40px;
 		@include grid(30px, stretch);
 		grid-template-columns: 1fr 1fr;
 		&[data-blocks-count='3'] {

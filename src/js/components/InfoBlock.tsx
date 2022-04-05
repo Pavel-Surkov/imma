@@ -10,7 +10,7 @@ export const InfoBlock = ({ title, subtitle, blocks, blocksCount }: InfoBlockPro
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
 	return (
-		<div className={`info-block ${isOpen ? 'info-block_open' : ''}`}>
+		<div className={`info-block ${isOpen ? 'info-block_closed' : ''}`}>
 			<button type="button" className="info-top" onClick={() => setIsOpen((prev) => !prev)}>
 				<h3 className="title title_size-s info-top__title">{title}</h3>
 				<div className="info-top__btn">
@@ -18,9 +18,11 @@ export const InfoBlock = ({ title, subtitle, blocks, blocksCount }: InfoBlockPro
 					<span></span>
 				</div>
 			</button>
-			<div className="info-block__subtitle">
-				<p>{subtitle}</p>
-			</div>
+			{subtitle && (
+				<div className="info-block__subtitle">
+					<p>{subtitle}</p>
+				</div>
+			)}
 			<div className="info-content" data-blocks-count={blocksCount}>
 				{blocks.map((block: NumberedBlockProps) => {
 					return (
