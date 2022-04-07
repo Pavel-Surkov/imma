@@ -31,7 +31,9 @@ interface State {
 	};
 }
 
-export type ActionType = Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>;
+export type ActionType =
+	| Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>
+	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>;
 
 const initialState: State = {
 	wallets: {
@@ -62,8 +64,26 @@ function reducer(state: State, action: ActionType) {
 
 			newState.wallets[Wallets[action.wallet]] = {
 				walletNumber: action.value,
-				isVerified: state.wallets.originalWallet.isVerified
+				isVerified: false
 			};
+
+			return newState;
+		}
+		case 'VERIFY_WALLET': {
+			action.event.preventDefault();
+
+			const newState = { ...state };
+
+			let currentWallet = newState.wallets[Wallets[action.wallet]];
+
+			// Wallet check using regexp
+			if (currentWallet.walletNumber.match(/^0x[a-fA-F0-9]{40}$/)) {
+				newState.wallets[Wallets[action.wallet]] = {
+					walletNumber: currentWallet.walletNumber,
+					isVerified: true
+				};
+			}
+			console.log(state.wallets[Wallets[action.wallet]]);
 
 			return newState;
 		}
@@ -102,7 +122,18 @@ export const Creation = () => {
 										}
 										required
 									/>
-									<button type="submit" className="btn-arrow step-block__submit">
+									<button
+										type="submit"
+										className="btn-arrow step-block__submit"
+										disabled={state.wallets.originalWallet.isVerified}
+										onClick={(evt) =>
+											dispatch({
+												type: 'VERIFY_WALLET',
+												wallet: 'original',
+												event: evt
+											})
+										}
+									>
 										Confirm
 									</button>
 								</form>
@@ -126,7 +157,18 @@ export const Creation = () => {
 										}
 										required
 									/>
-									<button type="submit" className="btn-arrow step-block__submit">
+									<button
+										type="submit"
+										className="btn-arrow step-block__submit"
+										disabled={state.wallets.creatorWallet.isVerified}
+										onClick={(evt) =>
+											dispatch({
+												type: 'VERIFY_WALLET',
+												wallet: 'creator',
+												event: evt
+											})
+										}
+									>
 										Confirm
 									</button>
 								</form>

@@ -65,6 +65,13 @@
 		&:active {
 			opacity: 0.8;
 		}
+		&[disabled] {
+			color: $white;
+			opacity: 0.6;
+			&::after {
+				background: icon('arrow-white.svg') no-repeat 50% / cover;
+			}
+		}
 	}
 }
 

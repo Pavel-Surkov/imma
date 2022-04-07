@@ -5,6 +5,10 @@
 	padding-bottom: 0.6875em;
 	width: 100%;
 	color: $white;
+	&:hover,
+	&:focus {
+		background: #f3f3f343;
+	}
 }
 
 @media screen and (max-width: 767px) {
