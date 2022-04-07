@@ -1,21 +1,26 @@
 import React, { useReducer } from 'react';
 import { CreationStep } from './CreationStep';
+import { CreationForm } from './CreationForm';
 
 // Adding types to reducer
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
+
+export type ActionType =
+	| Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>
+	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>;
+
+export enum Wallets {
+	'original' = 'originalWallet',
+	'creator' = 'creatorWallet',
+	'custom' = 'customWallet'
+}
 
 type Wallet = {
 	walletNumber: null | string;
 	isVerified: boolean;
 };
 
-enum Wallets {
-	'original' = 'originalWallet',
-	'creator' = 'creatorWallet',
-	'custom' = 'customWallet'
-}
-
-interface State {
+export interface State {
 	wallets: {
 		originalWallet: Wallet;
 		creatorWallet: Wallet;
@@ -30,10 +35,6 @@ interface State {
 		isVerified: boolean;
 	};
 }
-
-export type ActionType =
-	| Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>
-	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>;
 
 const initialState: State = {
 	wallets: {
@@ -103,76 +104,8 @@ export const Creation = () => {
 					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
 					<CreationStep number="01" title="Add wallet">
 						<div className="step-wrapper">
-							<div className="step-block__wrapper">
-								<form action="" className="step-block">
-									<h4 className="title title_size-xs step-block__title">
-										Original NFT for your imma NFT to follow
-									</h4>
-									<input
-										className="input step-block__input"
-										type="text"
-										name="wallet"
-										value={state.wallets.originalWallet.walletNumber}
-										onChange={(evt) =>
-											dispatch({
-												type: 'SET_WALLET_NUMBER',
-												wallet: 'original',
-												value: evt.target.value
-											})
-										}
-										required
-									/>
-									<button
-										type="submit"
-										className="btn-arrow step-block__submit"
-										disabled={state.wallets.originalWallet.isVerified}
-										onClick={(evt) =>
-											dispatch({
-												type: 'VERIFY_WALLET',
-												wallet: 'original',
-												event: evt
-											})
-										}
-									>
-										Confirm
-									</button>
-								</form>
-							</div>
-							<div className="step-block__wrapper">
-								<form action="" className="step-block">
-									<h4 className="title title_size-xs step-block__title">
-										The imma NFT creator wallet
-									</h4>
-									<input
-										className="input step-block__input"
-										type="text"
-										name="wallet"
-										value={state.wallets.creatorWallet.walletNumber}
-										onChange={(evt) =>
-											dispatch({
-												type: 'SET_WALLET_NUMBER',
-												wallet: 'creator',
-												value: evt.target.value
-											})
-										}
-										required
-									/>
-									<button
-										type="submit"
-										className="btn-arrow step-block__submit"
-										disabled={state.wallets.creatorWallet.isVerified}
-										onClick={(evt) =>
-											dispatch({
-												type: 'VERIFY_WALLET',
-												wallet: 'creator',
-												event: evt
-											})
-										}
-									>
-										Confirm
-									</button>
-								</form>
-							</div>
+							<CreationForm state={state} dispatch={dispatch} wallet="original" />
+							<CreationForm state={state} dispatch={dispatch} wallet="creator" />
 							<div className="step-block_add">
 								<button type="button" className="step-block__add-btn">
 									<span></span>
