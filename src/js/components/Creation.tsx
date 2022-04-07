@@ -9,8 +9,18 @@ type Wallet = {
 	isVerified: boolean;
 };
 
+enum Wallets {
+	'original' = 'originalWallet',
+	'creator' = 'creatorWallet',
+	'custom' = 'customWallet'
+}
+
 interface State {
-	wallet: Wallet;
+	wallets: {
+		originalWallet: Wallet;
+		creatorWallet: Wallet;
+		customWallet?: Wallet;
+	};
 	price: null | number;
 	blockchain: 'ethereum' | 'polygon';
 	video: null | File;
@@ -21,13 +31,18 @@ interface State {
 	};
 }
 
-export type ActionType = Action<'SET_WALLET_NUMBER', { value: string }>;
+export type ActionType = Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>;
 
 const initialState: State = {
-	// TODO: Add correct wallet state because there is not only one wallet!
-	wallet: {
-		walletNumber: null,
-		isVerified: false
+	wallets: {
+		originalWallet: {
+			walletNumber: '',
+			isVerified: false
+		},
+		creatorWallet: {
+			walletNumber: '',
+			isVerified: false
+		}
 	},
 	price: null,
 	blockchain: 'ethereum',
@@ -39,16 +54,18 @@ const initialState: State = {
 	}
 };
 
+// Here is all the states related to NFT creation
 function reducer(state: State, action: ActionType) {
 	switch (action.type) {
 		case 'SET_WALLET_NUMBER': {
-			return {
-				...state,
-				wallet: {
-					walletNumber: action.value,
-					isVerified: state.wallet.isVerified
-				}
+			const newState = { ...state };
+
+			newState.wallets[Wallets[action.wallet]] = {
+				walletNumber: action.value,
+				isVerified: state.wallets.originalWallet.isVerified
 			};
+
+			return newState;
 		}
 		default: {
 			throw new TypeError('Action type is uncorrect');
@@ -75,6 +92,14 @@ export const Creation = () => {
 										className="input step-block__input"
 										type="text"
 										name="wallet"
+										value={state.wallets.originalWallet.walletNumber}
+										onChange={(evt) =>
+											dispatch({
+												type: 'SET_WALLET_NUMBER',
+												wallet: 'original',
+												value: evt.target.value
+											})
+										}
 										required
 									/>
 									<button type="submit" className="btn-arrow step-block__submit">
@@ -91,6 +116,14 @@ export const Creation = () => {
 										className="input step-block__input"
 										type="text"
 										name="wallet"
+										value={state.wallets.creatorWallet.walletNumber}
+										onChange={(evt) =>
+											dispatch({
+												type: 'SET_WALLET_NUMBER',
+												wallet: 'creator',
+												value: evt.target.value
+											})
+										}
 										required
 									/>
 									<button type="submit" className="btn-arrow step-block__submit">
