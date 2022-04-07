@@ -7,7 +7,8 @@ type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 
 export type ActionType =
 	| Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>
-	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>;
+	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>
+	| Action<'ADD_CUSTOM_WALLET', {}>;
 
 export enum Wallets {
 	'original' = 'originalWallet',
@@ -16,7 +17,7 @@ export enum Wallets {
 }
 
 type Wallet = {
-	walletNumber: null | string;
+	walletNumber: '' | string;
 	isVerified: boolean;
 };
 
@@ -88,6 +89,25 @@ function reducer(state: State, action: ActionType) {
 
 			return newState;
 		}
+		case 'ADD_CUSTOM_WALLET': {
+			return {
+				...state,
+				wallets: {
+					originalWallet: {
+						walletNumber: state.wallets.originalWallet.walletNumber,
+						isVerified: state.wallets.originalWallet.isVerified
+					},
+					creatorWallet: {
+						walletNumber: state.wallets.creatorWallet.walletNumber,
+						isVerified: state.wallets.creatorWallet.isVerified
+					},
+					customWallet: {
+						walletNumber: '',
+						isVerified: false
+					}
+				}
+			};
+		}
 		default: {
 			throw new TypeError('Action type is uncorrect');
 		}
@@ -104,18 +124,45 @@ export const Creation = () => {
 					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
 					<CreationStep number="01" title="Add wallet">
 						<div className="step-wrapper">
-							<CreationForm state={state} dispatch={dispatch} wallet="original" />
-							<CreationForm state={state} dispatch={dispatch} wallet="creator" />
-							<div className="step-block_add">
-								<button type="button" className="step-block__add-btn">
-									<span></span>
-									<span></span>
-								</button>
-								<p className="step-block__add-note">
-									*add another wallet (third party, intermediary)
-								</p>
-							</div>
+							<CreationForm
+								title="Original NFT for your imma NFT to follow"
+								state={state}
+								dispatch={dispatch}
+								wallet="original"
+							/>
+							<CreationForm
+								title="The imma NFT creator wallet"
+								state={state}
+								dispatch={dispatch}
+								wallet="creator"
+							/>
+							{state.wallets.customWallet && (
+								<CreationForm
+									title="Your custom wallet"
+									state={state}
+									dispatch={dispatch}
+									wallet="custom"
+								/>
+							)}
+							{!state.wallets.customWallet && (
+								<div className="step-block_add">
+									<button
+										type="button"
+										className="step-block__add-btn"
+										onClick={() => dispatch({ type: 'ADD_CUSTOM_WALLET' })}
+									>
+										<span></span>
+										<span></span>
+									</button>
+									<p className="step-block__add-note">
+										*add another wallet (third party, intermediary)
+									</p>
+								</div>
+							)}
 						</div>
+					</CreationStep>
+					<CreationStep number="02" title="Price of the IMMA NFT">
+						<div className="step-wrapper"></div>
 					</CreationStep>
 				</div>
 			</div>
