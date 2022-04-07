@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import { CreationStep } from './CreationStep';
 import { CreationForm } from './CreationForm';
+import { CreationRadio } from './CreationRadio';
 
 // Adding types to reducer
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
@@ -27,7 +28,7 @@ export interface State {
 		creatorWallet: Wallet;
 		customWallet?: Wallet;
 	};
-	price: null | number;
+	price: 'free' | number;
 	blockchain: 'ethereum' | 'polygon';
 	video: null | File;
 	signature: null | File;
@@ -48,7 +49,7 @@ const initialState: State = {
 			isVerified: false
 		}
 	},
-	price: null,
+	price: 'free',
 	blockchain: 'ethereum',
 	video: null,
 	signature: null,
@@ -162,7 +163,13 @@ export const Creation = () => {
 						</div>
 					</CreationStep>
 					<CreationStep number="02" title="Price of the IMMA NFT">
-						<div className="step-wrapper"></div>
+						<div className="step-wrapper">
+							<CreationRadio
+								title="For FREE"
+								dispatch={dispatch}
+								price={state.price}
+							/>
+						</div>
 					</CreationStep>
 				</div>
 			</div>

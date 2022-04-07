@@ -19,6 +19,9 @@
 		&__title {
 			padding-bottom: 30px;
 			margin-bottom: auto;
+			&-wrapper {
+				@include flex(row, center);
+			}
 		}
 		&_add {
 			width: 100%;
@@ -30,6 +33,23 @@
 			border-radius: 2px;
 			&:hover {
 				outline: 1px solid $lightgreen;
+			}
+		}
+		&__radio {
+			&-btn {
+				width: 30px;
+				height: 30px;
+				border-radius: 2px;
+				background: rgba(#f3f3f3, 0.2);
+				@include grid(0, center, center);
+				margin-bottom: 20px;
+				& div {
+					background: $lightgreen;
+					width: 20px;
+					height: 20px;
+					border-radius: 2px;
+					transition: opacity 0.2s;
+				}
 			}
 		}
 		&__submit {

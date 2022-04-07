@@ -14,7 +14,7 @@ export const CreationForm = ({ title, state, dispatch, wallet }: ICreationFormPr
 
 	return (
 		<div className="step-block__wrapper">
-			<form action="" className="step-block">
+			<form action="" className="form step-block">
 				<h4 className="title title_size-xs step-block__title">{title}</h4>
 				<input
 					className="input step-block__input"
