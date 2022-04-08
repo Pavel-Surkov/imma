@@ -11,7 +11,8 @@ export type ActionType =
 	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>
 	| Action<'ADD_CUSTOM_WALLET', {}>
 	| Action<'SET_PRICE_ISFREE', { value: boolean }>
-	| Action<'CHANGE_PRICE', { value: number }>;
+	| Action<'CHANGE_PRICE', { value: number }>
+	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>;
 
 export enum Wallets {
 	original = 'originalWallet',
@@ -135,6 +136,12 @@ function reducer(state: State, action: ActionType) {
 				}
 			};
 		}
+		case 'SET_BLOCKCHAIN_NETWORK': {
+			return {
+				...state,
+				blockchain: action.value
+			};
+		}
 		default: {
 			throw new TypeError('Action type is uncorrect');
 		}
@@ -190,9 +197,9 @@ export const Creation = () => {
 					</CreationStep>
 					<CreationStep number="02" title="Price of the IMMA NFT">
 						<div className="step-wrapper">
-							<PriceRadio type="free" price={state.price} dispatch={dispatch} />
+							<PriceRadio isFree={true} price={state.price} dispatch={dispatch} />
 							<PriceRadio
-								type="not free"
+								isFree={false}
 								price={state.price}
 								dispatch={dispatch}
 								input={{ initialValue: '1000' }}
@@ -201,8 +208,16 @@ export const Creation = () => {
 					</CreationStep>
 					<CreationStep number="03" title="Blockchain network">
 						<div className="step-wrapper step-wrapper_blockchain">
-							<BlockchainRadio title="Ethereum ETH" dispatch={dispatch} image="" />
-							<BlockchainRadio title="Polygon" dispatch={dispatch} image="" />
+							<BlockchainRadio
+								type="ethereum"
+								blockchain={state.blockchain}
+								dispatch={dispatch}
+							/>
+							<BlockchainRadio
+								type="polygon"
+								blockchain={state.blockchain}
+								dispatch={dispatch}
+							/>
 						</div>
 					</CreationStep>
 				</div>

@@ -12,7 +12,6 @@
 			}
 		}
 	}
-
 	&-title {
 		margin-bottom: 40px;
 		& span {
@@ -20,6 +19,7 @@
 		}
 	}
 	&-block {
+		position: relative;
 		height: 100%;
 		@include flex(column, flex-start, flex-end);
 		&__title {
@@ -82,6 +82,13 @@
 			}
 			&-input {
 				max-width: 221px;
+				&::-webkit-outer-spin-button,
+				&::-webkit-inner-spin-button {
+					-webkit-appearance: none;
+				}
+				&[type='number'] {
+					-moz-appearance: textfield;
+				}
 			}
 		}
 		&__submit {
@@ -124,6 +131,42 @@
 				color: $gray-400;
 			}
 		}
+		&_eth {
+			position: relative;
+			overflow: hidden;
+			&::after {
+				content: '';
+				position: absolute;
+				width: 90px;
+				height: 114px;
+				bottom: 0;
+				right: 20px;
+				background: icon('ethereum.svg') no-repeat 50% / contain;
+			}
+			&:hover {
+				&::after {
+					background: icon('ethereum_hovered.svg') no-repeat 50% / contain;
+				}
+			}
+		}
+		&_pol {
+			position: relative;
+			overflow: hidden;
+			&::after {
+				content: '';
+				position: absolute;
+				width: 74px;
+				height: 120px;
+				bottom: 0;
+				right: 47px;
+				background: icon('polygon.svg') no-repeat 50% / contain;
+			}
+			&:hover {
+				&::after {
+					background: icon('polygon_hovered.svg') no-repeat 50% / contain;
+				}
+			}
+		}
 	}
 }
 
@@ -133,6 +176,20 @@
 			&__radio {
 				&-input {
 					margin-left: 11px;
+				}
+			}
+			&_eth {
+				&::after {
+					right: 10px;
+					width: 80px;
+					height: 101px;
+				}
+			}
+			&_pol {
+				&::after {
+					right: 40px;
+					width: 74px;
+					height: 120px;
 				}
 			}
 		}
@@ -148,6 +205,11 @@
 			&__radio {
 				&-label {
 					max-width: 380px;
+				}
+			}
+			&_eth {
+				&::after {
+					right: 36px;
 				}
 			}
 		}
@@ -190,12 +252,37 @@
 					max-width: 340px;
 				}
 			}
+			&_eth {
+				&::after {
+					right: 23px;
+					width: 74px;
+					height: 94px;
+				}
+			}
+			&_pol {
+				&::after {
+					right: 32px;
+					width: 56px;
+					height: 94px;
+				}
+			}
 		}
 		&-title {
 			@include font(2.6rem, calc(34 / 26));
 			margin-bottom: 30px;
 			& span {
 				margin-right: 16px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.step {
+		&-block {
+			&_eth,
+			&_pol {
+				padding: 20px;
 			}
 		}
 	}
