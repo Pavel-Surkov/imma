@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { CreationStep } from './CreationStep';
 import { CreationForm } from './CreationForm';
-import { PriceCreationRadio } from './CreationRadio';
+import { PriceRadio, BlockchainRadio } from './CreationRadio';
 
 // Adding types to reducer
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
@@ -9,12 +9,14 @@ type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 export type ActionType =
 	| Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>
 	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>
-	| Action<'ADD_CUSTOM_WALLET', {}>;
+	| Action<'ADD_CUSTOM_WALLET', {}>
+	| Action<'SET_PRICE_ISFREE', { value: boolean }>
+	| Action<'CHANGE_PRICE', { value: number }>;
 
 export enum Wallets {
-	'original' = 'originalWallet',
-	'creator' = 'creatorWallet',
-	'custom' = 'customWallet'
+	original = 'originalWallet',
+	creator = 'creatorWallet',
+	custom = 'customWallet'
 }
 
 type Wallet = {
@@ -30,7 +32,7 @@ export interface State {
 	};
 	price: {
 		isFree: boolean;
-		value: null | number;
+		value: number;
 	};
 	blockchain: 'ethereum' | 'polygon';
 	video: null | File;
@@ -54,7 +56,7 @@ const initialState: State = {
 	},
 	price: {
 		isFree: true,
-		value: null
+		value: 1000
 	},
 	blockchain: 'ethereum',
 	video: null,
@@ -115,6 +117,24 @@ function reducer(state: State, action: ActionType) {
 				}
 			};
 		}
+		case 'SET_PRICE_ISFREE': {
+			return {
+				...state,
+				price: {
+					isFree: action.value,
+					value: state.price.value
+				}
+			};
+		}
+		case 'CHANGE_PRICE': {
+			return {
+				...state,
+				price: {
+					isFree: state.price.isFree,
+					value: action.value
+				}
+			};
+		}
 		default: {
 			throw new TypeError('Action type is uncorrect');
 		}
@@ -170,17 +190,19 @@ export const Creation = () => {
 					</CreationStep>
 					<CreationStep number="02" title="Price of the IMMA NFT">
 						<div className="step-wrapper">
-							<PriceCreationRadio
-								title="For FREE"
-								price={state.price}
-								dispatch={dispatch}
-							/>
-							<PriceCreationRadio
-								title="Price"
+							<PriceRadio type="free" price={state.price} dispatch={dispatch} />
+							<PriceRadio
+								type="not free"
 								price={state.price}
 								dispatch={dispatch}
 								input={{ initialValue: '1000' }}
 							/>
+						</div>
+					</CreationStep>
+					<CreationStep number="03" title="Blockchain network">
+						<div className="step-wrapper step-wrapper_blockchain">
+							<BlockchainRadio title="Ethereum ETH" dispatch={dispatch} image="" />
+							<BlockchainRadio title="Polygon" dispatch={dispatch} image="" />
 						</div>
 					</CreationStep>
 				</div>
