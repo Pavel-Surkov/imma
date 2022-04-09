@@ -164,6 +164,24 @@ export const Creation = () => {
 		console.log('a');
 	}, [window.innerWidth]);
 
+	const createVideo = () => {
+		const getMedia = async (constraints) => {
+			let stream: null | MediaStream = null;
+
+			try {
+				stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+				console.log(stream);
+				/* use the stream */
+			} catch (err) {
+				console.log(err);
+				/* handle the error */
+			}
+		};
+
+		getMedia({ audio: true, video: true });
+	};
+
 	return (
 		<section id="creation" className="section creation">
 			<div className="section-wrapper creation-wrapper">
@@ -235,7 +253,7 @@ export const Creation = () => {
 					</CreationStep>
 					<CreationStep number="04" title="Create a video">
 						<div className="step-wrapper step-wrapper_video">
-							<button type="button" className="btn-video">
+							<button type="button" className="btn-video" onClick={createVideo}>
 								Create a video
 							</button>
 							<span>
