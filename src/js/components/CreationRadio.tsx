@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { State } from './Creation';
+import { State } from '../helpers/creationReducer';
 
 interface IPriceRadio {
 	isFree: boolean;

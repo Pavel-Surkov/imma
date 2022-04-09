@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wallets, State } from './Creation';
+import { Wallets, State } from '../helpers/creationReducer';
 
 interface ICreationFormProps {
 	title: string;
