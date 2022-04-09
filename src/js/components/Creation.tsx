@@ -220,6 +220,17 @@ export const Creation = () => {
 							/>
 						</div>
 					</CreationStep>
+					<CreationStep number="04" title="Create a video">
+						<div className="step-wrapper step-wrapper_video">
+							<button type="button" className="btn-video">
+								Create a video
+							</button>
+							<span>
+								*there is only an option to shoot something at the moment, there is
+								no option to upload anything from the gallery
+							</span>
+						</div>
+					</CreationStep>
 				</div>
 			</div>
 		</section>

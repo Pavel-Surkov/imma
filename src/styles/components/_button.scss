@@ -73,6 +73,32 @@
 			}
 		}
 	}
+	&-video {
+		color: $lightgreen;
+		font-family: $title-font;
+		@include font(2rem, calc(26 / 20));
+		background: rgba($white, 0.07);
+		border-radius: 2px;
+		padding: 1.9em 1.8em;
+		padding-left: 96px;
+		position: relative;
+		&::before {
+			content: '';
+			position: absolute;
+			left: 35px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 30px;
+			height: 23px;
+			background: icon('camera.svg') no-repeat 50% / contain;
+		}
+		&:hover {
+			outline: 1px solid $lightgreen;
+		}
+		&:active {
+			opacity: 0.8;
+		}
+	}
 }
 
 @media screen and (max-width: 767px) {

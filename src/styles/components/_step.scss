@@ -11,6 +11,19 @@
 				margin-bottom: 20px;
 			}
 		}
+		&_video {
+			@include flex();
+			grid-gap: 0;
+			& .btn-video {
+				margin-right: 46px;
+			}
+			& span {
+				display: inline-block;
+				max-width: 377px;
+				align-self: flex-end;
+				@include font(1.4rem, calc(20 / 14));
+			}
+		}
 	}
 	&-title {
 		margin-bottom: 40px;
@@ -200,6 +213,16 @@
 	.step {
 		&-wrapper {
 			grid-template-columns: 100%;
+			&_video {
+				grid-gap: 20px;
+				flex-direction: column;
+				& .btn-video {
+					margin: 0;
+				}
+				& span {
+					align-self: flex-start;
+				}
+			}
 		}
 		&-block {
 			&__radio {
@@ -279,6 +302,21 @@
 
 @media screen and (max-width: 576px) {
 	.step {
+		&-wrapper {
+			&_video {
+				grid-gap: 12px;
+				& .btn-video {
+					width: 100%;
+					padding: 1em 2.4em;
+					padding-left: 70px;
+					max-width: 290px;
+					white-space: nowrap;
+					&::before {
+						left: 20px;
+					}
+				}
+			}
+		}
 		&-block {
 			&_eth,
 			&_pol {
