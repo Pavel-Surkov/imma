@@ -46,6 +46,36 @@
 		&_add {
 			width: 100%;
 		}
+		&_sign {
+			@include flex();
+			border-radius: 2px;
+			position: relative;
+			outline: 1px solid $lightgreen;
+			& canvas {
+				background: rgba($black, 0.2);
+			}
+			& span {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				color: $gray-650;
+				@include font(1.4rem, calc(20 / 14));
+			}
+		}
+		&__sign-btn {
+			position: absolute;
+			top: 20px;
+			right: 24px;
+			width: 32px;
+			height: 32px;
+			&:hover {
+				opacity: 0.8;
+			}
+			&:active {
+				opacity: 0.6;
+			}
+		}
 		&__wrapper {
 			width: 100%;
 			background: rgba($white, 0.07);
@@ -321,6 +351,23 @@
 			&_eth,
 			&_pol {
 				padding: 20px;
+			}
+			&_sign {
+				& canvas {
+					max-width: 100%;
+					height: 300px;
+				}
+			}
+			&__sign-btn {
+				top: 20px;
+				right: 20px;
+				width: 30px;
+				height: 30px;
+				@include grid(0, center, center);
+				& svg {
+					width: 100%;
+					height: 100%;
+				}
 			}
 		}
 	}

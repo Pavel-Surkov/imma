@@ -56,9 +56,9 @@ export const Footer: React.FC = () => {
 			<div className="footer-wrapper">
 				<div className="container">
 					<div className="footer-content">
-						<Link className="footer-content__logo" to="/">
+						<a className="footer-content__logo" href="#header">
 							<img width="117" src={logo} alt="logo"></img>
-						</Link>
+						</a>
 						<div className="footer-content__up-wrapper">
 							<a href="#header" className="footer-content__up">
 								<svg
