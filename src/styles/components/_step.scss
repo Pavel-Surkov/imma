@@ -53,6 +53,8 @@
 			outline: 1px solid $lightgreen;
 			& canvas {
 				background: rgba($black, 0.2);
+				width: 470px;
+				height: 300px;
 			}
 			& span {
 				position: absolute;

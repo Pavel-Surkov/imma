@@ -1,4 +1,5 @@
 import React, { useReducer, useState, useEffect, useRef } from 'react';
+import SignaturePad from 'signature_pad';
 import { State, reducer } from '../helpers/creationReducer';
 import { CreationStep } from './CreationStep';
 import { CreationForm } from './CreationForm';
@@ -46,7 +47,25 @@ export const Creation = () => {
 		console.log('a');
 	}, [window.innerWidth]);
 
-	const createVideo = () => {
+	const enableSignaturePad = (): void => {
+		const canvas: HTMLCanvasElement = signFieldRef.current;
+
+		function resizeCanvas(): void {
+			var ratio = Math.max(window.devicePixelRatio || 1, 1);
+			canvas.width = canvas.offsetWidth * ratio;
+			canvas.height = canvas.offsetHeight * ratio;
+			canvas.getContext('2d').scale(ratio, ratio);
+		}
+
+		window.onresize = resizeCanvas;
+		resizeCanvas();
+
+		const signaturePad = new SignaturePad(canvas, {
+			penColor: 'rgb(255, 255, 255)'
+		});
+	};
+
+	const createVideo = (): void => {
 		const getMedia = async (constraints) => {
 			let stream: null | MediaStream = null;
 
@@ -151,6 +170,7 @@ export const Creation = () => {
 									type="button"
 									className="step-block__sign-btn"
 									aria-label="sign"
+									onClick={enableSignaturePad}
 								>
 									<svg
 										width="32"
