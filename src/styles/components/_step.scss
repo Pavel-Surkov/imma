@@ -3,6 +3,29 @@
 	&:last-child {
 		margin-bottom: 0;
 	}
+	&-code {
+		margin-top: 60px;
+		& label {
+			font-family: $title-font;
+			@include font(1.6rem, calc(21 / 16));
+		}
+		&__input {
+			&-wrapper {
+				@include flex();
+				margin-top: 11px;
+				& input {
+					max-width: 269px;
+					margin-right: 5px;
+				}
+			}
+		}
+		&__submit {
+			@include font(1.4rem, calc(20 / 14));
+			padding-top: 1em;
+			padding-bottom: 1em;
+			max-height: 45px;
+		}
+	}
 	&-wrapper {
 		@include grid(30px, stretch);
 		grid-template-columns: repeat(3, 1fr);
@@ -26,6 +49,7 @@
 		}
 	}
 	&-title {
+		@include flex();
 		margin-bottom: 40px;
 		& span {
 			margin-right: 31px;
@@ -63,6 +87,11 @@
 				transform: translate(-50%, -50%);
 				color: $gray-650;
 				@include font(1.4rem, calc(20 / 14));
+			}
+		}
+		&_social {
+			& .step-block__title_radio {
+				margin-bottom: 20px;
 			}
 		}
 		&__sign-btn {
@@ -126,13 +155,64 @@
 				}
 			}
 			&-input {
-				max-width: 221px;
+				width: 100%;
+				margin-left: 19px;
 				&::-webkit-outer-spin-button,
 				&::-webkit-inner-spin-button {
 					-webkit-appearance: none;
 				}
 				&[type='number'] {
 					-moz-appearance: textfield;
+				}
+			}
+		}
+		&__social {
+			&-form {
+				width: 100%;
+			}
+			&-input {
+				width: 100%;
+				margin-bottom: 20px;
+				position: relative;
+				&[data-input='instagram'] {
+					&::before {
+						content: '';
+						position: absolute;
+						top: 50%;
+						left: 16px;
+						transform: translateY(-50%);
+						width: 17px;
+						height: 17px;
+						background: icon('instagram.svg') no-repeat 50% / contain;
+					}
+					&:hover,
+					&:focus {
+						&::before {
+							background: icon('instagram_hovered.svg') no-repeat 50% / contain;
+						}
+					}
+				}
+				&[data-input='twitter'] {
+					&::before {
+						content: '';
+						position: absolute;
+						top: 50%;
+						left: 16px;
+						transform: translateY(-50%);
+						width: 21px;
+						height: 21px;
+						background: icon('twitter.svg') no-repeat 50% / contain;
+					}
+					&:hover,
+					&:focus {
+						&::before {
+							background: icon('twitter_hovered.svg') no-repeat 50% / contain;
+						}
+					}
+				}
+				& input {
+					width: 100%;
+					padding-left: 50px;
 				}
 			}
 		}
@@ -217,6 +297,11 @@
 
 @media screen and (max-width: 1230px) {
 	.step {
+		&-wrapper {
+			&_social {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
 		&-block {
 			&__radio {
 				&-input {
@@ -255,6 +340,9 @@
 					align-self: flex-start;
 				}
 			}
+			&_social {
+				grid-template-columns: 100%;
+			}
 		}
 		&-block {
 			&__radio {
@@ -273,8 +361,16 @@
 
 @media screen and (max-width: 767px) {
 	.step {
+		&-title {
+			display: block;
+		}
 		&-wrapper {
 			gap: 20px;
+			&_social {
+				& .step-block__radio-label {
+					padding-bottom: 20px;
+				}
+			}
 		}
 		&-block {
 			&__title {
@@ -293,6 +389,11 @@
 			}
 			&_add {
 				@include flex(row, flex-end);
+			}
+			&_social {
+				& .step-block__title_radio {
+					margin-bottom: 10px;
+				}
 			}
 			&__add {
 				&-btn {
@@ -334,6 +435,18 @@
 
 @media screen and (max-width: 576px) {
 	.step {
+		&-code {
+			& input {
+				margin-right: 2px;
+			}
+			&__submit {
+				padding: 1em 1.714em;
+				padding-right: 57px;
+				&::after {
+					right: 24px;
+				}
+			}
+		}
 		&-wrapper {
 			&_video {
 				grid-gap: 12px;

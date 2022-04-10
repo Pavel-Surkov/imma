@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { State } from '../helpers/creationReducer';
 
 interface IPriceRadio {
 	isFree: boolean;
@@ -104,6 +103,48 @@ export const BlockchainRadio = ({ type, blockchain, dispatch }: IBlockchainRadio
 					{BlockchainRadioTitles[type]}
 				</h4>
 			</div>
+		</label>
+	);
+};
+
+interface ISocialRadio {
+	type: 'instagram' | 'twitter';
+	verification: {
+		social: 'instagram' | 'twitter';
+		isVerified: boolean;
+	};
+	dispatch: React.Dispatch<any>;
+}
+
+export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
+	return (
+		<label className="step-block step-block_social step-block__radio-label">
+			<input
+				className="step-block__radio"
+				type="radio"
+				name="social"
+				// onChange={() =>
+				// 	dispatch({
+				// 		type: 'SET_PRICE_ISFREE',
+				// 		value: isFree
+				// 	})
+				// }
+				// checked={price.isFree === isFree ? true : false}
+			/>
+			<div className="step-block__radio-btn">
+				<div></div>
+			</div>
+			<form className="step-block__social-form" action="">
+				<h4 className="title title_size-xs step-block__title_radio">
+					{type[0].toUpperCase() + type.slice(1)}
+				</h4>
+				<div className="step-block__social-input" data-input={type}>
+					<input className="input" type="text" name="social_username" />
+				</div>
+				<button type="submit" className="btn-arrow step-block__btn">
+					Send me the code
+				</button>
+			</form>
 		</label>
 	);
 };

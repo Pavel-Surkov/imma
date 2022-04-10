@@ -3,7 +3,7 @@ import SignaturePad from 'signature_pad';
 import { State, reducer } from '../helpers/creationReducer';
 import { CreationStep } from './CreationStep';
 import { CreationForm } from './CreationForm';
-import { PriceRadio, BlockchainRadio } from './CreationRadio';
+import { PriceRadio, BlockchainRadio, SocialRadio } from './CreationRadio';
 
 const initialState: State = {
 	wallets: {
@@ -206,6 +206,34 @@ export const Creation = () => {
 								</span>
 							</div>
 						</div>
+					</CreationStep>
+					<CreationStep
+						number="06"
+						title="Enter a Twitter or Instagram username to verify your user"
+					>
+						<div className="step-wrapper step-wrapper_social">
+							<SocialRadio
+								type="instagram"
+								verification={state.verification}
+								dispatch={dispatch}
+							/>
+							<SocialRadio
+								type="twitter"
+								verification={state.verification}
+								dispatch={dispatch}
+							/>
+						</div>
+						<form className="step-code" action="">
+							<label>
+								Enter the code
+								<div className="step-code__input-wrapper">
+									<input className="input" type="text" name="social_code" />
+									<button className="btn step-code__submit" type="submit">
+										Submit
+									</button>
+								</div>
+							</label>
+						</form>
 					</CreationStep>
 				</div>
 			</div>
