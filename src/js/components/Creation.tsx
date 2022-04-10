@@ -34,6 +34,7 @@ export const Creation = () => {
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [signatureText, setSignatureText] = useState<string>('Sign here');
+	const [signaturePad, setSignaturePad] = useState<SignaturePad | null>(null);
 
 	useEffect(() => {
 		const windowWidth = window.innerWidth;
@@ -47,22 +48,31 @@ export const Creation = () => {
 		console.log('a');
 	}, [window.innerWidth]);
 
+	// TODO: Save signature when submiting creation form
+	// (signaturePad.toDataURL("image/svg+xml"))
 	const enableSignaturePad = (): void => {
 		const canvas: HTMLCanvasElement = signFieldRef.current;
 
-		function resizeCanvas(): void {
-			var ratio = Math.max(window.devicePixelRatio || 1, 1);
-			canvas.width = canvas.offsetWidth * ratio;
-			canvas.height = canvas.offsetHeight * ratio;
-			canvas.getContext('2d').scale(ratio, ratio);
+		// Inits signature pad
+		if (!signaturePad) {
+			function resizeCanvas(): void {
+				var ratio = Math.max(window.devicePixelRatio || 1, 1);
+				canvas.width = canvas.offsetWidth * ratio;
+				canvas.height = canvas.offsetHeight * ratio;
+				canvas.getContext('2d').scale(ratio, ratio);
+			}
+
+			window.onresize = resizeCanvas;
+			resizeCanvas();
+
+			const signaturePad = new SignaturePad(canvas, {
+				penColor: 'rgb(255, 255, 255)'
+			});
+
+			setSignaturePad(signaturePad);
+		} else {
+			signaturePad.clear();
 		}
-
-		window.onresize = resizeCanvas;
-		resizeCanvas();
-
-		const signaturePad = new SignaturePad(canvas, {
-			penColor: 'rgb(255, 255, 255)'
-		});
 	};
 
 	const createVideo = (): void => {
@@ -191,7 +201,9 @@ export const Creation = () => {
 									height="300"
 									className="step-wrapper__sign"
 								></canvas>
-								<span>{signatureText}</span>
+								<span style={signaturePad ? { display: 'none' } : null}>
+									{signatureText}
+								</span>
 							</div>
 						</div>
 					</CreationStep>
