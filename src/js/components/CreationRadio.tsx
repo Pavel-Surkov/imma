@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface IPriceRadio {
 	isFree: boolean;
@@ -117,19 +117,35 @@ interface ISocialRadio {
 }
 
 export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
+	const checkboxRef = useRef(null);
+
+	const [userName, setUserName] = useState<string>('');
+	const [isChecked, setIsChecked] = useState<boolean>(
+		verification.social === type ? true : false
+	);
+
+	useEffect(() => {
+		const isChecked = verification.social === type ? true : false;
+
+		setIsChecked(isChecked);
+	}, [verification.social]);
+
+	const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
 	return (
 		<label className="step-block step-block_social step-block__radio-label">
 			<input
+				ref={checkboxRef}
 				className="step-block__radio"
 				type="radio"
 				name="social"
-				// onChange={() =>
-				// 	dispatch({
-				// 		type: 'SET_PRICE_ISFREE',
-				// 		value: isFree
-				// 	})
-				// }
-				// checked={price.isFree === isFree ? true : false}
+				onChange={() =>
+					dispatch({
+						type: 'SET_SOCIAL',
+						value: type
+					})
+				}
+				checked={isChecked}
 			/>
 			<div className="step-block__radio-btn">
 				<div></div>
@@ -139,9 +155,21 @@ export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
 					{type[0].toUpperCase() + type.slice(1)}
 				</h4>
 				<div className="step-block__social-input" data-input={type}>
-					<input className="input" type="text" name="social_username" />
+					<input
+						className="input"
+						type="text"
+						name="social_username"
+						value={userName}
+						onChange={(evt) => setUserName(evt.target.value)}
+						required
+					/>
 				</div>
-				<button type="submit" className="btn-arrow step-block__btn">
+				<button
+					type="submit"
+					className="btn-arrow step-block__btn"
+					disabled={!isChecked}
+					onClick={(evt) => handleSubmit(evt)}
+				>
 					Send me the code
 				</button>
 			</form>

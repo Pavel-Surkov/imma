@@ -7,7 +7,8 @@ export type ActionType =
 	| Action<'ADD_CUSTOM_WALLET', {}>
 	| Action<'SET_PRICE_ISFREE', { value: boolean }>
 	| Action<'CHANGE_PRICE', { value: number }>
-	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>;
+	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>
+	| Action<'SET_SOCIAL', { value: 'instagram' | 'twitter' }>;
 
 export enum Wallets {
 	original = 'originalWallet',
@@ -110,6 +111,15 @@ export function reducer(state: State, action: ActionType) {
 			return {
 				...state,
 				blockchain: action.value
+			};
+		}
+		case 'SET_SOCIAL': {
+			return {
+				...state,
+				verification: {
+					social: action.value,
+					isVerified: state.verification.isVerified
+				}
 			};
 		}
 		default: {
