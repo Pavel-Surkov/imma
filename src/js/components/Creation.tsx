@@ -3,6 +3,7 @@ import SignaturePad from 'signature_pad';
 import { State, reducer } from '../helpers/creationReducer';
 import { CreationStep } from './CreationStep';
 import { CreationForm } from './CreationForm';
+import { CreationSubmit } from './CreationSubmit';
 import { PriceRadio, BlockchainRadio, SocialRadio } from './CreationRadio';
 
 const initialState: State = {
@@ -235,6 +236,7 @@ export const Creation = () => {
 							</label>
 						</form>
 					</CreationStep>
+					<CreationSubmit />
 				</div>
 			</div>
 		</section>
