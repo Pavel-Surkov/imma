@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import creation from '../../assets/images/creation.jpg';
 import creation2x from '../../assets/images/creation@2x.jpg';
 
 export const CreationSubmit: React.FC = () => {
+	const toggleRef = useRef(null);
+
+	const [isSwiped, setIsSwiped] = useState<boolean>(false);
+
+	useEffect(() => {}, []);
+
 	return (
 		<div className="step">
 			<div className="step-submit">
@@ -36,7 +42,7 @@ export const CreationSubmit: React.FC = () => {
 									/>
 								</svg>
 							</span>
-							<div className="slider-toggle"></div>
+							<div className="slider-toggle" ref={toggleRef}></div>
 						</div>
 						<button type="button" className="slider-clean">
 							<svg
