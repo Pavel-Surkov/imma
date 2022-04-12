@@ -7,7 +7,7 @@
     "autoprefixer": "^10.2.6",
     "browser-sync": "^2.27.4",
     "prop-types": "^15.8.1",
-    "react-hammerjs": "^1.0.1",
+    "react-draggable": "^4.4.4",
     "signature_pad": "^4.0.4"
   },
   "devDependencies": {

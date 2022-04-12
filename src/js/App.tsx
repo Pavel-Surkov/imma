@@ -6,17 +6,15 @@ import { Footer } from './components/Footer';
 
 const App: React.FC = () => {
 	return (
-		<React.StrictMode>
-			<BrowserRouter>
-				<div className="app">
-					<Header />
-					<Routes>
-						<Route path="/" element={<Home />} />
-					</Routes>
-					<Footer />
-				</div>
-			</BrowserRouter>
-		</React.StrictMode>
+		<BrowserRouter>
+			<div className="app">
+				<Header />
+				<Routes>
+					<Route path="/" element={<Home />} />
+				</Routes>
+				<Footer />
+			</div>
+		</BrowserRouter>
 	);
 };
 

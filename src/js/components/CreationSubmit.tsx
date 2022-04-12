@@ -1,16 +1,43 @@
-import Hammer from 'react-hammerjs';
 import React, { useState, useEffect, useRef } from 'react';
+import Draggable from 'react-draggable';
 import creation from '../../assets/images/creation.jpg';
 import creation2x from '../../assets/images/creation@2x.jpg';
 
+type DraggableData = {
+	node: HTMLElement;
+	// lastX + deltaX === x
+	x: number;
+	y: number;
+	deltaX: number;
+	deltaY: number;
+	lastX: number;
+	lastY: number;
+};
+
+type DraggableEventHandler = (e: Event, data: DraggableData) => void | false;
+
 export const CreationSubmit: React.FC = () => {
+	const scaleRef = useRef(null);
 	const toggleRef = useRef(null);
 
+	const [boundRight, setBoundRight] = useState<number>(0);
 	const [isSwiped, setIsSwiped] = useState<boolean>(false);
 
-	const handleSwipe = () => {
-		alert('swipe');
-	};
+	useEffect(() => {
+		const scale: HTMLDivElement = scaleRef.current;
+		const toggle: HTMLDivElement = toggleRef.current;
+
+		const paddingLeft: number = parseInt(getComputedStyle(scale)['padding-left']);
+		const paddingRight: number = parseInt(getComputedStyle(scale)['padding-right']);
+
+		const scaleWidth: number = scale.clientWidth - (paddingLeft + paddingRight);
+
+		const toggleWidth: number = toggle.clientWidth;
+
+		const bound: number = scaleWidth - toggleWidth;
+
+		setBoundRight(bound);
+	}, []);
 
 	return (
 		<div className="step">
@@ -28,7 +55,7 @@ export const CreationSubmit: React.FC = () => {
 					<h3 className="title title_size-s step-submit-content__title">Perfect!</h3>
 					<p className="title title_size-xs">Swipe right to create IMMA NFT</p>
 					<div className="slider-wrapper">
-						<div className="slider-field">
+						<div className="slider-field" ref={scaleRef}>
 							<span className="slider-field__placeholder">
 								Create IMMA NFT
 								<svg
@@ -45,9 +72,12 @@ export const CreationSubmit: React.FC = () => {
 									/>
 								</svg>
 							</span>
-							<Hammer onPanStart={''} onPanEnd={() => alert('pan end')}>
+							<Draggable
+								axis="x"
+								bounds={{ top: 0, left: 0, right: boundRight, bottom: 0 }}
+							>
 								<div className="slider-toggle" ref={toggleRef}></div>
-							</Hammer>
+							</Draggable>
 						</div>
 						<button type="button" className="slider-clean">
 							<svg
