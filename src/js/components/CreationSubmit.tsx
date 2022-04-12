@@ -1,3 +1,4 @@
+import Hammer from 'react-hammerjs';
 import React, { useState, useEffect, useRef } from 'react';
 import creation from '../../assets/images/creation.jpg';
 import creation2x from '../../assets/images/creation@2x.jpg';
@@ -7,7 +8,9 @@ export const CreationSubmit: React.FC = () => {
 
 	const [isSwiped, setIsSwiped] = useState<boolean>(false);
 
-	useEffect(() => {}, []);
+	const handleSwipe = () => {
+		alert('swipe');
+	};
 
 	return (
 		<div className="step">
@@ -42,7 +45,9 @@ export const CreationSubmit: React.FC = () => {
 									/>
 								</svg>
 							</span>
-							<div className="slider-toggle" ref={toggleRef}></div>
+							<Hammer onPanStart={''} onPanEnd={() => alert('pan end')}>
+								<div className="slider-toggle" ref={toggleRef}></div>
+							</Hammer>
 						</div>
 						<button type="button" className="slider-clean">
 							<svg

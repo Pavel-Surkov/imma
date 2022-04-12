@@ -45,8 +45,6 @@ export const Creation = () => {
 		} else {
 			setSignatureText('Sign here');
 		}
-
-		console.log('a');
 	}, [window.innerWidth]);
 
 	// TODO: Save signature when submiting creation form
