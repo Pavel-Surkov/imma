@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { State } from '../helpers/creationReducer';
-import Draggable from 'react-draggable';
+import Draggable, { DraggableEvent } from 'react-draggable';
 import creation from '../../assets/images/creation.jpg';
 import creation2x from '../../assets/images/creation@2x.jpg';
 
@@ -15,7 +15,7 @@ type DraggableData = {
 	lastY: number;
 };
 
-type DraggableEventHandler = (e: Event, data: DraggableData) => void | false;
+type DraggableEventHandler = (e?: Event, data?: DraggableData) => void | false;
 
 interface ICreationSubmit {
 	state: State;
@@ -27,7 +27,6 @@ export const CreationSubmit = ({ state, dispatch }: ICreationSubmit) => {
 	const toggleRef = useRef(null);
 
 	const [boundRight, setBoundRight] = useState<number>(0);
-	const [isSwiped, setIsSwiped] = useState<boolean>(false);
 
 	useEffect(() => {
 		const scale: HTMLDivElement = scaleRef.current;
@@ -44,6 +43,15 @@ export const CreationSubmit = ({ state, dispatch }: ICreationSubmit) => {
 
 		setBoundRight(bound);
 	}, []);
+
+	const handleToggleStop = (e: DraggableEvent, data: DraggableData): void => {
+		const currentPosition: number = Math.ceil(data.x);
+
+		if (currentPosition >= boundRight) {
+			console.log('swiped');
+			// TODO: Here must be a function that sends filled form of nft creation
+		}
+	};
 
 	return (
 		<div className="step">
@@ -81,6 +89,7 @@ export const CreationSubmit = ({ state, dispatch }: ICreationSubmit) => {
 							<Draggable
 								axis="x"
 								bounds={{ top: 0, left: 0, right: boundRight, bottom: 0 }}
+								onStop={(evt, data) => handleToggleStop(evt, data)}
 							>
 								<div className="slider-toggle" ref={toggleRef}></div>
 							</Draggable>
