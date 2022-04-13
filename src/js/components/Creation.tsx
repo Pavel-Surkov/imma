@@ -3,6 +3,7 @@ import SignaturePad from 'signature_pad';
 import { State, reducer } from '../helpers/creationReducer';
 import { CreationStep } from './CreationStep';
 import { CreationForm } from './CreationForm';
+import { CreationVideo } from './CreationVideo';
 import { CreationSubmit } from './CreationSubmit';
 import { PriceRadio, BlockchainRadio, SocialRadio } from './CreationRadio';
 
@@ -162,15 +163,7 @@ export const Creation = () => {
 						</div>
 					</CreationStep>
 					<CreationStep number="04" title="Create a video">
-						<div className="step-wrapper step-wrapper_video">
-							<button type="button" className="btn-video" onClick={createVideo}>
-								Create a video
-							</button>
-							<span>
-								*there is only an option to shoot something at the moment, there is
-								no option to upload anything from the gallery
-							</span>
-						</div>
+						<CreationVideo />
 					</CreationStep>
 					<CreationStep number="05" title="Your signature">
 						<div className="step-wrapper">

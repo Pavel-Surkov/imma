@@ -45,7 +45,8 @@ html {
 
 //4. Components
 @import 'components/title', 'components/button', 'components/section', 'components/note', 'components/list',
-	'components/table', 'components/swiper', 'components/input', 'components/slider';
+	'components/table', 'components/swiper', 'components/input', 'components/slider', 'components/close',
+	'components/bg-blur';
 
 // 5. Layout-related sections
 @import 'layout/header', 'layout/main', 'layout/footer';

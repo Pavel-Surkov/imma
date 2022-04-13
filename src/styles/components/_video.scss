@@ -1,6 +1,55 @@
 .video {
 	position: relative;
 	border-radius: 2px;
+	&-modal {
+		z-index: 10;
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, calc(-50%));
+		&-wrapper {
+			position: relative;
+		}
+		&__title {
+			text-align: center;
+			margin-bottom: 20px;
+			@include font(3.6rem, calc(47 / 36));
+		}
+		&__screen {
+			position: relative;
+		}
+		&__close {
+			&-wrapper {
+				position: absolute;
+				z-index: 20;
+				top: 0;
+				right: -30px;
+			}
+		}
+		&__video {
+			max-width: calc(100vw - 40px);
+			max-height: calc(100vh - 100px);
+			border-radius: 10px;
+			background: $black;
+		}
+		&__control {
+			position: absolute;
+			bottom: 17px;
+			left: 50%;
+			transform: translateX(-50%);
+			@include flex();
+			&-btn {
+				@include grid(0, center, center);
+				background: rgba($white, 0.2);
+				width: 70px;
+				height: 70px;
+				margin-right: 12px;
+				&:last-child {
+					margin: 0;
+				}
+			}
+		}
+	}
 	&-bottom {
 		position: absolute;
 		left: 0;
@@ -95,6 +144,32 @@
 	.video {
 		width: 100%;
 		margin: 0 auto;
+		&-modal {
+			&__title {
+				margin-bottom: 10px;
+				@include font(2rem, calc(26 / 20));
+			}
+			&__control {
+				&-btn {
+					margin-right: 5px;
+					width: 50px;
+					height: 50px;
+					&:last-child {
+						margin-right: 0;
+					}
+					& svg {
+						max-width: 18px;
+						max-height: 18px;
+					}
+				}
+			}
+			&__close {
+				&-wrapper {
+					right: 10px;
+					top: 10px;
+				}
+			}
+		}
 		&-play {
 			width: 78px;
 			height: 78px;
