@@ -6,7 +6,7 @@ import { CreationForm } from './CreationForm';
 import { CreationSubmit } from './CreationSubmit';
 import { PriceRadio, BlockchainRadio, SocialRadio } from './CreationRadio';
 
-const initialState: State = {
+export const initialState: State = {
 	wallets: {
 		originalWallet: {
 			walletNumber: '',
@@ -234,7 +234,7 @@ export const Creation = () => {
 							</label>
 						</form>
 					</CreationStep>
-					<CreationSubmit />
+					<CreationSubmit state={state} dispatch={dispatch} />
 				</div>
 			</div>
 		</section>

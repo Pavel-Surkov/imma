@@ -1,3 +1,5 @@
+import { initialState } from '../components/Creation';
+
 // Adding types to reducer
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V;
 
@@ -8,7 +10,8 @@ export type ActionType =
 	| Action<'SET_PRICE_ISFREE', { value: boolean }>
 	| Action<'CHANGE_PRICE', { value: number }>
 	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>
-	| Action<'SET_SOCIAL', { value: 'instagram' | 'twitter' }>;
+	| Action<'SET_SOCIAL', { value: 'instagram' | 'twitter' }>
+	| Action<'CLEAN_FORM', {}>;
 
 export enum Wallets {
 	original = 'originalWallet',
@@ -119,6 +122,21 @@ export function reducer(state: State, action: ActionType) {
 				verification: {
 					social: action.value,
 					isVerified: state.verification.isVerified
+				}
+			};
+		}
+		case 'CLEAN_FORM': {
+			return {
+				...initialState,
+				wallets: {
+					originalWallet: {
+						walletNumber: '',
+						isVerified: false
+					},
+					creatorWallet: {
+						walletNumber: '',
+						isVerified: false
+					}
 				}
 			};
 		}

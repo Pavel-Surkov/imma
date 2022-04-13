@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { State } from '../helpers/creationReducer';
 import Draggable from 'react-draggable';
 import creation from '../../assets/images/creation.jpg';
 import creation2x from '../../assets/images/creation@2x.jpg';
@@ -16,7 +17,12 @@ type DraggableData = {
 
 type DraggableEventHandler = (e: Event, data: DraggableData) => void | false;
 
-export const CreationSubmit: React.FC = () => {
+interface ICreationSubmit {
+	state: State;
+	dispatch: React.Dispatch<any>;
+}
+
+export const CreationSubmit = ({ state, dispatch }: ICreationSubmit) => {
 	const scaleRef = useRef(null);
 	const toggleRef = useRef(null);
 
@@ -79,7 +85,11 @@ export const CreationSubmit: React.FC = () => {
 								<div className="slider-toggle" ref={toggleRef}></div>
 							</Draggable>
 						</div>
-						<button type="button" className="slider-clean">
+						<button
+							type="button"
+							className="slider-clean"
+							onClick={() => dispatch({ type: 'CLEAN_FORM' })}
+						>
 							<svg
 								width="20"
 								height="21"
