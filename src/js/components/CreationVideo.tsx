@@ -5,6 +5,34 @@ function hasGetUserMedia() {
 	return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
 
+// function log(msg) {
+// 	logElement.innerHTML += msg + '\n';
+// }
+
+function wait(delayInMS) {
+	return new Promise((resolve) => setTimeout(resolve, delayInMS));
+}
+
+// TODO: Add this recording finction to the element
+// Function to record a video useing getUserMedia API
+function startRecording(stream: MediaStream, lengthInMS: number): Promise<Blob[]> {
+	let recorder: MediaRecorder = new MediaRecorder(stream);
+	let data: Array<null | Blob> = [];
+
+	recorder.ondataavailable = (event) => data.push(event.data);
+	recorder.start();
+	// log(recorder.state + ' for ' + lengthInMS / 1000 + ' seconds...');
+
+	let stopped = new Promise((resolve, reject) => {
+		recorder.onstop = resolve;
+		recorder.onerror = (event) => reject(event);
+	});
+
+	let recorded = wait(lengthInMS).then(() => recorder.state == 'recording' && recorder.stop());
+
+	return Promise.all([stopped, recorded]).then(() => data);
+}
+
 export const CreationVideo = () => {
 	const videoRef = useRef(null);
 
@@ -43,10 +71,15 @@ export const CreationVideo = () => {
 		// Options for media
 		const hdConstraints = {
 			audio: true,
-			video: { width: { min: 1280 }, height: { min: 720 } }
+			video: { width: { min: 1280 }, height: { min: 720 }, facingMode: 'user' }
 		};
 
 		getMedia(hdConstraints);
+	};
+
+	const handleRecord = (): void => {
+		// Blob object with recorded video
+		const video: Promise<Blob[]> = startRecording(stream, 10000);
 	};
 
 	const closeVideo = (): void => {
@@ -100,6 +133,7 @@ export const CreationVideo = () => {
 								type="button"
 								className="video-modal__control-btn video-modal__control-btn_record"
 								aria-label="record and stop"
+								onClick={handleRecord}
 							>
 								<svg
 									width="24"
