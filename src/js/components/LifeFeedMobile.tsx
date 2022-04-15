@@ -21,7 +21,7 @@ export const LifeFeedMobile = ({ tableData, dateConvert }: LifeFeedMobileProps) 
 						<div className="lifefeed-mobile__video">
 							<div className="video">
 								<img
-									width="78"
+									width="100"
 									className="video-preview"
 									src={row.image.quality1x}
 									srcSet={`${row.image.quality1x} 1x, ${
@@ -47,7 +47,7 @@ export const LifeFeedMobile = ({ tableData, dateConvert }: LifeFeedMobileProps) 
 									</Link>
 								</div>
 							</div>
-							<img src={row.sign} alt="sign" />
+							<img data-img="sign" src={row.sign} alt="sign" />
 						</div>
 						<div className="lifefeed-mobile__info">
 							<div className="lifefeed-mobile__info-block">
@@ -97,7 +97,7 @@ export const LifeFeedMobile = ({ tableData, dateConvert }: LifeFeedMobileProps) 
 							<div className="lifefeed-mobile__activity-block">
 								<p>Reunited with Original NFT wallet</p>
 								<p className="title">
-									by{' '}
+									by&nbsp;
 									<a className="link" href={row.token_url}>
 										0x217828160ff79e02c67A2785fd8dA2D2bD86c28E
 									</a>
