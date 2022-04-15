@@ -112,6 +112,21 @@
 	}
 }
 
+@media screen and (max-width: 1230px) {
+	.table {
+		&-row {
+			& .table-col {
+				&:last-child {
+					& img {
+						margin: 0;
+						margin-bottom: 10px;
+					}
+				}
+			}
+		}
+	}
+}
+
 @media screen and (max-width: 991px) {
 	.table {
 		min-width: 1170px;
