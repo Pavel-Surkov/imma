@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // Chqck for getUserMedia() API availability in current browser
 function hasGetUserMedia() {
@@ -9,28 +9,8 @@ function hasGetUserMedia() {
 // 	logElement.innerHTML += msg + '\n';
 // }
 
-function wait(delayInMS) {
-	return new Promise((resolve) => setTimeout(resolve, delayInMS));
-}
-
-// TODO: Add this recording finction to the element
-// Function to record a video useing getUserMedia API
-function startRecording(stream: MediaStream, lengthInMS: number): Promise<Blob[]> {
-	let recorder: MediaRecorder = new MediaRecorder(stream);
-	let data: Array<null | Blob> = [];
-
-	recorder.ondataavailable = (event) => data.push(event.data);
-	recorder.start();
-	// log(recorder.state + ' for ' + lengthInMS / 1000 + ' seconds...');
-
-	let stopped = new Promise((resolve, reject) => {
-		recorder.onstop = resolve;
-		recorder.onerror = (event) => reject(event);
-	});
-
-	let recorded = wait(lengthInMS).then(() => recorder.state == 'recording' && recorder.stop());
-
-	return Promise.all([stopped, recorded]).then(() => data);
+function wait(delayInSec) {
+	return new Promise((resolve) => setTimeout(resolve, delayInSec * 1000));
 }
 
 export const CreationVideo = () => {
@@ -38,6 +18,17 @@ export const CreationVideo = () => {
 
 	const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 	const [stream, setStream] = useState<MediaStream | null>(null);
+	const [recorder, setRecorder] = useState<null | MediaRecorder>(null);
+	const [recorderState, setRecorderState] = useState<'recording' | 'inactive'>('inactive');
+	const [video, setVideo] = useState<null | Blob>(null);
+
+	useEffect(() => {
+		if (stream) {
+			const recorder: MediaRecorder = new MediaRecorder(stream);
+
+			setRecorder(recorder);
+		}
+	}, [stream]);
 
 	const createVideo = (): void => {
 		if (!hasGetUserMedia()) {
@@ -78,8 +69,38 @@ export const CreationVideo = () => {
 	};
 
 	const handleRecord = (): void => {
-		// Blob object with recorded video
-		const video: Promise<Blob[]> = startRecording(stream, 10000);
+		// Function to record a video useing getUserMedia API
+		function startRecording(recorder: MediaRecorder, lengthInSec: number): Promise<Blob[]> {
+			const data: Array<null | Blob> = [];
+
+			recorder.ondataavailable = (event) => data.push(event.data);
+
+			const stopped = new Promise((resolve, reject) => {
+				recorder.onstop = () => resolve(data);
+				recorder.onerror = (event) => reject(event);
+			});
+
+			if (recorder.state === 'recording') {
+				recorder.stop();
+				setRecorderState('inactive');
+
+				return Promise.all([stopped]).then(() => data);
+			}
+
+			recorder.start();
+			setRecorderState('recording');
+
+			const recorded = wait(lengthInSec).then(
+				() => recorder.state == 'recording' && recorder.stop()
+			);
+
+			return Promise.all([stopped, recorded]).then(() => data);
+		}
+
+		// Blob array with recorded video
+		const videosArr: Promise<Blob[]> = startRecording(recorder, 5);
+
+		videosArr.then((videos) => setVideo(videos[0]));
 	};
 
 	const closeVideo = (): void => {
@@ -142,7 +163,12 @@ export const CreationVideo = () => {
 									fill="none"
 									xmlns="http://www.w3.org/2000/svg"
 								>
-									<circle cx="12.1839" cy="11.8245" r="11.389" fill="#D6FF7E" />
+									<circle
+										cx="12.1839"
+										cy="11.8245"
+										r="11.389"
+										fill={recorderState === 'recording' ? '#34DBFF' : '#D6FF7E'}
+									/>
 								</svg>
 							</button>
 							<button

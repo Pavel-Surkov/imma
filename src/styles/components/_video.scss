@@ -39,6 +39,7 @@
 			transform: translateX(-50%);
 			@include flex();
 			&-btn {
+				border-radius: 2px;
 				@include grid(0, center, center);
 				background: rgba($white, 0.2);
 				width: 70px;
