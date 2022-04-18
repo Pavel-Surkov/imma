@@ -13,8 +13,8 @@ const App: React.FC = () => {
 				<Header />
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/nfts" element={<AllImmaNft />} />
-					<Route path="/nfts/:nft" element={<Product />} />
+					<Route path="/allnft" element={<AllImmaNft />} />
+					<Route path="/allnft/:nft" element={<Product />} />
 				</Routes>
 				<Footer />
 			</div>
