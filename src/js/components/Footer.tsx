@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
 import { SocialLink, socialLinkT } from './SocialLink';
 import instagram from '../../assets/images/icons/instagram.svg';
@@ -51,16 +51,20 @@ const footerSocialIcons: Array<socialLinkT> = [
 ];
 
 export const Footer: React.FC = () => {
+	const path = useLocation();
+
+	console.log(path);
+
 	return (
 		<footer className="footer">
 			<div className="footer-wrapper">
 				<div className="container">
 					<div className="footer-content">
-						<a className="footer-content__logo" href="#header">
+						<a className="footer-content__logo" href={`${path.pathname}#header`}>
 							<img width="117" src={logo} alt="logo"></img>
 						</a>
 						<div className="footer-content__up-wrapper">
-							<a href="#header" className="footer-content__up">
+							<a href={`${path.pathname}#header`} className="footer-content__up">
 								<svg
 									width="19"
 									height="33"
