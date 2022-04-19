@@ -27,7 +27,8 @@ export const SortNft: React.FC = () => {
 			<div className="nfts-sort__sort">
 				Sort by:
 				<div className="nfts-sort__select-wrapper">
-					<select name="" className="nfts-sort__select" defaultValue="adress">
+					<select className="nfts-sort__select" defaultValue="adress">
+						{/* value */}
 						<option value="address">IMMA NFT token address</option>
 						<option value="">IMMA NFT token</option>
 						<option value="">IMMA NFT </option>

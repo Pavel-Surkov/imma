@@ -5,16 +5,13 @@ function hasGetUserMedia() {
 	return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
 
-// function log(msg) {
-// 	logElement.innerHTML += msg + '\n';
-// }
-
 function wait(delayInSec) {
 	return new Promise((resolve) => setTimeout(resolve, delayInSec * 1000));
 }
 
 export const CreationVideo = () => {
 	const videoRef = useRef(null);
+	const mediaRef = useRef(null);
 
 	const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 	const [stream, setStream] = useState<MediaStream | null>(null);
@@ -42,7 +39,7 @@ export const CreationVideo = () => {
 		setIsModalOpened(true);
 
 		const getMedia = async (constraints) => {
-			const video: HTMLVideoElement = videoRef.current;
+			const video: HTMLVideoElement = mediaRef.current;
 
 			let stream: null | MediaStream = null;
 
@@ -98,7 +95,8 @@ export const CreationVideo = () => {
 		}
 
 		// Blob array with recorded video
-		const videosArr: Promise<Blob[]> = startRecording(recorder, 5);
+		// (60 * 5 means that max video length is 5 minutes)
+		const videosArr: Promise<Blob[]> = startRecording(recorder, 60 * 5);
 
 		videosArr.then((videos) => setVideo(videos[0]));
 	};
@@ -117,6 +115,15 @@ export const CreationVideo = () => {
 		}
 
 		setStream(null);
+	};
+
+	const discardVideo = (): void => {
+		if (video) {
+			setVideo(null);
+		} else if (recorderState === 'recording') {
+			recorder.stop();
+			setRecorderState('inactive');
+		}
 	};
 
 	return (
@@ -146,15 +153,29 @@ export const CreationVideo = () => {
 							className="video-modal__video"
 							width="540"
 							height="660"
-							autoPlay
-							ref={videoRef}
+							autoPlay={true}
+							ref={mediaRef}
+							style={video ? { display: 'none' } : { display: 'block' }}
 						></video>
+						<video
+							className="video-modal__video"
+							width="540"
+							height="660"
+							autoPlay={true}
+							src={video ? URL.createObjectURL(video) : null}
+							ref={videoRef}
+							style={video ? { display: 'block' } : { display: 'none' }}
+							onEnded={() => videoRef.current.play()}
+						>
+							Your browser doesn't support video tag
+						</video>
 						<div className="video-modal__control">
 							<button
 								type="button"
 								className="video-modal__control-btn video-modal__control-btn_record"
-								aria-label="record and stop"
+								aria-label={recorderState === 'recording' ? 'stop' : 'record'}
 								onClick={handleRecord}
+								disabled={stream ? false : true}
 							>
 								<svg
 									width="24"
@@ -167,7 +188,7 @@ export const CreationVideo = () => {
 										cx="12.1839"
 										cy="11.8245"
 										r="11.389"
-										fill={recorderState === 'recording' ? '#34DBFF' : '#D6FF7E'}
+										fill={recorderState === 'recording' ? '#F00000' : '#D6FF7E'}
 									/>
 								</svg>
 							</button>
@@ -175,6 +196,8 @@ export const CreationVideo = () => {
 								type="button"
 								className="video-modal__control-btn video-modal__control-btn_discard"
 								aria-label="discard"
+								onClick={discardVideo}
+								disabled={stream ? false : true}
 							>
 								<svg
 									width="19"

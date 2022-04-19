@@ -48,6 +48,17 @@
 				&:last-child {
 					margin: 0;
 				}
+				&_discard {
+					&:hover rect {
+						fill: #f00000;
+					}
+				}
+				&:active {
+					opacity: 0.8;
+				}
+				&:disabled {
+					opacity: 0.3;
+				}
 			}
 		}
 	}
