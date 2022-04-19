@@ -147,7 +147,7 @@ const tableData: Array<ITableData> = [
 ];
 
 // A function that converts dates form table data to string equivalents
-const dateConvert = (date: Date): string => {
+function dateConvert(date: Date): string {
 	const dateNow: Date = new Date();
 
 	const datesDiffInSeconds: number = Math.abs(dateNow.getTime() - date.getTime()) / 1000;
@@ -179,7 +179,27 @@ const dateConvert = (date: Date): string => {
 	}
 
 	return output;
-};
+}
+
+function convertDateToString(date: Date): string {
+	// 02\04\22 02:00
+
+	const [month, day, year, hours, minutes]: number[] = [
+		date.getMonth() + 1,
+		date.getDate(),
+		date.getFullYear(),
+		date.getHours(),
+		date.getMinutes()
+	];
+
+	const stringMonth: string = String(month).length === 1 ? `0${month}` : `${month}`;
+	const stringDay: string = String(day).length === 1 ? `0${day}` : `${day}`;
+	const stringYear: string = String(year).slice(2);
+	const stringHours: string = String(hours).length === 1 ? `0${hours}` : `${hours}`;
+	const stringMinutes: string = String(minutes).length === 1 ? `0${minutes}` : `${minutes}`;
+
+	return `${stringMonth}\\${stringDay}\\${stringYear} ${stringHours}:${stringMinutes}`;
+}
 
 const tableColumnsNames: Array<string> = ['', 'Information', '', '', 'Activity'];
 
@@ -193,6 +213,7 @@ export const LifeFeed: React.FC = () => {
 						tableColumnsNames={tableColumnsNames}
 						tableData={tableData}
 						dateConvert={dateConvert}
+						convertDateToString={convertDateToString}
 					/>
 					<LifeFeedMobile tableData={tableData} dateConvert={dateConvert} />
 				</div>

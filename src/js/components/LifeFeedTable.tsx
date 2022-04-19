@@ -7,12 +7,14 @@ interface LifeFeedTableProps {
 	tableColumnsNames: Array<string>;
 	tableData: Array<ITableData>;
 	dateConvert: (date: Date) => string;
+	convertDateToString: (date: Date) => string;
 }
 
 export const LifeFeedTable = ({
 	tableColumnsNames,
 	tableData,
-	dateConvert
+	dateConvert,
+	convertDateToString
 }: LifeFeedTableProps) => {
 	return (
 		<table className="table lifefeed-table">
@@ -30,8 +32,9 @@ export const LifeFeedTable = ({
 			<tbody className="table-body">
 				{tableData.map((row) => {
 					const dateOutput: string = dateConvert(row.date);
-					const dateString: string = '02\\04\\22 02:00';
 					const shortToken: string = row.token.slice(0, 13) + '...';
+
+					const dateString: string = convertDateToString(row.date);
 
 					return (
 						<tr className="table-row" key={row.id}>
