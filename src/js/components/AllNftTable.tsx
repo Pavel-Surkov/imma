@@ -3,38 +3,21 @@ import { Link } from 'react-router-dom';
 import { ITableData } from '../helpers/nftTableData';
 import avatar from '../../assets/images/icons/avatar.svg';
 
-interface LifeFeedTableProps {
-	tableColumnsNames: Array<string>;
+interface AllNftTableProps {
 	tableData: Array<ITableData>;
 	dateConvert: (date: Date) => string;
 	convertDateToString: (date: Date) => string;
 }
 
-export const LifeFeedTable = ({
-	tableColumnsNames,
-	tableData,
-	dateConvert,
-	convertDateToString
-}: LifeFeedTableProps) => {
+export const AllNftTable = ({ tableData, dateConvert, convertDateToString }: AllNftTableProps) => {
 	return (
 		<table className="table lifefeed-table">
-			<thead className="table-header">
-				<tr className="table-row">
-					{tableColumnsNames.map((columnName, i) => {
-						return (
-							<td className="table-col" key={i}>
-								{columnName}
-							</td>
-						);
-					})}
-				</tr>
-			</thead>
 			<tbody className="table-body">
 				{tableData.map((row) => {
-					const dateOutput: string = dateConvert(row.date);
-					const shortToken: string = row.token.slice(0, 13) + '...';
+					const shortToken: string = row.token.slice(0, 17) + '...';
+					const shortOwnerWallet: string = row.owner_wallet.slice(0, 9) + '...';
 
-					const dateString: string = convertDateToString(row.date);
+					const lastPrice: number = Number(row.lastprice);
 
 					return (
 						<tr className="table-row" key={row.id}>
@@ -48,7 +31,7 @@ export const LifeFeedTable = ({
 											row.image.quality2x ? row.image.quality2x : ''
 										} 2x`}
 										alt=""
-									></img>
+									/>
 									<div className="video-play__wrapper">
 										<Link to={row.slug} className="video-play">
 											<svg
@@ -66,65 +49,64 @@ export const LifeFeedTable = ({
 											</svg>
 										</Link>
 									</div>
+									<div className="video-play__link">
+										<Link to={row.slug}>
+											<svg
+												width="21"
+												height="9"
+												viewBox="0 0 21 9"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M0.107422 4.62582H20.1074M20.1074 4.62582L16.2979 1.02582M20.1074 4.62582L16.2979 8.22582"
+													stroke="white"
+													strokeWidth="0.84374"
+												/>
+											</svg>
+										</Link>
+									</div>
 								</div>
 							</td>
 							<td className="table-col">
-								<div className="table-col__wrapper">
-									<p className="title">IMMA NFT</p>
-									<p>{row.hash}</p>
-									<p className="title">Date/Time</p>
-									<p>{dateOutput}</p>
-								</div>
-							</td>
-							<td className="table-col">
-								<p className="title">Signed & Created by</p>
+								<p className="title">Signed and created by</p>
 								<p>{row.author}</p>
-								<p className="title">TX</p>
-								<a href={row.tx.link}>
-									<svg
-										width="18"
-										height="19"
-										viewBox="0 0 18 19"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
-									>
-										<path
-											d="M7 3.76514H1.5V17.7651H15.5V12.7651"
-											stroke="white"
-											strokeWidth="2"
-										/>
-										<path
-											d="M10 8.76514L17 1.76514M17 1.76514V8.76514M17 1.76514H10"
-											stroke="white"
-											strokeWidth="2"
-										/>
-									</svg>
-								</a>
 							</td>
 							<td className="table-col">
 								<div className="table-col__wrapper">
-									<p className="title">Original NFT token</p>
+									<p className="title">IMMA NFT {row.hash}</p>
+									<p>{row.hash}</p>
+								</div>
+							</td>
+							<td className="table-col">
+								<div className="table-col__wrapper">
+									<p className="title">Original NFT token adress</p>
 									<p>
 										<a className="link" href={row.token_url}>
 											{shortToken}
 										</a>
 									</p>
+								</div>
+							</td>
+							<td className="table-col">
+								<div className="table-col__wrapper">
+									<p className="title">Current owner wallet</p>
+									<p>
+										<a className="link" href={row.owner_wallet_url}>
+											{shortOwnerWallet}
+										</a>
+									</p>
+								</div>
+							</td>
+							<td className="table-col">
+								<div className="table-col__wrapper">
 									<img src={row.sign} alt="sign" />
 								</div>
 							</td>
 							<td className="table-col">
 								<div className="table-col__wrapper">
-									<img src={row.avatar ? row.avatar : avatar} alt="avatar" />
-									<div>
-										<p>Reunited with Original NFT wallet</p>
-										<p className="title">
-											by{' '}
-											<a className="link" href={row.token_url}>
-												0x217828160ff79e02c67A2785fd8dA2D2bD86c28E
-											</a>
-										</p>
-										<p className="title">{dateString}</p>
-									</div>
+									<p className="title">Last Price</p>
+									<p>{lastPrice} ETH</p>
 								</div>
 							</td>
 						</tr>

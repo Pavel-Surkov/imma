@@ -1,7 +1,7 @@
 import React from 'react';
 import avatar from '../../assets/images/icons/avatar.svg';
 import { Link } from 'react-router-dom';
-import { ITableData } from './LifeFeed';
+import { ITableData } from '../helpers/nftTableData';
 
 interface LifeFeedMobileProps {
 	tableData: Array<ITableData>;
