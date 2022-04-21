@@ -13,6 +13,33 @@
 			max-width: calc(100% - ((100% - 1170px) / 2));
 		}
 	}
+	&_mobile {
+		display: none;
+		& .video {
+			@include flex(row, flex-end);
+			&-play {
+				&__link {
+					position: absolute;
+					bottom: 5px;
+					right: 5px;
+					width: 40px;
+					height: 40px;
+					& a {
+						width: inherit;
+						height: inherit;
+						@include grid(0, center, center);
+						border-radius: 2px;
+						background: rgba(#f3f3f3, 0.2);
+						backdrop-filter: blur(4px);
+					}
+					& svg {
+						max-width: none;
+						width: 20px;
+					}
+				}
+			}
+		}
+	}
 	&__title {
 		text-transform: uppercase;
 		margin-bottom: 40px;
@@ -34,6 +61,17 @@
 		&__swiper {
 			&-wrapper {
 				max-width: calc(100% - ((100% - 690px) / 2));
+			}
+		}
+		&_mobile {
+			display: block;
+			& .video-play {
+				width: 50px;
+				height: 50px;
+				& svg[data-svg='play'] {
+					width: 14px;
+					height: 17px;
+				}
 			}
 		}
 	}

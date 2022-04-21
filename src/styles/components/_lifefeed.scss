@@ -6,13 +6,12 @@
 		max-width: 500px;
 		&__item {
 			display: grid;
-
 			grid-template-columns: calc(20% - 7.5px) calc(80% - 7.5px);
 			grid-gap: 15px;
-			border-top: 1px solid $white;
+			border-bottom: 1px solid $white;
 			padding: 15px 0;
-			&:last-child {
-				border-bottom: 1px solid $white;
+			&:first-child {
+				border-top: 1px solid $white;
 			}
 			& a {
 				color: $lightgreen;
@@ -30,9 +29,13 @@
 			}
 		}
 		&__video {
+			& img[data-img='sign'] {
+				margin: 0 auto;
+				max-width: 80%;
+			}
 			& .video {
 				display: inline-block;
-				margin-bottom: 11px;
+				margin-bottom: 13px;
 				&-play {
 					width: 27px;
 					height: 27px;
