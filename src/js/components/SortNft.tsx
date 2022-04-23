@@ -1,12 +1,31 @@
 import React from 'react';
+import { TableActionType } from '../pages/AllImmaNft';
 
-export const SortNft: React.FC = () => {
+interface SortNftProps {
+	value: string;
+	dispatch: React.Dispatch<TableActionType>;
+}
+
+export const SortNft = ({ value, dispatch }: SortNftProps) => {
 	return (
 		<div className="nfts-sort">
 			<div className="nfts-sort__search-block">
 				<div className="nfts-sort__search">
-					<input className="input" type="text" name="search" placeholder="Search..." />
-					<button type="button" className="nfts-sort__search-btn">
+					<input
+						className="input"
+						type="text"
+						name="search"
+						placeholder="Search..."
+						value={value}
+						onChange={(evt) =>
+							dispatch({ type: 'SORT_SEARCH_CHANGE', value: evt.target.value })
+						}
+					/>
+					<button
+						type="button"
+						className="nfts-sort__search-btn"
+						onClick={() => dispatch({ type: 'SORT_SEARCH' })}
+					>
 						<svg
 							width="17"
 							height="19"
