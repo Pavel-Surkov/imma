@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SortNft } from '../components/SortNft';
 import { AllNftTable, AllNftMobile } from '../components/AllNftTable';
-import { tableData, dateConvert, convertDateToString } from '../helpers/nftTableData';
+import { tableData } from '../helpers/nftTableData';
 
 export const AllImmaNft: React.FC = () => {
 	const [allTableVisible, setAllTableVisible] = useState<boolean>(false);

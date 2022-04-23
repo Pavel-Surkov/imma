@@ -72,6 +72,7 @@
 	}
 	& .table {
 		& .video {
+			height: 100%;
 			@include flex(row, flex-end);
 			&-play {
 				&__link {
@@ -95,6 +96,10 @@
 		}
 		&-row {
 			& .table-col {
+				& .video-bottom {
+					display: none;
+					padding: 8px 9px;
+				}
 				& p {
 					@include font(1.6rem, calc(21 / 16));
 				}
@@ -106,6 +111,57 @@
 					width: calc((134 / 1170) * 100%);
 					padding-right: 65px;
 					min-width: 134px;
+					@media screen and (min-width: 991px) {
+						&:hover {
+							max-width: 162px;
+							position: relative;
+							z-index: 10;
+							transform: scale(1.5) translateX(0);
+							padding: 0;
+							& .video__wrapper {
+								height: 100%;
+								position: absolute;
+								top: 0;
+								left: 0;
+								max-width: 108px;
+							}
+							& .video-bottom {
+								display: flex;
+								max-height: 27px;
+								border-radius: 2px;
+								border-top-left-radius: 1px;
+								border-top-right-radius: 1px;
+								& img {
+									box-shadow: initial;
+									max-width: 26px;
+								}
+								&__tag-date {
+									@include font(0.7rem, calc(13 / 10));
+								}
+							}
+							& .video-play {
+								width: 33px;
+								height: 33px;
+								&__link {
+									width: 27px;
+									height: 27px;
+									& svg {
+										width: 13px;
+									}
+								}
+								& svg {
+									width: 9px;
+									height: 11px;
+								}
+							}
+							& img {
+								box-shadow: 0 0 20px rgba($white, 0.7);
+								width: 100%;
+								border-radius: 2px;
+								max-height: 191px;
+							}
+						}
+					}
 				}
 				&:nth-child(2) {
 					width: calc((199 / 1170) * 100%);

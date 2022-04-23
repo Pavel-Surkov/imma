@@ -28,7 +28,7 @@ export const HomeMain: React.FC = () => {
 								<Button
 									className="btn home-main__btn"
 									type="route"
-									properties={{ text: 'To all Imma NFTs', to: '/' }}
+									properties={{ text: 'To all Imma NFTs', to: '/allnft' }}
 								/>
 							</div>
 						</div>
