@@ -34,6 +34,9 @@
 				position: relative;
 				border-radius: 2px;
 				background: rgba(#f3f3f3, 0.2);
+				&:hover {
+					background: #f3f3f343;
+				}
 				& svg {
 					position: absolute;
 					left: 50%;

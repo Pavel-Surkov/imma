@@ -1,12 +1,49 @@
-import React from 'react';
-import { TableActionType } from '../pages/AllImmaNft';
+import React, { useEffect, useRef } from 'react';
+import { TableActionType, AllNftStateT } from '../pages/AllImmaNft';
 
 interface SortNftProps {
-	value: string;
+	state: AllNftStateT;
 	dispatch: React.Dispatch<TableActionType>;
 }
 
-export const SortNft = ({ value, dispatch }: SortNftProps) => {
+type SortOptionsT = {
+	id: string;
+	text: string;
+	tag: string;
+};
+
+const sortOptions: Array<SortOptionsT> = [
+	{
+		id: '1',
+		text: 'IMMA NFT token address',
+		tag: 'address'
+	},
+	{
+		id: '2',
+		text: 'IMMA NFT author',
+		tag: 'author'
+	}
+];
+
+export const SortNft = ({ state, dispatch }: SortNftProps) => {
+	const searchRef = useRef(null);
+
+	useEffect(() => {
+		window.addEventListener('keydown', (e) => {
+			if (e.code === 'Enter') {
+				searchRef.current.click();
+			}
+		});
+
+		return () => {
+			window.removeEventListener('keydown', (e) => {
+				if (e.code === 'Enter') {
+					searchRef.current.click();
+				}
+			});
+		};
+	}, []);
+
 	return (
 		<div className="nfts-sort">
 			<div className="nfts-sort__search-block">
@@ -16,7 +53,7 @@ export const SortNft = ({ value, dispatch }: SortNftProps) => {
 						type="text"
 						name="search"
 						placeholder="Search..."
-						value={value}
+						value={state.searchValue}
 						onChange={(evt) =>
 							dispatch({ type: 'SORT_SEARCH_CHANGE', value: evt.target.value })
 						}
@@ -25,6 +62,7 @@ export const SortNft = ({ value, dispatch }: SortNftProps) => {
 						type="button"
 						className="nfts-sort__search-btn"
 						onClick={() => dispatch({ type: 'SORT_SEARCH' })}
+						ref={searchRef}
 					>
 						<svg
 							width="17"
@@ -46,12 +84,20 @@ export const SortNft = ({ value, dispatch }: SortNftProps) => {
 			<div className="nfts-sort__sort">
 				Sort by:
 				<div className="nfts-sort__select-wrapper">
-					<select className="nfts-sort__select" defaultValue="adress">
-						{/* value */}
-						<option value="address">IMMA NFT token address</option>
-						<option value="">IMMA NFT token</option>
-						<option value="">IMMA NFT </option>
-						<option value="">IMMA </option>
+					<select
+						className="nfts-sort__select"
+						value={state.sortValue}
+						onChange={(evt) =>
+							dispatch({ type: 'SORT_BY_CHANGE', value: evt.target.value })
+						}
+					>
+						{sortOptions.map((option) => {
+							return (
+								<option value={option.tag} key={option.id}>
+									{option.text}
+								</option>
+							);
+						})}
 					</select>
 				</div>
 			</div>
