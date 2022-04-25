@@ -88,7 +88,7 @@ export const SortNft = ({ state, dispatch }: SortNftProps) => {
 						className="nfts-sort__select"
 						value={state.sortValue}
 						onChange={(evt) =>
-							dispatch({ type: 'SORT_BY_CHANGE', value: evt.target.value })
+							dispatch({ type: 'SORT_PARAMETER_CHANGE', value: evt.target.value })
 						}
 					>
 						{sortOptions.map((option) => {

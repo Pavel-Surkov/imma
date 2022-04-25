@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { SortNft } from '../components/SortNft';
 import { AllNftTable, AllNftMobile } from '../components/AllNftTable';
 import { tableData, ITableData } from '../helpers/nftTableData';
@@ -6,7 +6,7 @@ import { Action } from '../helpers/creationReducer';
 
 export type TableActionType =
 	| Action<'SORT_SEARCH', {}>
-	| Action<'SORT_BY_CHANGE', { value: string }>
+	| Action<'SORT_PARAMETER_CHANGE', { value: string }>
 	| Action<'SORT_SEARCH_CHANGE', { value: string }>;
 
 export type AllNftStateT = {
@@ -24,7 +24,6 @@ const initialState: AllNftStateT = {
 };
 
 // !"Sort by" filters state.currentTableData; Search filters initialState.currentTableData
-
 function reducer(state: AllNftStateT, action: TableActionType) {
 	switch (action.type) {
 		case 'SORT_SEARCH_CHANGE': {
@@ -52,19 +51,26 @@ function reducer(state: AllNftStateT, action: TableActionType) {
 				);
 			});
 
-			console.log(state.currentTableData);
-
 			return {
 				...state,
 				currentTableData: sortedNftData
 			};
 		}
-		case 'SORT_BY_CHANGE': {
-			console.log(action.value);
+		case 'SORT_PARAMETER_CHANGE': {
+			const value: string = action.value;
+			const nftData: Array<ITableData> = state.currentTableData;
+
+			const sortedNftData: Array<ITableData> = nftData.sort((a, b) => {
+				const prevValue: any = a[`${value}`];
+				const nextValue: any = b[`${value}`];
+
+				return prevValue >= nextValue ? 1 : -1;
+			});
 
 			return {
 				...state,
-				sortValue: action.value
+				sortValue: value,
+				currentTableData: sortedNftData
 			};
 		}
 		default: {
@@ -76,6 +82,9 @@ function reducer(state: AllNftStateT, action: TableActionType) {
 export const AllImmaNft: React.FC = () => {
 	const [allTableVisible, setAllTableVisible] = useState<boolean>(false);
 	const [state, dispatch] = useReducer(reducer, initialState);
+
+	// Initial sorting
+	useEffect(() => dispatch({ type: 'SORT_PARAMETER_CHANGE', value: state.sortValue }), []);
 
 	return (
 		<section className="nfts">
