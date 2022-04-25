@@ -4,6 +4,7 @@
 	}
 	&-mobile {
 		max-width: 500px;
+		display: none;
 		&__item {
 			display: grid;
 			grid-template-columns: calc(20% - 7.5px) calc(80% - 7.5px);
@@ -96,6 +97,9 @@
 
 @media screen and (max-width: 991px) {
 	.lifefeed {
+		&-mobile {
+			display: block;
+		}
 		&-container {
 			margin: 0;
 			max-width: none;
