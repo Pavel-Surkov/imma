@@ -155,14 +155,13 @@ const protocolList: Array<ProtocolItem> = [
 				data: [
 					{
 						type: 'text_bold',
-						paragraphs: ['Purchase from the original NFT owner']
+						paragraphs: ['Purchase from the first transaction:']
 					},
 					{
 						type: 'list',
 						list: {
 							items: [
-								'69%-79% IMMA NFT seller',
-								'10% IMMA NFT creator wallet',
+								'79%-89% IMMA NFT creator wallet ',
 								'10% Broker wallet (if there is)',
 								'1% Charity for needed mothers',
 								'10% Company wallet'
@@ -176,12 +175,33 @@ const protocolList: Array<ProtocolItem> = [
 				data: [
 					{
 						type: 'text_bold',
+						paragraphs: ['Purchase from the original NFT owner']
+					},
+					{
+						type: 'list',
+						list: {
+							items: [
+								'69%-79% IMMA NFT seller',
+								'10%  IMMA NFT creator wallet',
+								'10% Broker wallet (if there is)',
+								'1% Charity for needed mothers',
+								'10% Company wallet'
+							]
+						}
+					}
+				]
+			},
+			{
+				number: '03',
+				data: [
+					{
+						type: 'text_bold',
 						paragraphs: ['Purchase from the imma.love trust wallet']
 					},
 					{
 						type: 'text_thin',
 						paragraphs: [
-							'In this case, the IMMA NFT price is 200% of the last price offered'
+							'In this case, the IMMA NFT price is 200% of the last price offered.'
 						]
 					},
 					{
@@ -189,10 +209,10 @@ const protocolList: Array<ProtocolItem> = [
 						list: {
 							items: [
 								'33%-43% IMMA NFT last owner',
-								'10% IMMA NFT creator wallet ',
 								'10% Broker wallet (if there is)',
-								'2% Charity for needed mothers',
-								'45% Company wallet'
+								'45% Company wallet',
+								'10% IMMA NFT creator wallet',
+								'2% Charity for needed mothers'
 							]
 						}
 					}
@@ -216,7 +236,7 @@ const protocolList: Array<ProtocolItem> = [
 						paragraphs: [
 							'Once you finish the creation process in the web app, your IMMA NFT will be on “pending” status.',
 							'After clicking “create” you will be redirected to the IMMA NFT page.',
-							'Anyone can release the IMMA NFT. Once it’s done - the IMMA NFT will be sent to the wallet to the original NFT owner.',
+							'Only the original NFT owner can release the IMMA NFT. Once it’s done - the IMMA NFT will be sent to his wallet.',
 							'In order to release the IMMA NFT click the “Release to blockchain” and pair your Meta-mask wallet.',
 							'The releaser will have to pay both mint & first transaction fees, and the price for the IMMA NFT in case the creator demanded such.'
 						]

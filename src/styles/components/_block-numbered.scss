@@ -5,6 +5,14 @@
 	color: $white;
 	width: 100%;
 	border-radius: 2px;
+	&:nth-child(3) {
+		& .block-numbered__list {
+			@include flex(row, flex-start, flex-start, wrap);
+			& .block-numbered__item {
+				min-width: 33.33%;
+			}
+		}
+	}
 	&__number {
 		padding-bottom: 20px;
 		position: relative;
