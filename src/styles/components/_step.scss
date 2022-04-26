@@ -186,6 +186,10 @@
 			&-input {
 				width: 100%;
 				margin-left: 19px;
+				margin-bottom: 8px;
+				&::last-child {
+					margin-bottom: 0;
+				}
 				&::-webkit-outer-spin-button,
 				&::-webkit-inner-spin-button {
 					-webkit-appearance: none;
@@ -319,6 +323,23 @@
 				&::after {
 					background: icon('polygon_hovered.svg') no-repeat 50% / contain;
 				}
+			}
+		}
+		&_disabled {
+			position: relative;
+			pointer-events: none;
+			& .blocker {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				border-radius: 2px;
+				background: rgba($black, 0.4);
+				backdrop-filter: blur(1.5px);
+				display: grid;
+				place-items: center;
+				color: $white;
 			}
 		}
 	}

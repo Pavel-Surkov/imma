@@ -52,14 +52,24 @@ export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
 					{isFree ? 'For FREE' : 'Price'}
 				</h4>
 				{input && (
-					<input
-						className="input step-block__radio-input"
-						type="text"
-						name="price_value"
-						placeholder={input.initialValue}
-						value={+price.value}
-						onChange={(evt) => handlePriceChange(evt)}
-					/>
+					<div>
+						<input
+							className="input step-block__radio-input step-block__eth-input"
+							type="text"
+							name="price_value"
+							placeholder={input.initialValue}
+							value={+price.value}
+							onChange={(evt) => handlePriceChange(evt)}
+						/>
+						<input
+							className="input step-block__radio-input step-block__dollar-input"
+							type="text"
+							name="price_value"
+							placeholder={input.initialValue}
+							value={+price.value}
+							onChange={(evt) => handlePriceChange(evt)}
+						/>
+					</div>
 				)}
 			</div>
 		</label>
@@ -78,8 +88,22 @@ interface IBlockchainRadio {
 }
 
 export const BlockchainRadio = ({ type, blockchain, dispatch }: IBlockchainRadio) => {
+	const [disabled, setDisabled] = useState<boolean>(false);
+
+	// To enable polygon remove 'step-block_disabled' string from customClassName
 	const customClassName: string =
-		type === 'ethereum' ? 'step-block_eth' : type === 'polygon' ? 'step-block_pol' : '';
+		type === 'ethereum'
+			? 'step-block_eth'
+			: type === 'polygon'
+			? 'step-block_pol step-block_disabled'
+			: '';
+
+	// Also to enable polygon remove this function
+	useEffect(() => {
+		if (type === 'polygon') {
+			setDisabled(true);
+		}
+	}, []);
 
 	return (
 		<label className={`step-block step-block__radio-label ${customClassName}`}>
@@ -87,11 +111,14 @@ export const BlockchainRadio = ({ type, blockchain, dispatch }: IBlockchainRadio
 				className="step-block__radio"
 				type="radio"
 				name="blockchain"
-				onChange={() =>
-					dispatch({
-						type: 'SET_BLOCKCHAIN_NETWORK',
-						value: type
-					})
+				onChange={
+					disabled
+						? null
+						: () =>
+								dispatch({
+									type: 'SET_BLOCKCHAIN_NETWORK',
+									value: type
+								})
 				}
 				checked={blockchain === type ? true : false}
 			/>
@@ -103,6 +130,7 @@ export const BlockchainRadio = ({ type, blockchain, dispatch }: IBlockchainRadio
 					{BlockchainRadioTitles[type]}
 				</h4>
 			</div>
+			{disabled && <div className="blocker">It will be optional later</div>}
 		</label>
 	);
 };
