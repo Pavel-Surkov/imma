@@ -236,7 +236,7 @@ const protocolList: Array<ProtocolItem> = [
 						paragraphs: [
 							'Once you finish the creation process in the web app, your IMMA NFT will be on “pending” status.',
 							'After clicking “create” you will be redirected to the IMMA NFT page.',
-							'Only the original NFT owner can release the IMMA NFT. Once it’s done - the IMMA NFT will be sent to his wallet.',
+							'Anyone can release the IMMA NFT. Once it’s done - the IMMA NFT will be sent to the wallet of the original NFT.',
 							'In order to release the IMMA NFT click the “Release to blockchain” and pair your Meta-mask wallet.',
 							'The releaser will have to pay both mint & first transaction fees, and the price for the IMMA NFT in case the creator demanded such.'
 						]
