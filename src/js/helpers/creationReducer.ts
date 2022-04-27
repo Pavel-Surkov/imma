@@ -7,8 +7,9 @@ export type ActionType =
 	| Action<'SET_WALLET_NUMBER', { wallet: string; value: string }>
 	| Action<'VERIFY_WALLET', { wallet: string; event: React.MouseEvent<HTMLButtonElement> }>
 	| Action<'ADD_CUSTOM_WALLET', {}>
-	| Action<'SET_PRICE_ISFREE', { value: boolean }>
-	| Action<'CHANGE_PRICE', { value: number }>
+	| Action<'SET_PRICE_FREE', { value: boolean }>
+	| Action<'CHANGE_DOLLAR_PRICE', { value: number }>
+	| Action<'CHANGE_ETHEREUM_PRICE', { value: number }>
 	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>
 	| Action<'SET_SOCIAL', { value: 'instagram' | 'twitter' }>
 	| Action<'CLEAN_FORM', {}>;
@@ -93,7 +94,7 @@ export function reducer(state: State, action: ActionType) {
 				}
 			};
 		}
-		case 'SET_PRICE_ISFREE': {
+		case 'SET_PRICE_FREE': {
 			return {
 				...state,
 				price: {
@@ -103,13 +104,29 @@ export function reducer(state: State, action: ActionType) {
 				}
 			};
 		}
-		case 'CHANGE_PRICE': {
+		case 'CHANGE_DOLLAR_PRICE': {
+			const dollarValue: number = action.value;
+			const ethereumValue: number = convertPrice(dollarValue, 'eth');
+
 			return {
 				...state,
 				price: {
 					isFree: state.price.isFree,
-					dollarValue: state.price.dollarValue,
-					ethereumValue: state.price.ethereumValue
+					dollarValue: dollarValue,
+					ethereumValue: ethereumValue
+				}
+			};
+		}
+		case 'CHANGE_ETHEREUM_PRICE': {
+			const ethereumValue: number = action.value;
+			const dollarValue: number = convertPrice(ethereumValue, 'dol');
+
+			return {
+				...state,
+				price: {
+					isFree: state.price.isFree,
+					dollarValue: dollarValue,
+					ethereumValue: ethereumValue
 				}
 			};
 		}
@@ -145,6 +162,26 @@ export function reducer(state: State, action: ActionType) {
 		}
 		default: {
 			throw new TypeError('Action type is uncorrect');
+		}
+	}
+}
+
+// TODO: Add convert using API
+// Crypto convert functions
+function convertPrice(price: number, to: 'dol' | 'eth'): number {
+	const factor: number = 2795.2857;
+
+	switch (to) {
+		case 'dol': {
+			const res: number = +(price * factor).toFixed(2);
+			return res;
+		}
+		case 'eth': {
+			const res: number = +(price / factor).toFixed(5);
+			return res;
+		}
+		default: {
+			throw new Error(`parameter 'to' is incorrect`);
 		}
 	}
 }

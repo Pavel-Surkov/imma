@@ -8,18 +8,19 @@ interface IPriceRadio {
 		ethereumValue: null | number;
 	};
 	dispatch: React.Dispatch<any>;
-	input?: {
-		initialDollarValue: string;
-		initialEthereumValue: string;
-	};
+	input?: true;
 }
 
 export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
-	const [maxPrice, setMaxPrice] = useState<number>(100000);
+	const [maxPrice, setMaxPrice] = useState<number>(50000);
 
 	// Handler controls value of the price input
 	const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		let value: string = e.target.value;
+
+		if (isNaN(+value)) {
+			return;
+		}
 
 		if (value.startsWith('0') && value.length >= 2) {
 			value = value.slice(1);
@@ -29,7 +30,13 @@ export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
 			value = String(maxPrice);
 		}
 
-		dispatch({ type: 'CHANGE_PRICE', value: +value });
+		if (e.target.name === 'dollar-price') {
+			dispatch({ type: 'CHANGE_DOLLAR_PRICE', value: +value });
+		}
+
+		if (e.target.name === 'eth-price') {
+			dispatch({ type: 'CHANGE_ETHEREUM_PRICE', value: +value });
+		}
 	};
 
 	return (
@@ -40,7 +47,7 @@ export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
 				name="price"
 				onChange={() =>
 					dispatch({
-						type: 'SET_PRICE_ISFREE',
+						type: 'SET_PRICE_FREE',
 						value: isFree
 					})
 				}
@@ -60,7 +67,6 @@ export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
 								className="input step-block__radio-input"
 								type="text"
 								name="eth-price"
-								placeholder={input.initialEthereumValue}
 								value={+price.ethereumValue}
 								onChange={(evt) => handlePriceChange(evt)}
 							/>
@@ -70,7 +76,6 @@ export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
 								className="input step-block__radio-input"
 								type="text"
 								name="dollar-price"
-								placeholder={input.initialDollarValue}
 								value={+price.dollarValue}
 								onChange={(evt) => handlePriceChange(evt)}
 							/>
