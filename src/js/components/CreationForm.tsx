@@ -3,7 +3,7 @@ import { Wallets, State } from '../helpers/creationReducer';
 
 interface ICreationFormProps {
 	title: string;
-	state: State;
+	state: any;
 	dispatch: React.Dispatch<any>;
 	wallet: string;
 }

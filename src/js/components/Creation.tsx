@@ -20,7 +20,8 @@ export const initialState: State = {
 	},
 	price: {
 		isFree: true,
-		value: 1000
+		dollarValue: 391.34,
+		ethereumValue: 0.0004234
 	},
 	blockchain: 'ethereum',
 	video: null,
@@ -144,7 +145,10 @@ export const Creation = () => {
 								isFree={false}
 								price={state.price}
 								dispatch={dispatch}
-								input={{ initialValue: '1000' }}
+								input={{
+									initialDollarValue: '391.34',
+									initialEthereumValue: '0.0004234'
+								}}
 							/>
 						</div>
 					</CreationStep>

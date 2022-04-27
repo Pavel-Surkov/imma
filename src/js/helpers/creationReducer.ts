@@ -32,7 +32,8 @@ export interface State {
 	};
 	price: {
 		isFree: boolean;
-		value: number;
+		dollarValue: null | number;
+		ethereumValue: null | number;
 	};
 	blockchain: 'ethereum' | 'polygon';
 	video: null | File;
@@ -97,7 +98,8 @@ export function reducer(state: State, action: ActionType) {
 				...state,
 				price: {
 					isFree: action.value,
-					value: state.price.value
+					dollarValue: state.price.dollarValue,
+					ethereumValue: state.price.ethereumValue
 				}
 			};
 		}
@@ -106,7 +108,8 @@ export function reducer(state: State, action: ActionType) {
 				...state,
 				price: {
 					isFree: state.price.isFree,
-					value: action.value
+					dollarValue: state.price.dollarValue,
+					ethereumValue: state.price.ethereumValue
 				}
 			};
 		}

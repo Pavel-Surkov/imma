@@ -4,16 +4,18 @@ interface IPriceRadio {
 	isFree: boolean;
 	price: {
 		isFree: boolean;
-		value: null | number;
+		dollarValue: null | number;
+		ethereumValue: null | number;
 	};
 	dispatch: React.Dispatch<any>;
 	input?: {
-		initialValue: string;
+		initialDollarValue: string;
+		initialEthereumValue: string;
 	};
 }
 
 export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
-	const [maxPrice, setMaxPrice] = useState<number>(1000000);
+	const [maxPrice, setMaxPrice] = useState<number>(100000);
 
 	// Handler controls value of the price input
 	const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,23 +54,27 @@ export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
 					{isFree ? 'For FREE' : 'Price'}
 				</h4>
 				{input && (
-					<div>
-						<input
-							className="input step-block__radio-input step-block__eth-input"
-							type="text"
-							name="price_value"
-							placeholder={input.initialValue}
-							value={+price.value}
-							onChange={(evt) => handlePriceChange(evt)}
-						/>
-						<input
-							className="input step-block__radio-input step-block__dollar-input"
-							type="text"
-							name="price_value"
-							placeholder={input.initialValue}
-							value={+price.value}
-							onChange={(evt) => handlePriceChange(evt)}
-						/>
+					<div className="step-block__inputs-wrapper">
+						<div className="step-block__input-wrapper step-block__eth-input">
+							<input
+								className="input step-block__radio-input"
+								type="text"
+								name="eth-price"
+								placeholder={input.initialEthereumValue}
+								value={+price.ethereumValue}
+								onChange={(evt) => handlePriceChange(evt)}
+							/>
+						</div>
+						<div className="step-block__input-wrapper step-block__dollar-input">
+							<input
+								className="input step-block__radio-input"
+								type="text"
+								name="dollar-price"
+								placeholder={input.initialDollarValue}
+								value={+price.dollarValue}
+								onChange={(evt) => handlePriceChange(evt)}
+							/>
+						</div>
 					</div>
 				)}
 			</div>
