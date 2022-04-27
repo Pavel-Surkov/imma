@@ -2,5 +2,5 @@
 	position: relative;
 	overflow: hidden;
 	min-height: 100vh;
-	background: $black-bg;
+	background: image('noise.png'), $black-bg;
 }
