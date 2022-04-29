@@ -55,10 +55,10 @@ html {
 @import 'components/app', 'components/home-main', 'components/video', 'components/welcome', 'components/about',
 	'components/block-numbered', 'components/about-define', 'components/lifefeed', 'components/all-nft',
 	'components/slide', 'components/accordion', 'components/faq', 'components/protocol', 'components/info',
-	'components/creation', 'components/step', 'components/nfts', 'components/view-more';
+	'components/creation', 'components/step', 'components/nfts', 'components/view-more', 'components/product';
 
 // 7. Page-specific styles
-@import 'pages/home';
+@import 'pages/home', 'pages/product';
 
 // 8. Themes
 @import 'themes/default', 'themes/media';

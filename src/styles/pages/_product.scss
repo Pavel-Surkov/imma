@@ -1,0 +1,20 @@
+.product-page {
+	&__wrapper {
+		padding: 52px 0;
+		padding-bottom: 134px;
+	}
+	&__title {
+		padding-bottom: 44px;
+		border-bottom: 1px solid $white;
+	}
+	&__content {
+		@include flex(row, flex-start, space-between);
+	}
+	&__video {
+		@include flex();
+		max-width: calc((370 / 1170) * 100%);
+	}
+	&__info {
+		width: calc((670 / 1170) * 100%);
+	}
+}

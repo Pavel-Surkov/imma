@@ -14,7 +14,7 @@ interface ButtonProps {
 	properties: Properties;
 }
 
-const Button: React.FC<ButtonProps> = ({ type, className, properties }) => {
+const Button = ({ type, className, properties }: ButtonProps) => {
 	if (type === 'route') {
 		return (
 			<Link className={className} to={properties.to}>
