@@ -8,7 +8,8 @@ export const Product: React.FC = () => {
 	const path = useLocation();
 
 	const [location, setLocation] = useState<null | string>(null);
-	const [video, setVideo] = useState(null);
+	const [video, setVideo] = useState<null | ITableData>(null);
+	const [status, setStatus] = useState<'released' | 'pending'>('released');
 
 	useEffect(() => {
 		if (path) {
@@ -57,7 +58,7 @@ export const Product: React.FC = () => {
 							<div className="product-page__video">
 								<NftVideoItem properties={video} />
 							</div>
-							<ProductInfo video={video} />
+							<ProductInfo status={status} video={video} />
 						</div>
 					</div>
 				</div>

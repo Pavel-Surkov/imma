@@ -1,2 +1,11 @@
 .product {
+	&-block {
+		padding: 35px 0;
+		border-bottom: 1px solid $white;
+		&__title {
+			font-family: $font;
+			font-weight: 400;
+			@include font(1.6rem, calc(21 / 16));
+		}
+	}
 }

@@ -62,7 +62,7 @@ export const NftVideoItem = ({ properties }: { properties: NftVideo }) => {
 				alt=""
 			></img>
 			<div className="video-play__wrapper">
-				<Link to={properties.slug} className="video-play">
+				<Link to={`allnft/${properties.slug}`} className="video-play">
 					<svg
 						data-svg="play"
 						width="21"

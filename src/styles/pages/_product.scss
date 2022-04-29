@@ -13,8 +13,76 @@
 	&__video {
 		@include flex();
 		max-width: calc((370 / 1170) * 100%);
+		& .video-icon img {
+			width: 60px;
+			height: 60px;
+		}
+		& .video-icon {
+			bottom: 88px;
+			left: 10px;
+		}
+		& .video-bottom {
+			padding: 12px 30px;
+			&__sign img {
+				max-height: 55px;
+			}
+			&__tag p {
+				@include font(1.6rem, calc(21 / 16));
+			}
+			&__tag-date {
+				@include font(1.4rem, calc(18 / 14));
+			}
+		}
+		& .video-play {
+			width: 100px;
+			height: 100px;
+			& svg[data-svg='play'] {
+				width: 28px;
+				height: 35px;
+			}
+		}
+		& svg[data-svg='top'] {
+			position: absolute;
+			z-index: 1;
+			pointer-events: none;
+			top: -20px;
+			left: -76px;
+		}
+		& svg[data-svg='star'] {
+			position: absolute;
+			z-index: 1;
+			pointer-events: none;
+			bottom: 212px;
+			right: -41px;
+		}
 	}
 	&__info {
 		width: calc((670 / 1170) * 100%);
+	}
+	&__original {
+		@include flex();
+		& .title {
+			width: calc((192 / 670) * 100%);
+		}
+		&-content {
+			@include flex(row, flex-end);
+		}
+		&-img {
+			margin-right: 15px;
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.product-page {
+		&__wrapper {
+			& .video-icon img {
+				width: 47px;
+				height: 47px;
+			}
+			& svg[data-svg='star'] {
+				display: none;
+			}
+		}
 	}
 }
