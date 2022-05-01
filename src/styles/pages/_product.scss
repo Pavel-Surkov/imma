@@ -71,6 +71,30 @@
 			margin-right: 15px;
 		}
 	}
+	&__author {
+		padding: 18px 0;
+		@include flex(row, center);
+		& .product-block__title {
+			margin-right: 45px;
+		}
+		&-tag {
+			position: relative;
+			@include font(1.6rem, calc(21 / 16));
+			font-family: $title-font;
+			&::before {
+				content: '';
+				position: absolute;
+				right: calc(100% + 7px);
+				top: 2px;
+				width: 21px;
+				height: 21px;
+				background: icon('twitter.svg') no-repeat center / contain;
+			}
+		}
+		&-sign {
+			margin-left: auto;
+		}
+	}
 }
 
 @media screen and (max-width: 767px) {

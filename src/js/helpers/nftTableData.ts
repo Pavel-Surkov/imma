@@ -17,6 +17,7 @@ import { NftVideo } from '../components/NftVideoItem';
 export interface ITableData extends NftVideo {
 	hash: string;
 	author: string;
+	author_url: string;
 	token: string;
 	token_url: string;
 	owner_wallet: string;
@@ -45,6 +46,7 @@ export const tableData: Array<ITableData> = [
 		sign: sign,
 		tag: '@AdamSmith',
 		author: 'Adamsmith',
+		author_url: 'http://twitter.com/adamsmith',
 		avatar: null,
 		date: new Date('05-09-2021'),
 		picture: {
@@ -71,6 +73,7 @@ export const tableData: Array<ITableData> = [
 		sign: sign,
 		tag: '@AdamSmith',
 		author: 'Adamsmith',
+		author_url: 'http://twitter.com/adamsmith',
 		avatar: null,
 		date: new Date('05-09-2021'),
 		picture: {
@@ -97,6 +100,7 @@ export const tableData: Array<ITableData> = [
 		sign: sign,
 		tag: '@AdamSmith',
 		author: 'Adamsmith',
+		author_url: 'http://twitter.com/adamsmith',
 		avatar: null,
 		date: new Date('05-09-2021'),
 		picture: {
@@ -123,6 +127,7 @@ export const tableData: Array<ITableData> = [
 		sign: sign,
 		tag: '@AdamSmith',
 		author: 'Adamsmith',
+		author_url: 'http://twitter.com/adamsmith',
 		avatar: null,
 		date: new Date('05-09-2021'),
 		picture: {
@@ -149,6 +154,7 @@ export const tableData: Array<ITableData> = [
 		sign: sign,
 		tag: '@AdamSmith',
 		author: 'Adamsmith',
+		author_url: 'http://twitter.com/adamsmith',
 		avatar: null,
 		date: new Date('05-09-2021'),
 		picture: {
