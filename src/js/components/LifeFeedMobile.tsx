@@ -61,7 +61,7 @@ export const LifeFeedMobile = ({ tableData, dateConvert }: LifeFeedMobileProps) 
 							<div className="lifefeed-mobile__info-block">
 								<h4 className="title">Original NFT token</h4>
 								<p>
-									<a href={row.token_url}>{shortToken}</a>
+									<a href="/">{shortToken}</a>
 								</p>
 							</div>
 							<div className="lifefeed-mobile__info-block">
@@ -98,7 +98,7 @@ export const LifeFeedMobile = ({ tableData, dateConvert }: LifeFeedMobileProps) 
 								<p>Reunited with Original NFT wallet</p>
 								<p className="title">
 									by&nbsp;
-									<a className="link" href={row.token_url}>
+									<a className="link" href="/">
 										0x217828160ff79e02c67A2785fd8dA2D2bD86c28E
 									</a>
 								</p>

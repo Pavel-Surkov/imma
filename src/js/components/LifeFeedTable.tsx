@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ITableData } from '../helpers/nftTableData';
+import { ITableData, ActivityT } from '../helpers/nftTableData';
 import avatar from '../../assets/images/icons/avatar.svg';
 
 interface LifeFeedTableProps {
@@ -35,6 +35,7 @@ export const LifeFeedTable = ({
 					const shortToken: string = row.token.slice(0, 13) + '...';
 
 					const dateString: string = convertDateToString(row.date);
+					const lastActivity: ActivityT = row.activity[0];
 
 					return (
 						<tr className="table-row" key={row.id}>
@@ -105,7 +106,7 @@ export const LifeFeedTable = ({
 								<div className="table-col__wrapper">
 									<p className="title">Original NFT token</p>
 									<p>
-										<a className="link" href={row.token_url}>
+										<a className="link" href="/">
 											{shortToken}
 										</a>
 									</p>
@@ -115,16 +116,19 @@ export const LifeFeedTable = ({
 							{/* TODO: Change this to special activity field in API */}
 							<td className="table-col">
 								<div className="table-col__wrapper">
-									<img src={row.avatar ? row.avatar : avatar} alt="avatar" />
+									<img
+										src={lastActivity.icon ? lastActivity.icon : avatar}
+										alt="activity icon"
+									/>
 									<div>
-										<p>Reunited with Original NFT wallet</p>
+										<p>{lastActivity.event}</p>
 										<p className="title">
 											by{' '}
-											<a className="link" href={row.token_url}>
-												0x217828160ff79e02c67A2785fd8dA2D2bD86c28E
+											<a className="link" href="/">
+												{lastActivity.wallet}
 											</a>
 										</p>
-										<p className="title">{dateString}</p>
+										<p className="title">{lastActivity.time}</p>
 									</div>
 								</div>
 							</td>

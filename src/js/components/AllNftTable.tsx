@@ -114,7 +114,7 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 								<div className="table-col__wrapper">
 									<p className="title">Original NFT token address</p>
 									<p>
-										<a className="link" href={row.token_url}>
+										<a className="link" href="/">
 											{shortToken}
 										</a>
 									</p>
@@ -235,7 +235,7 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 							<div className="lifefeed-mobile__info-block">
 								<p className="title">Original NFT token address</p>
 								<p>
-									<a className="link" href={row.token_url}>
+									<a className="link" href="/">
 										{shortToken}
 									</a>
 								</p>

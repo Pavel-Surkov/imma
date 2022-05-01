@@ -28,7 +28,6 @@ export interface ITableData extends NftVideo {
 	author: string;
 	author_url: string;
 	token: string;
-	token_url: string;
 	owner_wallet: string;
 	owner_wallet_url: string;
 	lastprice: string;
@@ -48,7 +47,6 @@ export const tableData: Array<ITableData> = [
 		},
 		hash: '#46486',
 		token: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
-		token_url: '/',
 		owner_wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 		owner_wallet_url: '/',
 		lastprice: '4.8',
@@ -71,38 +69,38 @@ export const tableData: Array<ITableData> = [
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				price: '2 ETH',
 				time: '17\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Transffered to IMMA-trust wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c06B',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: '7 days have pased since IMMA NFT and Original NFT was seperate',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Original NFT moved to a different wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c03B',
 				time: '14\\04\\22 23:59',
 				price: '0.8 ETH',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
@@ -139,7 +137,6 @@ export const tableData: Array<ITableData> = [
 		},
 		hash: '#46486',
 		token: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
-		token_url: '/',
 		owner_wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 		owner_wallet_url: '/',
 		lastprice: '4.8',
@@ -162,38 +159,38 @@ export const tableData: Array<ITableData> = [
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				price: '2 ETH',
 				time: '17\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Transffered to IMMA-trust wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c06B',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: '7 days have pased since IMMA NFT and Original NFT was seperate',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Original NFT moved to a different wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c03B',
 				time: '14\\04\\22 23:59',
 				price: '0.8 ETH',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
@@ -230,7 +227,6 @@ export const tableData: Array<ITableData> = [
 		},
 		hash: '#46486',
 		token: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
-		token_url: '/',
 		owner_wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 		owner_wallet_url: '/',
 		lastprice: '4.8',
@@ -253,38 +249,38 @@ export const tableData: Array<ITableData> = [
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				price: '2 ETH',
 				time: '17\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Transffered to IMMA-trust wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c06B',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: '7 days have pased since IMMA NFT and Original NFT was seperate',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Original NFT moved to a different wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c03B',
 				time: '14\\04\\22 23:59',
 				price: '0.8 ETH',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
@@ -321,7 +317,6 @@ export const tableData: Array<ITableData> = [
 		},
 		hash: '#46486',
 		token: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
-		token_url: '/',
 		owner_wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 		owner_wallet_url: '/',
 		lastprice: '4.8',
@@ -344,38 +339,38 @@ export const tableData: Array<ITableData> = [
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				price: '2 ETH',
 				time: '17\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Transffered to IMMA-trust wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c06B',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: '7 days have pased since IMMA NFT and Original NFT was seperate',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Original NFT moved to a different wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c03B',
 				time: '14\\04\\22 23:59',
 				price: '0.8 ETH',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
@@ -412,7 +407,6 @@ export const tableData: Array<ITableData> = [
 		},
 		hash: '#46486',
 		token: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
-		token_url: '/',
 		owner_wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 		owner_wallet_url: '/',
 		lastprice: '4.8',
@@ -435,38 +429,38 @@ export const tableData: Array<ITableData> = [
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				price: '2 ETH',
 				time: '17\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Transffered to IMMA-trust wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c06B',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: '7 days have pased since IMMA NFT and Original NFT was seperate',
 				time: '15\\04\\22 00:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Original NFT moved to a different wallet',
 				wallet: '0x213312160ff79e02c67A2785fd8dA2D2bD86c03B',
 				time: '14\\04\\22 23:59',
 				price: '0.8 ETH',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Reunited with Original NFT wallet',
 				wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 				time: '02\\04\\22 02:00',
-				icon: avatar
+				icon: null
 			},
 			{
 				event: 'Claimed ownership from IMMA-trust wallet',
