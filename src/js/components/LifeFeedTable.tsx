@@ -113,7 +113,6 @@ export const LifeFeedTable = ({
 									<img src={row.sign} alt="sign" />
 								</div>
 							</td>
-							{/* TODO: Change this to special activity field in API */}
 							<td className="table-col">
 								<div className="table-col__wrapper">
 									<img
