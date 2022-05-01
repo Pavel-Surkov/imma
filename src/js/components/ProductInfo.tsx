@@ -3,6 +3,8 @@ import { ProductOriginalNft } from './ProductOriginalNft';
 import { ITableData } from '../helpers/nftTableData';
 import { StatusPending } from './StatusPending';
 import { StatusReleased } from './StatusReleased';
+import { ProductAuthor } from './ProductAuthor';
+import { ProductActivity } from './ProductActivity';
 
 type ProductInfoProps = {
 	video: ITableData;
@@ -17,15 +19,8 @@ export const ProductInfo = ({ video, status }: ProductInfoProps) => {
 			{status === 'pending' && <StatusPending />}
 			{status === 'released' && <StatusReleased />}
 			<ProductOriginalNft video={video} />
-			<div className="product-block product-page__author">
-				<h4 className="title product-block__title">Signed by:</h4>
-				<a href={video.author_url} className="link_hover_green product-page__author-tag">
-					{video.tag}
-				</a>
-				<div className="product-page__author-sign">
-					<img height="55" src={video.sign} alt=""></img>
-				</div>
-			</div>
+			<ProductAuthor video={video} />
+			<ProductActivity video={video} />
 		</div>
 	);
 };
