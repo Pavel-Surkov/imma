@@ -4,7 +4,7 @@ type useFetchT = (url: string, options: RequestInit) => { data: any; error: Erro
 
 const useFetch: useFetchT = (url, options) => {
 	const [data, setData] = useState(null);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<Error | null>(null);
 
 	useEffect(() => {
 		const fetchData = async (): Promise<void> => {

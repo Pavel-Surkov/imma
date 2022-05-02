@@ -10,7 +10,7 @@ export const Product: React.FC = () => {
 	const [location, setLocation] = useState<null | string>(null);
 	const [video, setVideo] = useState<null | ITableData>(null);
 	// TODO: Set status by API
-	const [status, setStatus] = useState<'released' | 'pending'>('released');
+	const [status, setStatus] = useState<'released' | 'pending'>('pending');
 
 	useEffect(() => {
 		if (path) {

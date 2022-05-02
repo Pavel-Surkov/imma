@@ -1,2 +1,51 @@
 .status {
+	@include grid(0, center);
+	grid-template-columns: 9.403% 37.017% 53.58%;
+	row-gap: 26px;
+	& .title {
+		align-self: start;
+		padding-top: 8px;
+	}
+	&-info {
+		&__btn {
+			@include font(1.6rem, calc(22.4 / 16));
+			width: 100%;
+			padding: 1.325em;
+			padding-right: calc(2em + 13px);
+			&:hover {
+				color: $black;
+				&::after {
+					background: icon('arrow-black.svg') no-repeat 50% / cover;
+				}
+			}
+			&::after {
+				right: 34px;
+			}
+			&-wrapper {
+				width: 100%;
+			}
+		}
+		&__top,
+		&__bottom {
+			@include flex(row, center);
+			& span {
+				display: block;
+				margin-top: 2px;
+				@include font(1.4rem, calc(18.28 / 14));
+				font-family: $font;
+				font-weight: 400;
+			}
+			& p {
+				@include font(1.6rem, calc(21 / 16));
+				font-family: $title-font;
+				font-weight: 700;
+			}
+			& svg {
+				margin-right: 13px;
+			}
+		}
+	}
+	& .timer {
+		grid-column: 2 / 4;
+	}
 }

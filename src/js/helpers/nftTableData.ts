@@ -407,6 +407,7 @@ export const tableData: Array<ITableData> = [
 		},
 		hash: '#46486',
 		token: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
+
 		owner_wallet: '0x217828160ff79e02c67A2785fd8dA2D2bD86c28E',
 		owner_wallet_url: '/',
 		lastprice: '4.8',
