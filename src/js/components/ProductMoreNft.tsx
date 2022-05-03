@@ -18,9 +18,7 @@ export const ProductMoreNft = ({ video }: { video: ITableData }) => {
 					className="more-swiper__swiper"
 					onSwiper={(swiper) => console.log(swiper)}
 					spaceBetween={28}
-					slidesPerView={'auto'}
-					// onSlideChange={(swiper) => slideChange(swiper)}
-					// onTransitionEnd={(swiper) => slideChange(swiper)}
+					slidesPerView={2}
 					navigation={{
 						prevEl: '.more-swiper__navigation .left-btn',
 						nextEl: '.more-swiper__navigation .right-btn'

@@ -1,2 +1,61 @@
 .more-swiper {
+	margin-top: 30px;
+	@include grid(30px);
+	grid-row-gap: 35px;
+	grid-template-columns: 84.776% 10.447%;
+	&__navigation {
+		@include flex(row, flex-start, space-between);
+	}
+	&__swiper {
+		max-width: 100%;
+		& .swiper-slide-active {
+			width: 270px;
+			height: initial;
+		}
+		& .video-play {
+			width: 80px;
+			height: 80px;
+			& svg[data-svg='play'] {
+				width: 21px;
+				height: 25px;
+			}
+		}
+		& .video-icon {
+			bottom: 64px;
+			left: 7px;
+			& img {
+				width: 44px;
+				height: 44px;
+			}
+		}
+		& .video-bottom {
+			padding: 9px 20px;
+			&__sign {
+				& img {
+					max-height: 40px;
+				}
+			}
+			&__tag {
+				& p {
+					@include font(1.2rem, calc(16 / 12));
+				}
+				&-date {
+					@include font(1rem, calc(13 / 10));
+				}
+			}
+		}
+	}
+	&__view {
+		text-transform: uppercase;
+		@include font(1.6rem, calc(22.42 / 16));
+		padding: 1.3125em 2.9375em;
+		padding-right: 5.25em;
+		&::after {
+			right: 2.9375em;
+		}
+		&-wrapper {
+			width: 100%;
+			text-align: right;
+		}
+	}
 }

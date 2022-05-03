@@ -2,6 +2,9 @@
 	&-block {
 		padding: 35px 0;
 		border-bottom: 1px solid $white;
+		&:last-child {
+			border: none;
+		}
 		&__title {
 			font-family: $font;
 			font-weight: 400;
