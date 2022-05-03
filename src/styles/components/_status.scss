@@ -1,7 +1,18 @@
 .status {
 	@include grid(0, center);
-	grid-template-columns: 9.403% 37.017% 53.58%;
-	row-gap: 26px;
+	&_pending {
+		grid-template-columns: 9.403% 37.017% 53.58%;
+		row-gap: 26px;
+	}
+	&_released {
+		grid-template-columns: 9.403% 54.179% 36.418%;
+		& .status-info__btn {
+			padding-right: calc(2em + 23px);
+			&::after {
+				right: 29px;
+			}
+		}
+	}
 	& .title {
 		align-self: start;
 		padding-top: 8px;
@@ -24,6 +35,9 @@
 			&-wrapper {
 				width: 100%;
 			}
+		}
+		&__top {
+			margin-bottom: 8px;
 		}
 		&__top,
 		&__bottom {

@@ -79,15 +79,7 @@ export const NftVideoItem = ({ properties }: { properties: NftVideo }) => {
 				</Link>
 			</div>
 			<div className="video-icon">
-				<img
-					width="44"
-					height="44"
-					src={properties.picture.quality1x}
-					srcSet={`${properties.picture.quality1x} 1x, ${
-						properties.picture.quality2x ? properties.picture.quality2x : ''
-					} 2x`}
-					alt=""
-				/>
+				<img width="44" height="44" src={properties.picture.quality1x} alt="" />
 			</div>
 			<div className="video-bottom">
 				<div className="video-bottom__sign">
