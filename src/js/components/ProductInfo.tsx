@@ -5,13 +5,14 @@ import { StatusPending } from './StatusPending';
 import { StatusReleased } from './StatusReleased';
 import { ProductAuthor } from './ProductAuthor';
 import { ProductActivity } from './ProductActivity';
+import { ProductMoreNft } from './ProductMoreNft';
 
 type ProductInfoProps = {
 	video: ITableData;
 	status: 'released' | 'pending';
 };
 
-export const ProductInfo = ({ video, status }: ProductInfoProps) => {
+export const ProductInfo = React.memo(({ video, status }: ProductInfoProps) => {
 	return (
 		<div className="product-page__info">
 			<h2 className="title title_size-m product-page__title">IMMA NFT {video.hash}</h2>
@@ -21,6 +22,7 @@ export const ProductInfo = ({ video, status }: ProductInfoProps) => {
 			<ProductOriginalNft video={video} />
 			<ProductAuthor video={video} />
 			<ProductActivity video={video} />
+			<ProductMoreNft video={video} />
 		</div>
 	);
-};
+});
