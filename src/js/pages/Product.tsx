@@ -57,6 +57,9 @@ export const Product: React.FC = () => {
 					<div className="container">
 						<div className="product-page__content">
 							<div className="product-page__video">
+								<h2 className="title title_size-m product-page__title_video">
+									IMMA NFT <span>{video.hash}</span>
+								</h2>
 								<NftVideoItem properties={video} />
 							</div>
 							<ProductInfo status={status} video={video} />

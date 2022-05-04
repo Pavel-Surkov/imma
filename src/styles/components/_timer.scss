@@ -39,6 +39,8 @@
 			color: $gray-650;
 		}
 		&__count {
+			font-family: $title-font;
+			font-weight: 400;
 			@include font(2rem, calc(26 / 20));
 			display: block;
 		}
@@ -99,6 +101,35 @@
 			}
 			&:last-child {
 				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.timer {
+		&-wrapper {
+			& p {
+				max-width: 200px;
+				text-align: left;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.timer {
+		grid-gap: 9px;
+		max-width: 100%;
+		&-screen {
+			&__col {
+				padding: 10px 13px;
+			}
+			&__count {
+				@include font(1.6rem, calc(21 / 16));
+			}
+			&__text {
+				@include font(1.2rem, calc(16 / 12));
 			}
 		}
 	}
