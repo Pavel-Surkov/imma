@@ -144,6 +144,19 @@
 				display: none;
 			}
 		}
+		&__original {
+			display: block;
+			& .title {
+				margin-bottom: 20px;
+				width: 100%;
+			}
+			&-content {
+				& img {
+					width: 138px;
+					height: 138px;
+				}
+			}
+		}
 	}
 }
 
