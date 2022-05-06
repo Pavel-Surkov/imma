@@ -81,6 +81,7 @@
 			margin-right: 45px;
 		}
 		&-tag {
+			font-weight: 700;
 			position: relative;
 			@include font(1.6rem, calc(21 / 16));
 			font-family: $title-font;
@@ -157,11 +158,38 @@
 				}
 			}
 		}
+		&__author {
+			flex-wrap: wrap;
+			padding: 35px 0;
+			& .title {
+				width: 100%;
+				margin: 0;
+			}
+			&-tag {
+				padding-left: 29px;
+				&::before {
+					left: 0;
+				}
+			}
+			&-sign {
+				& img {
+					max-height: 47px;
+				}
+			}
+		}
+		&__activity {
+			& .title {
+				margin-bottom: 20px;
+			}
+		}
 	}
 }
 
 @media screen and (max-width: 576px) {
 	.product-page {
+		& .container {
+			padding: 0 17px;
+		}
 		&__video {
 			& .video-play {
 				width: 78px;

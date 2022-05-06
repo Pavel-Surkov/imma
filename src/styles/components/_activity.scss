@@ -45,3 +45,43 @@
 		}
 	}
 }
+
+@media screen and (max-width: 767px) {
+	.activity {
+		padding: 30px 25px;
+		&::-webkit-scrollbar {
+			width: 4px;
+		}
+		&-item {
+			margin-bottom: 24px;
+			&:first-child {
+				margin-bottom: 24px;
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+			&__img {
+				margin-right: 15px;
+				width: 30px;
+				height: 30px;
+			}
+			&__event {
+				@include font(1.4rem, calc(18 / 14));
+			}
+			&__wallet {
+				@include font(1.2rem, calc(16 / 12));
+				& .link {
+					display: inline;
+					word-wrap: break-word;
+					word-break: break-all;
+				}
+			}
+			&__price {
+				@include font(1.2rem, calc(16 / 12));
+			}
+			&__time {
+				@include font(1.2rem, calc(16 / 12));
+			}
+		}
+	}
+}
