@@ -25,10 +25,13 @@ export const ProductMoreNft = ({ video }: { video: ITableData }) => {
 					}}
 					breakpoints={{
 						767: {
-							slidesPerView: 'auto',
+							slidesPerView: 2,
 							centeredSlides: false
 						},
-						320: {
+						576: {
+							slidesPerView: 1.5
+						},
+						200: {
 							slidesPerView: 1,
 							centeredSlides: true
 						}

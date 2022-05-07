@@ -50,12 +50,59 @@
 		@include font(1.6rem, calc(22.42 / 16));
 		padding: 1.3125em 2.9375em;
 		padding-right: 5.25em;
+		&:hover {
+			color: $black;
+			&::after {
+				background: icon('arrow-black.svg') no-repeat 50%;
+			}
+		}
 		&::after {
 			right: 2.9375em;
 		}
 		&-wrapper {
 			width: 100%;
 			text-align: right;
+		}
+	}
+}
+
+@media screen and (max-width: 1230px) {
+	.more-swiper {
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 35px;
+		&__swiper {
+			grid-column: 1 / 3;
+		}
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.more-swiper {
+		grid-template-columns: 100%;
+		grid-gap: 20px;
+		&__swiper {
+			grid-column: 1 / 2;
+		}
+		&__navigation {
+			order: -1;
+		}
+		&__view {
+			&-wrapper {
+				padding-top: 10px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.more-swiper {
+		&__view {
+			width: 100%;
+			text-align: center;
+			&::after {
+				right: 50%;
+				transform: translateY(-50%) translateX(calc(50% + 60px));
+			}
 		}
 	}
 }

@@ -137,6 +137,7 @@
 @media screen and (max-width: 767px) {
 	.product-page {
 		&__wrapper {
+			padding-bottom: 70px;
 			& .video-icon img {
 				width: 47px;
 				height: 47px;
@@ -189,6 +190,9 @@
 	.product-page {
 		& .container {
 			padding: 0 17px;
+		}
+		&__swiper {
+			padding-bottom: 0;
 		}
 		&__video {
 			& .video-play {
