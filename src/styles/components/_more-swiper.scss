@@ -18,14 +18,15 @@
 			& svg[data-svg='play'] {
 				width: 21px;
 				height: 25px;
+				transform: translate(calc(-50% + 1px), -50%);
 			}
 		}
 		& .video-icon {
 			bottom: 64px;
 			left: 7px;
 			& img {
-				width: 44px;
-				height: 44px;
+				width: 47px;
+				height: 47px;
 			}
 		}
 		& .video-bottom {

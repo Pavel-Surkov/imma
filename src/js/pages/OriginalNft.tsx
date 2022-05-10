@@ -11,6 +11,9 @@ export const OriginalNft = () => {
 					<div className="container">
 						<div className="product-page__content">
 							<div className="original-page__nft">
+								<h2 className="title title_size-m original-page__title">
+									NFT: <span>The Name Of&nbsp;NFT</span>
+								</h2>
 								<img
 									width="370"
 									src={nftPicture}
