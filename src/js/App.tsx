@@ -11,6 +11,7 @@ const App: React.FC = () => {
 	return (
 		<BrowserRouter>
 			<div className="app">
+				<div></div>
 				<Header />
 				<Routes>
 					<Route path="/" element={<Home />} />

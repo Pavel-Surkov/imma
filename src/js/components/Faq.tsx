@@ -11,22 +11,22 @@ const faqList: Array<AccordionItemT> = [
 	{
 		id: '2',
 		question: 'Where can I claim IMMA NFT to my wallet if I have its original NFT?',
-		answer: 'No. Only when you are the owner of the original NFT, you can become the current owner of the IMMA NFT.'
+		answer: 'You can claim IMMA NFT on the site. At the beginning of the page, there is a "to all IMMA NFT" button that will lead you to the table of all IMMA NFTs and there you can find the specific IMMA NFT you are looking for, and make a loan minted or claim it.'
 	},
 	{
 		id: '3',
 		question: 'When does IMMA NFT return to IMMA.love trust wallet?',
-		answer: 'No. Only when you are the owner of the original NFT, you can become the current owner of the IMMA NFT.'
+		answer: 'When 7 days passed and IMMA NFT didn’t "unite" in the existing original NFT wallet, IMMA NFT is transferred to the imma.love trust wallet.'
 	},
 	{
 		id: '4',
 		question: 'How does IMMA NFT help me increase the value of existing NFT?',
-		answer: 'No. Only when you are the owner of the original NFT, you can become the current owner of the IMMA NFT.'
+		answer: 'IMMA NFT gives sentimental, personal and emotional value for the existing NFT. With the help of the video and dedication, a greater value is created for the NFT.'
 	},
 	{
 		id: '5',
 		question: 'What if I didn’t find the question I was looking for?',
-		answer: 'No. Only when you are the owner of the original NFT, you can become the current owner of the IMMA NFT.'
+		answer: 'You can contact us using the form on the right. Please enter your email and your question there, and we will get back to you as soon as possible.'
 	}
 ];
 
