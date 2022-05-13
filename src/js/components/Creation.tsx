@@ -11,12 +11,10 @@ export const initialState: State = {
 	wallets: {
 		originalWallet: {
 			walletNumber: '',
-			error: null,
 			isVerified: false
 		},
 		creatorWallet: {
 			walletNumber: '',
-			error: null,
 			isVerified: false
 		}
 	},
@@ -30,7 +28,6 @@ export const initialState: State = {
 	signature: null,
 	verification: {
 		social: 'instagram',
-		error: null,
 		isVerified: false
 	}
 };

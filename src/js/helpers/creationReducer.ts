@@ -22,7 +22,6 @@ export enum Wallets {
 
 type Wallet = {
 	walletNumber: '' | string;
-	error: null | 'Required field';
 	isVerified: boolean;
 };
 
@@ -42,7 +41,6 @@ export interface State {
 	signature: null | File;
 	verification: {
 		social: 'instagram' | 'twitter';
-		error: null | 'Required field';
 		isVerified: boolean;
 	};
 }
@@ -54,7 +52,6 @@ export function reducer(state: State, action: ActionType) {
 
 			newState.wallets[Wallets[action.wallet]] = {
 				walletNumber: action.value,
-				error: null,
 				isVerified: false
 			};
 
@@ -71,25 +68,9 @@ export function reducer(state: State, action: ActionType) {
 			if (currentWallet.walletNumber.match(/^0x[a-fA-F0-9]{40}$/)) {
 				newState.wallets[Wallets[action.wallet]] = {
 					walletNumber: currentWallet.walletNumber,
-					error: null,
 					isVerified: true
 				};
-
-				// If there is no value
-			} else if (!currentWallet.walletNumber) {
-				newState.wallets[Wallets[action.wallet]] = {
-					walletNumber: state.wallets[Wallets[action.wallet]].walletNumber,
-					error: 'Required field',
-					isVerified: false
-				};
-			} else {
-				newState.wallets[Wallets[action.wallet]] = {
-					walletNumber: state.wallets[Wallets[action.wallet]].walletNumber,
-					error: 'Incorrect wallet number',
-					isVerified: false
-				};
 			}
-
 			console.log(state.wallets[Wallets[action.wallet]]);
 
 			return newState;
@@ -100,17 +81,14 @@ export function reducer(state: State, action: ActionType) {
 				wallets: {
 					originalWallet: {
 						walletNumber: state.wallets.originalWallet.walletNumber,
-						error: state.wallets.originalWallet.error,
 						isVerified: state.wallets.originalWallet.isVerified
 					},
 					creatorWallet: {
 						walletNumber: state.wallets.creatorWallet.walletNumber,
-						error: state.wallets.creatorWallet.error,
 						isVerified: state.wallets.creatorWallet.isVerified
 					},
 					customWallet: {
 						walletNumber: '',
-						error: null,
 						isVerified: false
 					}
 				}
@@ -163,7 +141,6 @@ export function reducer(state: State, action: ActionType) {
 				...state,
 				verification: {
 					social: action.value,
-					error: null,
 					isVerified: state.verification.isVerified
 				}
 			};
@@ -174,12 +151,10 @@ export function reducer(state: State, action: ActionType) {
 				wallets: {
 					originalWallet: {
 						walletNumber: '',
-						error: null,
 						isVerified: false
 					},
 					creatorWallet: {
 						walletNumber: '',
-						error: null,
 						isVerified: false
 					}
 				}

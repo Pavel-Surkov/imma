@@ -150,7 +150,6 @@ interface ISocialRadio {
 	type: 'instagram' | 'twitter';
 	verification: {
 		social: 'instagram' | 'twitter';
-		error: null | 'Required field';
 		isVerified: boolean;
 	};
 	dispatch: React.Dispatch<any>;
@@ -170,10 +169,7 @@ export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
 		setIsChecked(isChecked);
 	}, [verification.social]);
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		// TODO: Writh handler and validate social input
-		// Here is social validation and submit post query
-	};
+	const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {};
 
 	return (
 		<label className="step-block step-block_social step-block__radio-label">
@@ -193,27 +189,26 @@ export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
 			<div className="step-block__radio-btn">
 				<div></div>
 			</div>
-			<form className="step-block__social-form" onSubmit={(evt) => handleSubmit(evt)}>
+			<form className="step-block__social-form" action="">
 				<h4 className="title title_size-xs step-block__title_radio">
 					{type[0].toUpperCase() + type.slice(1)}
 				</h4>
 				<div className="step-block__social-input" data-input={type}>
 					<input
-						className={`input ${
-							verification.social === type &&
-							verification.error &&
-							'step-block__input_state_error'
-						}`}
+						className="input"
 						type="text"
 						name="social_username"
 						value={userName}
 						onChange={(evt) => setUserName(evt.target.value)}
+						required
 					/>
-					{verification.social === type && verification.error && (
-						<span className="step-block__input-error">{verification.error}</span>
-					)}
 				</div>
-				<button type="submit" className="btn-arrow step-block__btn" disabled={!isChecked}>
+				<button
+					type="submit"
+					className="btn-arrow step-block__btn"
+					disabled={!isChecked}
+					onClick={(evt) => handleSubmit(evt)}
+				>
 					Send me the code
 				</button>
 			</form>
