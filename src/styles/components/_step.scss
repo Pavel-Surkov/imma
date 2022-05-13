@@ -34,6 +34,7 @@
 	}
 	&-code {
 		margin-top: 60px;
+		font-weight: 700;
 		& label {
 			font-family: $title-font;
 			@include font(1.6rem, calc(21 / 16));
@@ -113,6 +114,7 @@
 				left: 0;
 				top: calc(100% + 7px);
 				@include font(1.4rem, 1);
+				color: rgba($white, 0.5);
 			}
 			&_state {
 				&_error {

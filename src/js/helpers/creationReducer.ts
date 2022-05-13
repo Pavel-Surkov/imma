@@ -42,6 +42,7 @@ export interface State {
 	signature: null | File;
 	verification: {
 		social: 'instagram' | 'twitter';
+		error: null | 'Required field';
 		isVerified: boolean;
 	};
 }
@@ -162,6 +163,7 @@ export function reducer(state: State, action: ActionType) {
 				...state,
 				verification: {
 					social: action.value,
+					error: null,
 					isVerified: state.verification.isVerified
 				}
 			};

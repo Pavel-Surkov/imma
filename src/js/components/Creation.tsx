@@ -30,6 +30,7 @@ export const initialState: State = {
 	signature: null,
 	verification: {
 		social: 'instagram',
+		error: null,
 		isVerified: false
 	}
 };
