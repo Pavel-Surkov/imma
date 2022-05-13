@@ -24,7 +24,8 @@ import light13 from '../../assets/images/13.svg';
 export const Home: React.FC = () => {
 	return (
 		<main className="main home">
-			<div class="container">
+			<div className="noise"></div>
+			<div className="container">
 	      <img alt="bg-img" className="home__light home__light-1" src={light1} />
 	      <img alt="bg-img" className="home__light home__light-2" src={light2} />
 				<img alt="bg-img" className="home__light home__light-3" src={light3} />
