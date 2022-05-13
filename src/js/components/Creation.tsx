@@ -11,10 +11,12 @@ export const initialState: State = {
 	wallets: {
 		originalWallet: {
 			walletNumber: '',
+			error: null,
 			isVerified: false
 		},
 		creatorWallet: {
 			walletNumber: '',
+			error: null,
 			isVerified: false
 		}
 	},

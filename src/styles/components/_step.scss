@@ -108,6 +108,17 @@
 					margin-bottom: 0;
 				}
 			}
+			&-error {
+				position: absolute;
+				left: 0;
+				top: calc(100% + 7px);
+				@include font(1.4rem, 1);
+			}
+			&_state {
+				&_error {
+					outline: 1px solid $error;
+				}
+			}
 		}
 		&__inputs {
 			&-wrapper {
@@ -141,6 +152,14 @@
 					height: 17px;
 					background: icon('dollar-icon.svg') no-repeat 50% / cover;
 				}
+			}
+		}
+		&_wallet {
+			& .step-block__input-wrapper {
+				position: relative;
+				width: 100%;
+				margin: 0;
+				padding: 0;
 			}
 		}
 		&_add {
