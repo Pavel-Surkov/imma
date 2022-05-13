@@ -77,7 +77,6 @@
 		color: $lightgreen;
 		font-family: $title-font;
 		@include font(2rem, calc(26 / 20));
-		font-weight: 700;
 		background: rgba($white, 0.07);
 		border-radius: 2px;
 		padding: 1.9em 1.8em;
