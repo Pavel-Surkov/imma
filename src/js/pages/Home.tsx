@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
 	return (
 		<main className="main home">
 			<div className="noise"></div>
-			<div className="container">
+			{/*<div className="container">
 	      <img alt="bg-img" className="home__light home__light-1" src={light1} />
 	      <img alt="bg-img" className="home__light home__light-2" src={light2} />
 				<img alt="bg-img" className="home__light home__light-3" src={light3} />
@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
 	      <img alt="bg-img" className="home__light home__light-11" src={light11} />
 	      <img alt="bg-img" className="home__light home__light-12" src={light12} />
 	      <img alt="bg-img" className="home__light home__light-13" src={light13} />
-			</div>
+			</div>*/}
 			<HomeMain />
 			<Welcome />
 			<About />
