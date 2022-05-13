@@ -80,4 +80,16 @@
     top: 0;
     left: 0;
   }*/
+  .bg-lights {
+    z-index: -1;
+    top: 0;
+  	position: fixed;
+    width: 100%;
+  	overflow: hidden;
+  	height: 100vh;
+  	background: image('bg.svg');
+  	background-attachment: fixed;
+    background-size: cover;
+  	/*background: image('noise.png'), $black-bg;*/
+  }
 }
