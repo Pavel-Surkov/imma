@@ -12,7 +12,7 @@ export const Welcome: React.FC = () => {
 					<div className="welcome-content">
 						<div className="welcome__title-wrapper">
 							<h2 className="title title_size-m title_wrapped welcome__title">
-								Welcome
+								Who we are?
 							</h2>
 						</div>
 						<div className="welcome__img_big">

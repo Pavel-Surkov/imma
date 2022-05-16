@@ -141,7 +141,7 @@ export const StatusReleased = () => {
 						</defs>
 					</svg>
 					<p>
-						Unit
+						United with <b>NFT #356432456</b>
 						<span>from Original NFT</span>
 					</p>
 				</div>

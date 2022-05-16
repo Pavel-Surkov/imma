@@ -141,7 +141,7 @@ export const Creation = () => {
 							)}
 						</div>
 					</CreationStep>
-					<CreationStep number="02" title="Price of the IMMA NFT">
+					<CreationStep number="02" title="Price for the first sell">
 						<div className="step-wrapper">
 							<PriceRadio isFree={true} price={state.price} dispatch={dispatch} />
 							<PriceRadio

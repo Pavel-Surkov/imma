@@ -31,6 +31,19 @@
 			grid-area: 2 / 3 / 3 / 4;
 		}
 	}
+	&__title {
+		&.title_wrapped {
+			&::after {
+				position: absolute;
+				top: 50%;
+				left: -22px;
+				transform: translateY(-50%);
+				width: 106px;
+				height: 68px;
+				background: image('title_wrap_wide.svg') no-repeat 50% / contain;
+			}
+		}
+	}
 }
 
 @media screen and (max-width: 1230px) {
@@ -39,6 +52,9 @@
 			& p {
 				@include font(1.6rem, calc(20 / 14));
 			}
+		}
+		&-content {
+			grid-template-columns: 3.2fr 4fr 4fr;
 		}
 	}
 }

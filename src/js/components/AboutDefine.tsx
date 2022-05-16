@@ -28,7 +28,7 @@ const defineLists: defineListT[] = [
 		}
 	},
 	{
-		title: 'The actual dedication and signature creation: ',
+		title: 'The actual dedication and signature creation:',
 		list: {
 			items: [
 				{
@@ -37,7 +37,7 @@ const defineLists: defineListT[] = [
 				},
 				{
 					id: 2,
-					text: 'E-sign on the signature pad, you can add a few words as a dedication as well'
+					text: 'E-sign on the signature pad, you can add a few words as dedication as well'
 				}
 			]
 		}
@@ -48,11 +48,11 @@ const defineLists: defineListT[] = [
 			items: [
 				{
 					id: 1,
-					text: 'Insert your own Instagram\\Twitter account and username or your own email address'
+					text: 'Insert your own Instagram\\Twitter account'
 				},
 				{
 					id: 2,
-					text: 'Go to your account DM and grab the code we will send you and insert it in the verification slot.'
+					text: 'Go to your account DM and grab the code we will send you, and insert it in the verification slot.'
 				}
 			]
 		}

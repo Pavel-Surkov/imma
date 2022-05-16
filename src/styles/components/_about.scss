@@ -1,11 +1,10 @@
 .about {
 	&-title {
 		margin-bottom: 11px;
-		max-width: 290px;
 		& .title_wrapped {
 			&::after {
-				width: 198px;
-				height: 62px;
+				width: 158px;
+				height: 53px;
 				z-index: 10;
 				position: absolute;
 			}

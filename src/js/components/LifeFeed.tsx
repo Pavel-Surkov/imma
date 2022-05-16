@@ -10,7 +10,7 @@ export const LifeFeed: React.FC = () => {
 		<section className="section lifefeed">
 			<div className="section-wrapper lifefeed-wrapper">
 				<div className="container">
-					<h2 className="title title_size-m lifefeed-title">Life feed</h2>
+					<h2 className="title title_size-m lifefeed-title">Live feed</h2>
 					<LifeFeedTable
 						tableColumnsNames={homeTableColumnsNames}
 						tableData={tableData}
