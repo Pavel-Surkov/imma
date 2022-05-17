@@ -17,7 +17,7 @@ type defineListT = {
 // An array for content of lists of the block
 const defineLists: defineListT[] = [
 	{
-		title: 'Now you should define payment details for IMMA NFT',
+		title: '1. Now you should define payment details for IMMA NFT',
 		list: {
 			items: [
 				{
@@ -28,7 +28,7 @@ const defineLists: defineListT[] = [
 		}
 	},
 	{
-		title: 'The actual dedication and signature creation:',
+		title: '2. The actual dedication and signature creation:',
 		list: {
 			items: [
 				{
@@ -43,7 +43,7 @@ const defineLists: defineListT[] = [
 		}
 	},
 	{
-		title: 'Verification:',
+		title: '3. Verification:',
 		list: {
 			items: [
 				{
@@ -72,6 +72,9 @@ export const AboutDefine: React.FC = () => {
 					/>
 				</div>
 				<div className="about-define__content">
+					<h2 className="title title_size-s about-define__content-title">
+						A few more steps…
+					</h2>
 					{defineLists.map(({ title, list }: defineListT) => {
 						return (
 							<div className="about-define__list-block" key={title}>
@@ -89,7 +92,10 @@ export const AboutDefine: React.FC = () => {
 						);
 					})}
 					<div className="about-define__bottom">
-						<p>Done! Swipe right to create the IMMA NFT of the original NFT.</p>
+						<p>
+							Done! Swipe right to create the IMMA NFT of the original NFT. Proceed to
+							your IMMA NFT page in order to release it to the blockchain.
+						</p>
 					</div>
 				</div>
 			</div>

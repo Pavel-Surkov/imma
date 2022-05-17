@@ -31,6 +31,9 @@
 			right: -53px;
 		}
 	}
+	& .block-numbered:nth-child(3) {
+		background: rgba($black, 0.04);
+	}
 }
 
 @media screen and (max-width: 1230px) {

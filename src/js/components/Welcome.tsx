@@ -30,7 +30,7 @@ export const Welcome: React.FC = () => {
 								sentimental and valuable.
 							</p>
 							<p>
-								Anyone can sign any NFT, from family members to the biggest
+								Anyone can sign on any NFT, from family members to the biggest
 								celebrities you can imagine.
 							</p>
 							<p>You can sign on your own NFTs or someone else’s NFT.</p>
