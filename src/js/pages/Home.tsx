@@ -20,11 +20,16 @@ import light10 from '../../assets/images/10.svg';
 import light11 from '../../assets/images/11.svg';
 import light12 from '../../assets/images/12.svg';
 import light13 from '../../assets/images/13.svg';
+import lightbg1 from '../../assets/images/left-bottom-light.svg';
+import lightbg2 from '../../assets/images/right-top-light.svg';
 
 export const Home: React.FC = () => {
 	return (
 		<main className="main home">
-			<div className="bg-lights"></div>
+			<div className="bg-lights">
+				<img className="left-bottom-light" alt="light" src={lightbg1} />
+				<img className="right-top-light" alt="light" src={lightbg2} />
+			</div>
 			{/*<div className="container">
 	      <img alt="bg-img" className="home__light home__light-1" src={light1} />
 	      <img alt="bg-img" className="home__light home__light-2" src={light2} />
