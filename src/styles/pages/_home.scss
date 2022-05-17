@@ -87,9 +87,17 @@
     width: 100%;
   	overflow: hidden;
   	height: 100vh;
-  	background: image('bg.svg');
-  	background-attachment: fixed;
-    background-size: cover;
+  	background: #14101E;
   	/*background: image('noise.png'), $black-bg;*/
+  }
+  .bg-lights .left-bottom-light {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+  .bg-lights .right-top-light {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
