@@ -26,10 +26,7 @@ import lightbg2 from '../../assets/images/right-top-light.svg';
 export const Home: React.FC = () => {
 	return (
 		<main className="main home">
-			<div className="bg-lights">
-				{/*<img className="left-bottom-light" alt="light" src={lightbg1} />
-				<img className="right-top-light" alt="light" src={lightbg2} />*/}
-			</div>
+			<div className="bg-lights"></div>
 			{/*<div className="container">
 	      <img alt="bg-img" className="home__light home__light-1" src={light1} />
 	      <img alt="bg-img" className="home__light home__light-2" src={light2} />

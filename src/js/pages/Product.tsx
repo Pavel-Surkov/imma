@@ -35,6 +35,7 @@ export const Product: React.FC = () => {
 	if (!video) {
 		return (
 			<main className="main product">
+				<div className="bg-lights"></div>
 				<section className="product-page">
 					<div className="product-page__wrapper">
 						<div className="container">
@@ -52,6 +53,7 @@ export const Product: React.FC = () => {
 
 	return (
 		<main className="main product">
+			<div className="bg-lights"></div>
 			<section className="product-page">
 				<div className="product-page__wrapper">
 					<div className="container">
