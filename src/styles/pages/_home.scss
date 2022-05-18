@@ -87,8 +87,9 @@
     width: 100%;
   	overflow: hidden;
   	height: 100vh;
-  	background: #14101E;
-  	/*background: image('noise.png'), $black-bg;*/
+  	/*background: #14101E;*/
+  	background: image('bg.jpg') no-repeat center;/*, $black-bg;*/
+    background-size: cover;
   }
   .bg-lights .left-bottom-light {
     position: absolute;
