@@ -17,7 +17,11 @@ export const LifeFeed: React.FC = () => {
 						dateConvert={dateConvert}
 						convertDateToString={convertDateToString}
 					/>
-					<LifeFeedMobile tableData={tableData} dateConvert={dateConvert} />
+					<LifeFeedMobile
+						tableData={tableData}
+						dateConvert={dateConvert}
+						convertDateToString={convertDateToString}
+					/>
 				</div>
 			</div>
 		</section>

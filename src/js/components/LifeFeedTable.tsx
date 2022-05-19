@@ -188,19 +188,13 @@ export const LifeFeedTable = ({
 						const shortToken: string = row.nfta.token_address.slice(0, 13) + '...';
 
 						const dateOutput: string = dateConvert(new Date(row.inft.date.last_update));
-						const dateString: string = convertDateToString(new Date(row.date));
 						const lastActivity: ActivityT | undefined = row.activity[0];
 
 						const lastActivityDate: string = convertDateToString(
 							new Date(lastActivity.epoch)
 						);
 
-						const uid: string = `...${row.uid
-							.split('')
-							.reverse()
-							.slice(0, 5)
-							.reverse()
-							.join('')}`;
+						const uid: string = `#${row.uid.slice(0, 5)}...`;
 
 						return (
 							<tr className="table-row" key={row.index}>
