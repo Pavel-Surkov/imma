@@ -22,16 +22,18 @@ export const ProductActivity = React.memo(({ video }: { video: ITableData }) => 
 									/>
 									<div className="activity-item__content">
 										<p className="activity-item__event">{activity.event}</p>
-										{activity.wallet && (
+										{activity.from && (
 											<p className="activity-item__wallet">
 												by{' '}
 												<a className="link link_hover_green" href="/">
-													{activity.wallet}
+													{activity.from}
 												</a>
 											</p>
 										)}
-										{activity.price && (
-											<p className="activity-item__price">{activity.price}</p>
+										{activity.priceETH && (
+											<p className="activity-item__price">
+												{activity.priceETH} ETH
+											</p>
 										)}
 										<p className="activity-item__time">{activity.time}</p>
 									</div>
