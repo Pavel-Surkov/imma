@@ -3,6 +3,7 @@ import avatar from '../../assets/images/icons/avatar.svg';
 import { Link } from 'react-router-dom';
 import { ITableData, ActivityT } from '../helpers/nftTableData';
 import axios from 'axios';
+import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
 
 interface LifeFeedMobileProps {
 	tableData: Array<ITableData>;
@@ -20,7 +21,7 @@ export const LifeFeedMobile = ({
 	useEffect(() => {
 		const config = {
 			method: 'get',
-			url: 'https://api.imma.club/api/ethereum/rinkeby/getLiveFeed',
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getLiveFeed`,
 			headers: {
 				Origin: 'imma_postman'
 			}
@@ -149,15 +150,14 @@ export const LifeFeedMobile = ({
 					const uid: string = `#${row.uid.slice(0, 10)}...`;
 
 					return (
-						<div className="lifefeed-mobile__item" key={row.id}>
+						<div className="lifefeed-mobile__item" key={row.index}>
 							<div className="lifefeed-mobile__video">
 								<div className="video">
-									<img
-										width="100"
+									<video
+										width="370"
+										src={row.inft.metadata.animation_url}
 										className="video-preview"
-										src={row.inft.metadata.image}
-										alt=""
-									></img>
+									></video>
 									<div className="video-play__wrapper">
 										<Link to={`/allnft/${row.uid}`} className="video-play">
 											<svg
@@ -176,7 +176,9 @@ export const LifeFeedMobile = ({
 										</Link>
 									</div>
 								</div>
-								{row.sign && <img data-img="sign" src={row.sign} alt="sign" />}
+								{row.inft.metadata.image && (
+									<img data-img="sign" src={row.inft.metadata.image} alt="sign" />
+								)}
 							</div>
 							<div className="lifefeed-mobile__info">
 								<div className="lifefeed-mobile__info-block">

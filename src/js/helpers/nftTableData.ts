@@ -26,6 +26,7 @@ export type ActivityT = {
 };
 
 export interface ITableData extends NftVideo {
+	index?: string;
 	hash: string;
 	author: string;
 	author_url: string;

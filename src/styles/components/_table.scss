@@ -40,6 +40,10 @@
 					max-height: 123px;
 					object-fit: contain;
 				}
+				& video {
+					max-height: 123px;
+					object-fit: contain;
+				}
 			}
 			&:first-child {
 				width: calc((100 / 1170) * 100%);
@@ -176,6 +180,7 @@
 		&-author {
 			& svg {
 				margin-right: 7px;
+				max-height: 16px;
 			}
 		}
 	}

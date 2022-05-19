@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ITableData, ActivityT } from '../helpers/nftTableData';
 import avatar from '../../assets/images/icons/avatar.svg';
+import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
 import axios from 'axios';
 
 interface LifeFeedTableProps {
@@ -22,7 +23,7 @@ export const LifeFeedTable = ({
 	useEffect(() => {
 		const config = {
 			method: 'get',
-			url: 'https://api.imma.club/api/ethereum/rinkeby/getLiveFeed',
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getLiveFeed`,
 			headers: {
 				Origin: 'imma_postman'
 			}
@@ -200,12 +201,11 @@ export const LifeFeedTable = ({
 							<tr className="table-row" key={row.index}>
 								<td className="table-col">
 									<div className="video">
-										<img
+										<video
 											width="370"
+											src={row.inft.metadata.animation_url}
 											className="video-preview"
-											src={row.inft.metadata.image}
-											alt=""
-										></img>
+										></video>
 										<div className="video-play__wrapper">
 											<Link to={`/allnft/${row.uid}`} className="video-play">
 												<svg
@@ -297,7 +297,14 @@ export const LifeFeedTable = ({
 												{shortToken}
 											</a>
 										</p>
-										{row.sign && <img src={row.sign} alt="sign" />}
+										{row.inft.metadata.image && (
+											<img
+												width="100"
+												data-img="sign"
+												src={row.inft.metadata.image}
+												alt="sign"
+											/>
+										)}
 									</div>
 								</td>
 								<td className="table-col">
