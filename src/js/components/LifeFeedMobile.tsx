@@ -21,10 +21,10 @@ export const LifeFeedMobile = ({
 	useEffect(() => {
 		const config = {
 			method: 'get',
-			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getLiveFeed`,
-			headers: {
-				Origin: 'imma_postman'
-			}
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getLiveFeed`
+			// headers: {
+			// Origin: 'imma_postman'
+			// }
 		};
 
 		axios(config)
