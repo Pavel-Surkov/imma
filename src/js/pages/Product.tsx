@@ -13,7 +13,7 @@ export const Product: React.FC = () => {
 	const [data, setData] = useState<Response | null>(null);
 
 	const [video, setVideo] = useState<null | Result>(null);
-	const [fakeVideo, setFakeVideo] = useState<null | ITableData>(null);
+	// const [fakeVideo, setFakeVideo] = useState<null | ITableData>(null);
 	// TODO: Set status by API
 	const [status, setStatus] = useState<'released' | 'pending'>('released');
 
@@ -25,9 +25,9 @@ export const Product: React.FC = () => {
 		}
 
 		// TODO: Remove fake video
-		const fake: ITableData = tableData.find((item) => item.id === '1');
+		// const fake: ITableData = tableData.find((item) => item.id === '1');
 
-		setFakeVideo(fake);
+		// setFakeVideo(fake);
 	}, [data]);
 
 	useEffect(() => {
@@ -78,7 +78,7 @@ export const Product: React.FC = () => {
 								<h2 className="title title_size-m product-page__title_video">
 									IMMA NFT <span>#{video.uid.slice(0, 5)}...</span>
 								</h2>
-								<NftVideoItem properties={fakeVideo} />
+								<NftVideoItem properties={video} videoHeight={658} />
 							</div>
 							<ProductInfo status={status} video={video} />
 						</div>

@@ -45,7 +45,7 @@ export const ProductMoreNft = ({ video }: { video: Result }) => {
 								slide-id={video.id}
 								key={video.id}
 							>
-								<NftVideoItem properties={video} />
+								{/* <NftVideoItem properties={video} /> */}
 							</SwiperSlide>
 						);
 					})}

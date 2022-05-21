@@ -172,7 +172,7 @@ export const AllNft: React.FC = () => {
 									slide-id={video.id}
 									key={video.id}
 								>
-									<NftVideoItem properties={video} />
+									{/* <NftVideoItem properties={video} /> */}
 								</SwiperSlide>
 							);
 						})}

@@ -63,7 +63,7 @@ export const HomeMain: React.FC = () => {
 									strokeLinecap="round"
 								/>
 							</svg>
-							<NftVideoItem properties={mainNftVideoData[0]} />
+							{/* <NftVideoItem properties={mainNftVideoData[0]} /> */}
 						</div>
 					</div>
 				</div>

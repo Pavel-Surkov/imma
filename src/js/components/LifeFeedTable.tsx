@@ -200,7 +200,7 @@ export const LifeFeedTable = ({
 						return (
 							<tr className="table-row" key={row.index}>
 								<td className="table-col">
-									<div className="video">
+									<div className="video" style={{ height: '100%' }}>
 										<video
 											width="370"
 											src={row.inft.metadata.animation_url}
