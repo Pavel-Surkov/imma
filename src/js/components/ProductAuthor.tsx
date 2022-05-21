@@ -10,7 +10,7 @@ export const ProductAuthor = ({ video }: { video: Result }) => {
 				href={video.inft.creator.social}
 				className="link_hover_green product-page__author-tag"
 			>
-				{video.uid}
+				@{video.inft.metadata.name}
 			</a>
 			<div className="product-page__author-sign">
 				<img height="55" src={video.inft.metadata.image} alt=""></img>
