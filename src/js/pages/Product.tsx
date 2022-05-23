@@ -13,7 +13,6 @@ export const Product: React.FC = () => {
 	const [data, setData] = useState<Response | null>(null);
 
 	const [video, setVideo] = useState<null | Result>(null);
-	// const [fakeVideo, setFakeVideo] = useState<null | ITableData>(null);
 	// TODO: Set status by API
 	const [status, setStatus] = useState<'released' | 'pending'>('released');
 
@@ -23,11 +22,6 @@ export const Product: React.FC = () => {
 
 			setVideo(video);
 		}
-
-		// TODO: Remove fake video
-		// const fake: ITableData = tableData.find((item) => item.id === '1');
-
-		// setFakeVideo(fake);
 	}, [data]);
 
 	useEffect(() => {
@@ -47,6 +41,8 @@ export const Product: React.FC = () => {
 				console.log(error);
 			});
 	}, []);
+
+	console.log(video);
 
 	if (!video) {
 		return (

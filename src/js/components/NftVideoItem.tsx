@@ -60,7 +60,10 @@ export const NftVideoItem = ({
 
 	if (properties.uid) {
 		return (
-			<div className="video" style={{ height: '658px' }}>
+			<div
+				className="video"
+				style={videoHeight ? { height: `${videoHeight}px` } : { height: `658px` }}
+			>
 				<video
 					width="370"
 					height="658"
