@@ -115,7 +115,7 @@ export const Creation = () => {
 							/>
 							{state.wallets.customWallet && (
 								<CreationForm
-									title="Your custom wallet"
+									title="Broke wallet"
 									state={state}
 									dispatch={dispatch}
 									wallet="custom"

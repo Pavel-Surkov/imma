@@ -17,7 +17,7 @@ type defineListT = {
 // An array for content of lists of the block
 const defineLists: defineListT[] = [
 	{
-		title: '1. Now you should define payment details for IMMA NFT',
+		title: '1. Payment details for IMMA NFT',
 		list: {
 			items: [
 				{

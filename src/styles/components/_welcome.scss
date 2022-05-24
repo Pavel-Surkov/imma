@@ -12,7 +12,8 @@
 		& p {
 			@include font(2rem, calc(28 / 20));
 			margin-bottom: 15px;
-			&:last-child {
+			&:last-child,
+			&:nth-last-child(2) {
 				margin-bottom: 0;
 			}
 		}
@@ -29,6 +30,10 @@
 			display: grid;
 			align-items: end;
 			grid-area: 2 / 3 / 3 / 4;
+			& img {
+				width: 100%;
+				object-fit: cover;
+			}
 		}
 	}
 	&__title {
@@ -43,6 +48,9 @@
 				background: image('title_wrap_wide.svg') no-repeat 50% / contain;
 			}
 		}
+	}
+	&__btn {
+		margin-top: 40px;
 	}
 }
 
@@ -63,10 +71,10 @@
 	.welcome {
 		&-content {
 			grid-template-columns: 100%;
-			grid-gap: 20px;
+			grid-gap: 25px;
 		}
 		&__text {
-			padding-top: 10px;
+			padding-top: 5px;
 			& p {
 				@include font(2rem, calc(28 / 20));
 			}
@@ -86,6 +94,9 @@
 				display: none;
 				grid-area: initial;
 			}
+		}
+		&__btn {
+			margin-top: 25px;
 		}
 	}
 }
