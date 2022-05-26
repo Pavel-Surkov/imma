@@ -1,5 +1,26 @@
 .progress-bar {
-	position: -webkit-sticky;
-	position: sticky;
-	top: 0;
+	position: fixed;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%) translateX(100%);
+	transition: transform 0.3s;
+	&_visible {
+		transform: translateY(-50%) translateX(-116px);
+	}
+	&__wrapper {
+		position: relative;
+	}
+	&__back {
+		&-bar {
+			position: absolute;
+			height: 100%;
+			width: 1px;
+			background: #fffbfb33;
+		}
+	}
+	&__bar {
+		max-height: 100%;
+		background: $lightgreen;
+		width: 100%;
+	}
 }

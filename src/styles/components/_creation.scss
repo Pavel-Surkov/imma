@@ -1,10 +1,19 @@
 .creation {
 	position: relative;
+	overflow: hidden;
 	&-title {
 		margin-bottom: 30px;
 	}
 	& .btn-video {
 		font-weight: 700;
+	}
+	&-wrapper {
+		@include grid(20px);
+		grid-template-columns: calc(1170px + ((100vw - 1170px) / 2) - 10px) calc(((100vw - 1170px) / 2) - 10px);
+	}
+	&-content {
+		max-width: 1170px;
+		margin-left: auto;
 	}
 }
 
