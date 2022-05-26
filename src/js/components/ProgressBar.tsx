@@ -10,8 +10,8 @@ export const ProgressBar = () => {
 				{Array(7)
 					.fill(null)
 					.map((item, idx) => (
-						<li className="progress-bar__step" key={idx}>
-							0{idx}
+						<li className="progress-bar__step" key={idx + 1}>
+							{idx < 9 ? `0${idx + 1}` : `${idx + 1}`}
 						</li>
 					))}
 			</ol>
