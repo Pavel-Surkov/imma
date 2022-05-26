@@ -6,6 +6,7 @@ import { CreationForm } from './CreationForm';
 import { CreationVideo } from './CreationVideo';
 import { CreationSubmit } from './CreationSubmit';
 import { PriceRadio, BlockchainRadio, SocialRadio } from './CreationRadio';
+import { ProgressBar } from './ProgressBar';
 
 export const initialState: State = {
 	wallets: {
@@ -96,6 +97,7 @@ export const Creation = () => {
 
 	return (
 		<section id="creation" className="section creation">
+			<ProgressBar />
 			<div className="section-wrapper creation-wrapper">
 				<div className="container">
 					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
@@ -172,7 +174,7 @@ export const Creation = () => {
 								<div
 									className="step-block__sign step-block__sign_active"
 									style={
-										signaturePad ? { display: 'none' } : { display: 'block' }
+										signaturePad ? { display: 'none' } : { display: 'block	' }
 									}
 								>
 									<svg
@@ -185,7 +187,7 @@ export const Creation = () => {
 										<path
 											d="M56.8427 181.364C33.5056 150.907 18.3445 111.607 6.02359 75.5246C-0.0176277 57.8325 -2.65165 29.6244 9.00498 13.9995C23.8194 -5.85812 36.3543 36.6261 39.903 45.9817C43.0519 54.2834 46.7392 63.2681 47.0855 72.2722C47.4971 82.9748 49.3052 50.9382 51.3543 40.4255C53.3905 29.9787 55.2271 -1.53383 71.2076 1.0576C93.461 4.66625 95.8718 26.4331 95.8718 44.7621C95.8718 81.0366 74.7178 113.931 60.6372 146.468C53.3586 163.288 46.7623 180.353 37.4637 196.203C33.3042 203.293 28.259 209.779 23.9119 216.734"
 											stroke="white"
-											stroke-linecap="round"
+											strokeLinecap="round"
 										/>
 									</svg>
 								</div>
