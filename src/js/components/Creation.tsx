@@ -98,7 +98,7 @@ export const Creation = () => {
 	return (
 		<section id="creation" className="section creation">
 			<div className="section-wrapper creation-wrapper">
-				<ProgressBar />
+				<ProgressBar state={state} />
 				<div className="creation-content">
 					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
 					<CreationStep number="01" title="Add wallet">
