@@ -20,7 +20,7 @@ export enum Wallets {
 	custom = 'customWallet'
 }
 
-type Wallet = {
+export type Wallet = {
 	walletNumber: '' | string;
 	isVerified: boolean;
 };
