@@ -35,10 +35,13 @@ export const initialState: State = {
 
 export const Creation = () => {
 	const signFieldRef = useRef(null);
+	const containerRef = useRef(null);
 
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [signatureText, setSignatureText] = useState<string>('Sign here');
 	const [signaturePad, setSignaturePad] = useState<SignaturePad | null>(null);
+
+	// const [isFormCompleted, setIsFormCompleted] = useState<boolean>(false);
 
 	useEffect(() => {
 		const windowWidth = window.innerWidth;
@@ -96,9 +99,9 @@ export const Creation = () => {
 	};
 
 	return (
-		<section id="creation" className="section creation">
+		<section id="creation" className="section creation" ref={containerRef}>
 			<div className="section-wrapper creation-wrapper">
-				<ProgressBar state={state} />
+				<ProgressBar containerRef={containerRef} state={state} />
 				<div className="creation-content">
 					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
 					<CreationStep number="01" title="Add wallet">

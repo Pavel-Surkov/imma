@@ -23,6 +23,7 @@
 		}
 	}
 	&__bar {
+		transition: height 0.2s;
 		max-height: 100%;
 		background: $lightgreen;
 		width: 100%;
@@ -41,16 +42,41 @@
 		z-index: 3;
 		display: grid;
 		place-items: center;
+		width: 30px;
+		height: 30px;
 		&_completed {
 			border: 1px solid $lightgreen;
 			border-radius: 50%;
 			display: flex;
 			backdrop-filter: blur(20px);
+			& span {
+				position: absolute;
+				left: calc(100% + 11px);
+				top: 50%;
+				transform: translateY(-50%);
+				font-family: $title-font;
+			}
 		}
 		&_current {
 			display: flex;
 			backdrop-filter: blur(20px);
 			border-radius: 50%;
+			& span {
+				position: absolute;
+				left: calc(100% + 11px);
+				top: 50%;
+				transform: translateY(-50%);
+				font-family: $title-font;
+			}
+		}
+		&_staging {
+			& span {
+				position: absolute;
+				left: calc(100% + 11px);
+				top: 50%;
+				transform: translateY(-50%);
+				font-family: $title-font;
+			}
 		}
 	}
 }

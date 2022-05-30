@@ -12,15 +12,15 @@ type ProgressItemT = {
 const initialProgressBar: ProgressItemT[] = [
 	{
 		id: 1,
-		state: 'staging'
+		state: 'current'
 	},
 	{
 		id: 2,
-		state: 'completed'
+		state: 'staging'
 	},
 	{
 		id: 3,
-		state: 'current'
+		state: 'staging'
 	},
 	{
 		id: 4,
@@ -40,9 +40,16 @@ const initialProgressBar: ProgressItemT[] = [
 	}
 ];
 
-export const ProgressBar = ({ state }: { state: State }) => {
-	const [visible, setVisible] = useState<boolean>(true);
+type ProgressBarProps = {
+	state: State;
+	containerRef: React.RefObject<HTMLElement>;
+};
+
+export const ProgressBar = ({ state, containerRef }: ProgressBarProps) => {
+	const [visible, setVisible] = useState<boolean>(false);
 	const [progressItems, setProgressItems] = useState<ProgressItemT[]>(initialProgressBar);
+	const [appearingScroll, setAppearingScroll] = useState<number>(1000);
+	const [disappearingScroll, setDisappearingScroll] = useState<number>(1500);
 
 	// (Will be in Creation component, I think)
 	const [progress, setProgress] = useState<number>(30); // 0% - 100%
@@ -52,24 +59,54 @@ export const ProgressBar = ({ state }: { state: State }) => {
 		let progress: number = 0;
 		let newProgressItems: ProgressItemT[] = initialProgressBar.concat();
 
-		console.log(newProgressItems);
-
-		// First step of the bar
 		if (state) {
+			// First step of the bar
 			const keys: string[] = Object.keys(state.wallets);
 
 			keys.forEach((key) => {
 				if (state.wallets[key].isVerified) {
-					progress = 10;
+					progress = 8;
 					newProgressItems[0] = { id: 1, state: 'completed' };
 				}
 			});
+
+			// Second step of the bar
 		}
 
+		setProgress(progress);
 		setProgressItems(newProgressItems);
 	}, [state]);
 
-	// console.log(JSON.stringify(progressItems));
+	useEffect(() => {
+		const container: HTMLElement = containerRef.current;
+
+		if (container) {
+			const containerParams: DOMRect = container.getBoundingClientRect();
+
+			const topRange: number = container.offsetTop + window.innerHeight / 2;
+			const bottomRange: number = container.offsetTop + containerParams.height;
+
+			console.log(topRange, bottomRange);
+
+			setAppearingScroll(topRange);
+			setDisappearingScroll(bottomRange);
+		}
+	}, [containerRef]);
+
+	const handleScroll = (): void => {
+		const currentScroll: number = window.scrollY;
+
+		if (currentScroll >= appearingScroll && currentScroll <= disappearingScroll) {
+			setVisible(true);
+		} else {
+			setVisible(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener('scroll', handleScroll);
+		return () => document.removeEventListener('scroll', handleScroll);
+	}, [disappearingScroll]);
 
 	return (
 		<div className={`progress-bar ${visible ? 'progress-bar_visible' : null}`}>
@@ -78,15 +115,42 @@ export const ProgressBar = ({ state }: { state: State }) => {
 					<div className="progress-bar__bar" style={{ height: `${progress}%` }}></div>
 				</div>
 				<ol className="progress-bar__steps">
-					{progressItems.map((item) => {
-						console.log(progressItems, progressItems[0]);
-						// console.log(item);
-
-						// console.log(JSON.stringify(progressItems));
+					{progressItems.map((item, idx) => {
+						if (progressItems[progressItems.length - 1] === item) {
+							return (
+								<li className="progress-bar__step" key={item.id}>
+									<div
+										className="progress-bar__step_final"
+										style={
+											progress === 100 ? { opacity: '1' } : { opacity: '0.2' }
+										}
+									>
+										<svg
+											width="31"
+											height="31"
+											viewBox="0 0 31 31"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<circle
+												cx="15.1504"
+												cy="15.7727"
+												r="15"
+												fill="#D6FF7E"
+											/>
+											<path
+												d="M10.082 15.4811L13.6553 19.0541L20.2176 12.4917"
+												stroke="black"
+												strokeWidth="2"
+											/>
+										</svg>
+									</div>
+								</li>
+							);
+						}
 
 						return (
 							<li className="progress-bar__step" key={item.id}>
-								{/* {idx < 9 ? `0${idx + 1}` : `${idx + 1}`} */}
 								{item.state === 'current' && (
 									<div className="progress-bar__step_current">
 										<svg
@@ -106,6 +170,7 @@ export const ProgressBar = ({ state }: { state: State }) => {
 												fill="white"
 											/>
 										</svg>
+										<span>{idx < 9 ? `0${idx + 1}` : `${idx + 1}`}</span>
 									</div>
 								)}
 								{item.state === 'staging' && (
@@ -122,6 +187,7 @@ export const ProgressBar = ({ state }: { state: State }) => {
 												fill="white"
 											/>
 										</svg>
+										<span>{idx < 9 ? `0${idx + 1}` : `${idx + 1}`}</span>
 									</div>
 								)}
 								{item.state === 'completed' && (
@@ -178,6 +244,7 @@ export const ProgressBar = ({ state }: { state: State }) => {
 												</filter>
 											</defs>
 										</svg>
+										<span>{idx < 9 ? `0${idx + 1}` : `${idx + 1}`}</span>
 									</div>
 								)}
 							</li>
