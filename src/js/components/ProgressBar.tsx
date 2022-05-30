@@ -71,6 +71,32 @@ export const ProgressBar = ({ state, containerRef }: ProgressBarProps) => {
 			});
 
 			// Second step of the bar
+			if (state.price.isFree !== null) {
+				progress = 22;
+				newProgressItems[1] = { id: 2, state: 'completed' };
+			}
+
+			// Third step of the bar
+			if (state.blockchain) {
+				progress = 40;
+				newProgressItems[2] = { id: 3, state: 'completed' };
+			}
+
+			// Forth step of the bar
+
+			// Fifth step of the bar
+			if (state.signature) {
+				progress = 70;
+				newProgressItems[4] = { id: 5, state: 'completed' };
+			}
+
+			// Sixth step of the bar
+			if (state.verification.social) {
+				progress = 90;
+				newProgressItems[5] = { id: 6, state: 'completed' };
+			}
+
+			// Check is all steps are checked
 		}
 
 		setProgress(progress);
