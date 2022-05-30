@@ -20,15 +20,15 @@ export const initialState: State = {
 		}
 	},
 	price: {
-		isFree: true,
+		isFree: null,
 		dollarValue: 391.34,
 		ethereumValue: 0.14
 	},
-	blockchain: 'ethereum',
+	blockchain: null,
 	video: null,
 	signature: null,
 	verification: {
-		social: 'instagram',
+		social: null,
 		isVerified: false
 	}
 };

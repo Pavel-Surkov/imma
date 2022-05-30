@@ -81,6 +81,14 @@
 	}
 }
 
+@media screen and (max-width: 1480px) {
+	.progress-bar {
+		&_visible {
+			transform: translateY(-50%) translateX(-80px);
+		}
+	}
+}
+
 @media screen and (max-width: 991px) {
 	.progress-bar {
 		display: none;

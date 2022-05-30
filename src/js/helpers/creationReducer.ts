@@ -32,15 +32,15 @@ export interface State {
 		customWallet?: Wallet;
 	};
 	price: {
-		isFree: boolean;
+		isFree: null | boolean;
 		dollarValue: null | number;
 		ethereumValue: null | number;
 	};
-	blockchain: 'ethereum' | 'polygon';
+	blockchain: null | 'ethereum' | 'polygon';
 	video: null | File;
 	signature: null | File;
 	verification: {
-		social: 'instagram' | 'twitter';
+		social: null | 'instagram' | 'twitter';
 		isVerified: boolean;
 	};
 }
