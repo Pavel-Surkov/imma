@@ -83,6 +83,11 @@ export const ProgressBar = ({ state, containerRef }: ProgressBarProps) => {
 			}
 
 			// Forth step of the bar
+			if (state.video) {
+				console.log(state.video);
+				progress = 60;
+				newProgressItems[3] = { id: 4, state: 'completed' };
+			}
 
 			// Fifth step of the bar
 			if (state.signature) {

@@ -170,6 +170,11 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		}
 	};
 
+	const approveVideo = () => {
+		setVideoApproved(true);
+		closeVideoModal();
+	};
+
 	return (
 		<>
 			<div className="step-wrapper step-wrapper_video">
@@ -219,7 +224,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 									<button
 										type="button"
 										className="video-modal__control-btn video-modal__control-btn_approve"
-										onClick={() => setVideoApproved(true)}
+										onClick={approveVideo}
 									>
 										<svg
 											width="28"
