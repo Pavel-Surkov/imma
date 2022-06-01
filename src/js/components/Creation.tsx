@@ -169,7 +169,7 @@ export const Creation = () => {
 						</div>
 					</CreationStep>
 					<CreationStep number="04" title="Create a video">
-						<CreationVideo />
+						<CreationVideo dispatch={dispatch} />
 					</CreationStep>
 					<CreationStep number="05" title="Your signature">
 						<div className="step-wrapper">

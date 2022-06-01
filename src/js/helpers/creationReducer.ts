@@ -12,7 +12,8 @@ export type ActionType =
 	| Action<'CHANGE_ETHEREUM_PRICE', { value: number }>
 	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>
 	| Action<'SET_SOCIAL', { value: 'instagram' | 'twitter' }>
-	| Action<'CLEAN_FORM', {}>;
+	| Action<'CLEAN_FORM', {}>
+	| Action<'SET_VIDEO', { value: Blob }>;
 
 export enum Wallets {
 	original = 'originalWallet',
@@ -37,7 +38,7 @@ export interface State {
 		ethereumValue: null | number;
 	};
 	blockchain: null | 'ethereum' | 'polygon';
-	video: null | File;
+	video: null | Blob;
 	signature: null | File;
 	verification: {
 		social: null | 'instagram' | 'twitter';
@@ -158,6 +159,12 @@ export function reducer(state: State, action: ActionType) {
 						isVerified: false
 					}
 				}
+			};
+		}
+		case 'SET_VIDEO': {
+			return {
+				...state,
+				video: action.value
 			};
 		}
 		default: {

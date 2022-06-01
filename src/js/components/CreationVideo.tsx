@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 // Chqck for getUserMedia() API availability in current browser
 function hasGetUserMedia() {
@@ -9,7 +12,13 @@ function wait(delayInSec) {
 	return new Promise((resolve) => setTimeout(resolve, delayInSec * 1000));
 }
 
-export const CreationVideo = () => {
+interface ICreationVideo {
+	dispatch: React.Dispatch<any>;
+}
+
+type Ct = 'video/mp4' | 'image/jpeg' | 'image/gif' | 'image/png';
+
+export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	const videoRef = useRef(null);
 	const mediaRef = useRef(null);
 
@@ -18,6 +27,35 @@ export const CreationVideo = () => {
 	const [recorder, setRecorder] = useState<null | MediaRecorder>(null);
 	const [recorderState, setRecorderState] = useState<'recording' | 'inactive'>('inactive');
 	const [video, setVideo] = useState<null | Blob>(null);
+	const [videoApproved, setVideoApproved] = useState<boolean>(false);
+
+	// Params for signedUrlData query.
+	// Maybe not necessary use useState for them
+	const [rid, setRid] = useState<string>(uuidv4());
+	const [filename, setFilename] = useState<string>('MyVideo.mp4');
+	const [ct, setCt] = useState<Ct>('video/mp4');
+
+	const [signedUrlData, setSignedUrlData] = useState(null);
+
+	// Gets signedUrlData
+	useEffect(() => {
+		const config = {
+			method: 'get',
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getSignedUrl?rid=${rid}&filename=${filename}&ct=${ct}`
+			// headers: {
+			// 	origin: 'imma_postman',
+			// 	'Content-Type': 'video/mp4'
+			// }
+		};
+
+		axios(config)
+			.then((response) => {
+				setSignedUrlData(response.data.results);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
 	useEffect(() => {
 		if (stream) {
@@ -26,6 +64,12 @@ export const CreationVideo = () => {
 			setRecorder(recorder);
 		}
 	}, [stream]);
+
+	useEffect(() => {
+		if (videoApproved && video) {
+			dispatch({ type: 'SET_VIDEO', value: video });
+		}
+	}, [videoApproved]);
 
 	const createVideo = (): void => {
 		if (!hasGetUserMedia()) {
@@ -56,7 +100,7 @@ export const CreationVideo = () => {
 			}
 		};
 
-		// Options for media
+		// Options for media stream
 		const hdConstraints = {
 			audio: true,
 			video: { width: { min: 1280 }, height: { min: 720 }, facingMode: 'user' }
@@ -101,7 +145,7 @@ export const CreationVideo = () => {
 		videosArr.then((videos) => setVideo(videos[0]));
 	};
 
-	const closeVideo = (): void => {
+	const closeVideoModal = (): void => {
 		// Enables scroll
 		const htmlEl = document.documentElement;
 		htmlEl.classList.remove('is-locked');
@@ -146,7 +190,7 @@ export const CreationVideo = () => {
 								type="button"
 								className="close video-modal__close"
 								aria-label="close"
-								onClick={closeVideo}
+								onClick={closeVideoModal}
 							></button>
 						</div>
 						<video
@@ -170,52 +214,105 @@ export const CreationVideo = () => {
 							Your browser doesn't support video tag
 						</video>
 						<div className="video-modal__control">
-							<button
-								type="button"
-								className="video-modal__control-btn video-modal__control-btn_record"
-								aria-label={recorderState === 'recording' ? 'stop' : 'record'}
-								onClick={handleRecord}
-								disabled={stream ? false : true}
-							>
-								<svg
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<circle
-										cx="12.1839"
-										cy="11.8245"
-										r="11.389"
-										fill={recorderState === 'recording' ? '#F00000' : '#D6FF7E'}
-									/>
-								</svg>
-							</button>
-							<button
-								type="button"
-								className="video-modal__control-btn video-modal__control-btn_discard"
-								aria-label="discard"
-								onClick={discardVideo}
-								disabled={stream ? false : true}
-							>
-								<svg
-									width="19"
-									height="19"
-									viewBox="0 0 19 19"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<rect
-										x="0.852539"
-										y="0.862793"
-										width="17.9226"
-										height="17.9226"
-										rx="1.38787"
-										fill="#828282"
-									/>
-								</svg>
-							</button>
+							{video ? (
+								<>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_approve"
+										onClick={() => setVideoApproved(true)}
+									>
+										<svg
+											width="28"
+											height="20"
+											viewBox="0 0 28 20"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 7.06488L11.1774 18L27 1"
+												stroke="white"
+												stroke-width="2"
+												stroke-linecap="round"
+											/>
+										</svg>
+									</button>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_refuse"
+										onClick={discardVideo}
+									>
+										<svg
+											width="23"
+											height="23"
+											viewBox="0 0 23 23"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 1L22 22M22 1L1 21.9996"
+												stroke="white"
+												stroke-width="2"
+												stroke-linecap="round"
+											/>
+										</svg>
+									</button>
+								</>
+							) : (
+								<>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_record"
+										aria-label={
+											recorderState === 'recording' ? 'stop' : 'record'
+										}
+										onClick={handleRecord}
+										disabled={stream ? false : true}
+									>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<circle
+												cx="12.1839"
+												cy="11.8245"
+												r="11.389"
+												fill={
+													recorderState === 'recording'
+														? '#F00000'
+														: '#D6FF7E'
+												}
+											/>
+										</svg>
+									</button>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_discard"
+										aria-label="discard"
+										onClick={discardVideo}
+										disabled={stream ? false : true}
+									>
+										<svg
+											width="19"
+											height="19"
+											viewBox="0 0 19 19"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<rect
+												x="0.852539"
+												y="0.862793"
+												width="17.9226"
+												height="17.9226"
+												rx="1.38787"
+												fill="#828282"
+											/>
+										</svg>
+									</button>
+								</>
+							)}
 						</div>
 					</div>
 				</div>
