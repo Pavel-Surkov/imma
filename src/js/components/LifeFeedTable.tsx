@@ -54,7 +54,8 @@ export const LifeFeedTable = ({
 				</tr>
 			</thead>
 			<tbody className="table-body">
-				{tableData.map((row) => {
+				{/* TODO: Remove this example */}
+				{/* {tableData.map((row) => {
 					const dateOutput: string = dateConvert(row.date);
 					const shortToken: string = row.token.slice(0, 13) + '...';
 
@@ -183,9 +184,14 @@ export const LifeFeedTable = ({
 							</td>
 						</tr>
 					);
-				})}
+				})} */}
 				{data &&
-					data.results.map((row) => {
+					data.results.map((row, idx) => {
+						// To limit the number of video items
+						if (idx > 5) {
+							return null;
+						}
+
 						const shortToken: string = row.nfta.token_address.slice(0, 13) + '...';
 
 						const dateOutput: string = dateConvert(new Date(row.inft.date.last_update));

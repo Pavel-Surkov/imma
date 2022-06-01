@@ -231,8 +231,8 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 											<path
 												d="M1 7.06488L11.1774 18L27 1"
 												stroke="white"
-												stroke-width="2"
-												stroke-linecap="round"
+												strokeWidth="2"
+												strokeLinecap="round"
 											/>
 										</svg>
 									</button>
@@ -251,8 +251,8 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 											<path
 												d="M1 1L22 22M22 1L1 21.9996"
 												stroke="white"
-												stroke-width="2"
-												stroke-linecap="round"
+												strokeWidth="2"
+												strokeLinecap="round"
 											/>
 										</svg>
 									</button>
