@@ -16,7 +16,7 @@ interface ICreationVideo {
 	dispatch: React.Dispatch<any>;
 }
 
-type Ct = 'video/mp4' | 'image/jpeg' | 'image/gif' | 'image/png';
+type ContentType = 'video/mp4' | 'image/jpeg' | 'image/gif' | 'image/png';
 
 export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	const videoRef = useRef(null);
@@ -33,7 +33,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	// Maybe not necessary use useState for them
 	const [rid, setRid] = useState<string>(uuidv4());
 	const [filename, setFilename] = useState<string>('MyVideo.mp4');
-	const [ct, setCt] = useState<Ct>('video/mp4');
+	const [contentType, setContentType] = useState<ContentType>('video/mp4');
 
 	const [signedUrlData, setSignedUrlData] = useState(null);
 
@@ -41,7 +41,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	useEffect(() => {
 		const config = {
 			method: 'get',
-			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getSignedUrl?rid=${rid}&filename=${filename}&ct=${ct}`
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getSignedUrl?rid=${rid}&filename=${filename}&ct=${contentType}`
 			// headers: {
 			// 	origin: 'imma_postman',
 			// 	'Content-Type': 'video/mp4'
@@ -65,10 +65,44 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		}
 	}, [stream]);
 
+	// Video save
 	useEffect(() => {
-		if (videoApproved && video) {
+		if (videoApproved && video && signedUrlData) {
+			// Set video to the local state
 			dispatch({ type: 'SET_VIDEO', value: video });
+
+			// Send a PUT request with the video
+			const config = {
+				method: 'put',
+				url: signedUrlData.uploadURL,
+				headers: {
+					'Content-Type': 'video/mp4'
+				},
+				body: video
+			};
+
+			axios(config)
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
+
+		// setTimeout(() => {
+		// 	console.log(signedUrlData.downloadURL);
+		// 	axios({
+		// 		method: 'get',
+		// 		url: signedUrlData.downloadURL
+		// 	})
+		// 		.then((res) => {
+		// 			console.log(res);
+		// 		})
+		// 		.catch((err) => {
+		// 			console.log(err);
+		// 		});
+		// }, 3000);
 	}, [videoApproved]);
 
 	const createVideo = (): void => {
