@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { downloadTest, uploads3 } from '../api/VideoUpload';
 
 // Check for getUserMedia() API availability in current browser
 function hasGetUserMedia() {
@@ -35,6 +36,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	const [recorderState, setRecorderState] = useState<'recording' | 'inactive'>('inactive');
 	const [video, setVideo] = useState<null | Blob>(null);
 	const [videoApproved, setVideoApproved] = useState<boolean>(false);
+	const [videoUploaded, setVideoUploaded] = useState<boolean>(false);
 
 	// Params for signedUrlData query.
 	// Maybe not necessary use useState for them
@@ -50,7 +52,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			method: 'get',
 			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getSignedUrl?rid=${rid}&filename=${filename}&ct=${contentType}`,
 			headers: {
-				origin: 'imma_postman',
+				// origin: 'imma_postman',
 				'Content-Type': 'video/mp4'
 			}
 		};
@@ -63,8 +65,6 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			});
 	}, []);
 
-	console.log(signedUrlData);
-
 	useEffect(() => {
 		if (stream) {
 			const recorder: MediaRecorder = new MediaRecorder(stream);
@@ -73,48 +73,35 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		}
 	}, [stream]);
 
-	// Video save
+	// Video save & upload
 	useEffect(() => {
 		if (videoApproved && video && signedUrlData) {
 			dispatch({ type: 'SET_VIDEO', value: video });
 
-			// Send a PUT request with the video
-			const config: ConfigT = {
-				method: 'put',
-				url: signedUrlData.uploadURL,
-				headers: {
-					'Content-Type': 'video/mp4'
-				},
-				body: video
-			};
-
-			axios(config)
-				.then((response) => {
-					console.log(response);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+			uploads3(signedUrlData.uploadURL, contentType, video).then((response) => {
+				if (response.status === 200) {
+					console.log('video upload is successful');
+					setVideoUploaded(true);
+				}
+			});
 		}
-
-		setTimeout(() => {
-			const config: ConfigT = {
-				method: 'get',
-				url: signedUrlData.downloadURL
-				// headers: {
-				// 	'Content-Type': 'video/mp4'
-				// }
-			};
-
-			axios(config)
-				.then((res) => {
-					console.log(res);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}, 3000);
 	}, [videoApproved]);
+
+	// Download video to be sure that video uploaded correctly
+	useEffect(() => {
+		if (videoUploaded && signedUrlData) {
+			console.log('downloading video...');
+
+			async function downloadVideo() {
+				const downloadResponse = await downloadTest(signedUrlData.downloadURL);
+
+				const downloadResponseStatus = downloadResponse.status;
+				console.log(downloadResponseStatus);
+			}
+
+			downloadVideo();
+		}
+	}, [videoUploaded]);
 
 	const createVideo = (): void => {
 		if (!hasGetUserMedia()) {

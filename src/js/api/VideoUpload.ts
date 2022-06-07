@@ -12,7 +12,7 @@ const axios_call = async (payload) => {
 		});
 };
 
-const getSignedUrl = async (rid, filename, ct) => {
+export const getSignedUrl = async (rid, filename, ct, url) => {
 	try {
 		const params = {
 			rid,
@@ -21,7 +21,7 @@ const getSignedUrl = async (rid, filename, ct) => {
 		};
 		var config = {
 			method: 'get',
-			url: 'https://api.imma.club/api/ethereum/rinkeby/getSignedUrl',
+			url: url,
 			headers: {
 				'Content-Type': 'text/plain'
 			},
@@ -52,7 +52,7 @@ const downloadDemoFile = async (type, url) => {
 	}
 };
 
-const uploads3 = async (url, ct, blob) => {
+export const uploads3 = async (url, ct, blob) => {
 	try {
 		const config = {
 			method: 'put',
@@ -70,64 +70,43 @@ const uploads3 = async (url, ct, blob) => {
 	}
 };
 
-const downloadTest = async (url) => {
+export const downloadTest = async (url) => {
 	try {
 		const config = {
 			method: 'get',
 			url
 		};
-		return await axios_call(config);
+		const response = await axios_call(config);
+
+		console.log(response);
+
+		return response;
 	} catch (error) {
 		console.log(error);
 	}
 };
 
-export const UploadTest = async () => {
+export const UploadTest = async (video, rid, ct, filename, getSignedURL) => {
 	try {
-		const files = {
-			signature: {
-				filename: 'mySignature.png',
-				ct: 'image/png',
-				url: 'https://s3.eu-central-1.amazonaws.com/kobodo.co/test_files/mySignature.png'
-			},
-			video: {
-				filename: 'myVideo.mp4',
-				ct: 'video/mp4',
-				url: 'https://s3.eu-central-1.amazonaws.com/kobodo.co/test_files/myVideo.mp4'
-			}
-		};
-
-		const rid = uuidv4();
-
 		console.log('rid: ', rid);
 
-		for (const [key, value] of Object.entries(files)) {
-			console.log('uploading : ', key);
+		const signed_respone = await getSignedUrl(rid, filename, ct, getSignedURL);
+		const results = signed_respone.data.results;
+		const uploadURL = results.uploadURL;
+		const downloadURL = results.downloadURL;
+		const upload_reponse = await uploads3(uploadURL, ct, video);
 
-			const filename = value.filename;
-			const ct = value.ct;
-			const url = value.url;
-			const blob = await downloadDemoFile(ct, url);
-			const signed_respone = await getSignedUrl(rid, filename, ct);
-			const results = signed_respone.data.results;
-			const uploadURL = results.uploadURL;
-			const downloadURL = results.downloadURL;
-			const upload_reponse = await uploads3(uploadURL, ct, blob);
+		console.log('upload_reponse: ', upload_reponse);
 
-			console.log('upload_reponse: ', upload_reponse);
+		const download_response = await downloadTest(downloadURL);
+		const sum = {
+			upload_reponse: upload_reponse.status,
+			download_response: download_response.status
+		};
 
-			const download_response = await downloadTest(downloadURL);
-
-			const sum = {
-				upload_reponse: upload_reponse.status,
-				download_response: download_response.status
-			};
-
-			console.log('finished uploading: ', key);
-			console.log(sum);
-			console.log('paste in browser for additional test: ');
-			console.log(downloadURL);
-		}
+		console.log(sum);
+		console.log('paste in browser for additional test: ');
+		console.log(downloadURL);
 	} catch (error) {
 		console.log(error);
 	}
