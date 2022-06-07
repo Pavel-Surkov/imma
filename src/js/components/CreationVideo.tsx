@@ -3,7 +3,7 @@ import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-// Chqck for getUserMedia() API availability in current browser
+// Check for getUserMedia() API availability in current browser
 function hasGetUserMedia() {
 	return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
@@ -15,6 +15,13 @@ function wait(delayInSec) {
 interface ICreationVideo {
 	dispatch: React.Dispatch<any>;
 }
+
+type ConfigT = {
+	method: 'get' | 'post' | 'put';
+	url: string;
+	headers?: any;
+	body?: Blob;
+};
 
 type ContentType = 'video/mp4' | 'image/jpeg' | 'image/gif' | 'image/png';
 
@@ -39,15 +46,14 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 
 	// Gets signedUrlData
 	useEffect(() => {
-		const config = {
+		const config: ConfigT = {
 			method: 'get',
-			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getSignedUrl?rid=${rid}&filename=${filename}&ct=${contentType}`
-			// headers: {
-			// 	origin: 'imma_postman',
-			// 	'Content-Type': 'video/mp4'
-			// }
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getSignedUrl?rid=${rid}&filename=${filename}&ct=${contentType}`,
+			headers: {
+				origin: 'imma_postman',
+				'Content-Type': 'video/mp4'
+			}
 		};
-
 		axios(config)
 			.then((response) => {
 				setSignedUrlData(response.data.results);
@@ -56,6 +62,8 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 				console.log(error);
 			});
 	}, []);
+
+	console.log(signedUrlData);
 
 	useEffect(() => {
 		if (stream) {
@@ -68,11 +76,10 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	// Video save
 	useEffect(() => {
 		if (videoApproved && video && signedUrlData) {
-			// Set video to the local state
 			dispatch({ type: 'SET_VIDEO', value: video });
 
 			// Send a PUT request with the video
-			const config = {
+			const config: ConfigT = {
 				method: 'put',
 				url: signedUrlData.uploadURL,
 				headers: {
@@ -90,19 +97,23 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 				});
 		}
 
-		// setTimeout(() => {
-		// 	console.log(signedUrlData.downloadURL);
-		// 	axios({
-		// 		method: 'get',
-		// 		url: signedUrlData.downloadURL
-		// 	})
-		// 		.then((res) => {
-		// 			console.log(res);
-		// 		})
-		// 		.catch((err) => {
-		// 			console.log(err);
-		// 		});
-		// }, 3000);
+		setTimeout(() => {
+			const config: ConfigT = {
+				method: 'get',
+				url: signedUrlData.downloadURL
+				// headers: {
+				// 	'Content-Type': 'video/mp4'
+				// }
+			};
+
+			axios(config)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}, 3000);
 	}, [videoApproved]);
 
 	const createVideo = (): void => {
