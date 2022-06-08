@@ -23,7 +23,6 @@ const optimize = () => {
 	if (isProd) {
 		(configObj.minimize = true),
 			(configObj.minimizer = [
-				//new OptimizeCssAssetsWebpackPlugin(),
 				new CssMinimizerPlugin(),
 				new TerserWebpackPlugin({
 					parallel: true

@@ -12,7 +12,8 @@ export type ActionType =
 	| Action<'CHANGE_ETHEREUM_PRICE', { value: number }>
 	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>
 	| Action<'SET_SOCIAL', { value: 'instagram' | 'twitter' }>
-	| Action<'CLEAN_FORM', {}>;
+	| Action<'CLEAN_FORM', {}>
+	| Action<'SET_VIDEO', { value: Blob }>;
 
 export enum Wallets {
 	original = 'originalWallet',
@@ -20,7 +21,7 @@ export enum Wallets {
 	custom = 'customWallet'
 }
 
-type Wallet = {
+export type Wallet = {
 	walletNumber: '' | string;
 	isVerified: boolean;
 };
@@ -32,15 +33,15 @@ export interface State {
 		customWallet?: Wallet;
 	};
 	price: {
-		isFree: boolean;
+		isFree: null | boolean;
 		dollarValue: null | number;
 		ethereumValue: null | number;
 	};
-	blockchain: 'ethereum' | 'polygon';
-	video: null | File;
+	blockchain: null | 'ethereum' | 'polygon';
+	video: null | Blob;
 	signature: null | File;
 	verification: {
-		social: 'instagram' | 'twitter';
+		social: null | 'instagram' | 'twitter';
 		isVerified: boolean;
 	};
 }
@@ -158,6 +159,12 @@ export function reducer(state: State, action: ActionType) {
 						isVerified: false
 					}
 				}
+			};
+		}
+		case 'SET_VIDEO': {
+			return {
+				...state,
+				video: action.value
 			};
 		}
 		default: {

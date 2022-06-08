@@ -1,6 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import { downloadTest, uploads3 } from '../api/VideoUpload';
 
-// Chqck for getUserMedia() API availability in current browser
+// Check for getUserMedia() API availability in current browser
 function hasGetUserMedia() {
 	return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
@@ -9,7 +13,20 @@ function wait(delayInSec) {
 	return new Promise((resolve) => setTimeout(resolve, delayInSec * 1000));
 }
 
-export const CreationVideo = () => {
+interface ICreationVideo {
+	dispatch: React.Dispatch<any>;
+}
+
+type ConfigT = {
+	method: 'get' | 'post' | 'put';
+	url: string;
+	headers?: any;
+	body?: Blob;
+};
+
+type ContentType = 'video/mp4' | 'image/jpeg' | 'image/gif' | 'image/png';
+
+export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	const videoRef = useRef(null);
 	const mediaRef = useRef(null);
 
@@ -18,6 +35,35 @@ export const CreationVideo = () => {
 	const [recorder, setRecorder] = useState<null | MediaRecorder>(null);
 	const [recorderState, setRecorderState] = useState<'recording' | 'inactive'>('inactive');
 	const [video, setVideo] = useState<null | Blob>(null);
+	const [videoApproved, setVideoApproved] = useState<boolean>(false);
+	const [videoUploaded, setVideoUploaded] = useState<boolean>(false);
+
+	// Params for signedUrlData query.
+	// Maybe not necessary use useState for them
+	const [rid, setRid] = useState<string>(uuidv4());
+	const [filename, setFilename] = useState<string>('MyVideo.mp4');
+	const [contentType, setContentType] = useState<ContentType>('video/mp4');
+
+	const [signedUrlData, setSignedUrlData] = useState(null);
+
+	// Gets signedUrlData
+	useEffect(() => {
+		const config: ConfigT = {
+			method: 'get',
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getSignedUrl?rid=${rid}&filename=${filename}&ct=${contentType}`,
+			headers: {
+				// origin: 'imma_postman',
+				'Content-Type': 'video/mp4'
+			}
+		};
+		axios(config)
+			.then((response) => {
+				setSignedUrlData(response.data.results);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
 	useEffect(() => {
 		if (stream) {
@@ -26,6 +72,36 @@ export const CreationVideo = () => {
 			setRecorder(recorder);
 		}
 	}, [stream]);
+
+	// Video save & upload
+	useEffect(() => {
+		if (videoApproved && video && signedUrlData) {
+			dispatch({ type: 'SET_VIDEO', value: video });
+
+			uploads3(signedUrlData.uploadURL, contentType, video).then((response) => {
+				if (response.status === 200) {
+					console.log('video upload is successful');
+					setVideoUploaded(true);
+				}
+			});
+		}
+	}, [videoApproved]);
+
+	// Download video to be sure that video uploaded correctly
+	useEffect(() => {
+		if (videoUploaded && signedUrlData) {
+			console.log('downloading video...');
+
+			async function downloadVideo() {
+				const downloadResponse = await downloadTest(signedUrlData.downloadURL);
+
+				const downloadResponseStatus = downloadResponse.status;
+				console.log(downloadResponseStatus);
+			}
+
+			downloadVideo();
+		}
+	}, [videoUploaded]);
 
 	const createVideo = (): void => {
 		if (!hasGetUserMedia()) {
@@ -56,7 +132,7 @@ export const CreationVideo = () => {
 			}
 		};
 
-		// Options for media
+		// Options for media stream
 		const hdConstraints = {
 			audio: true,
 			video: { width: { min: 1280 }, height: { min: 720 }, facingMode: 'user' }
@@ -101,7 +177,7 @@ export const CreationVideo = () => {
 		videosArr.then((videos) => setVideo(videos[0]));
 	};
 
-	const closeVideo = (): void => {
+	const closeVideoModal = (): void => {
 		// Enables scroll
 		const htmlEl = document.documentElement;
 		htmlEl.classList.remove('is-locked');
@@ -126,6 +202,11 @@ export const CreationVideo = () => {
 		}
 	};
 
+	const approveVideo = () => {
+		setVideoApproved(true);
+		closeVideoModal();
+	};
+
 	return (
 		<>
 			<div className="step-wrapper step-wrapper_video">
@@ -146,7 +227,7 @@ export const CreationVideo = () => {
 								type="button"
 								className="close video-modal__close"
 								aria-label="close"
-								onClick={closeVideo}
+								onClick={closeVideoModal}
 							></button>
 						</div>
 						<video
@@ -170,52 +251,105 @@ export const CreationVideo = () => {
 							Your browser doesn't support video tag
 						</video>
 						<div className="video-modal__control">
-							<button
-								type="button"
-								className="video-modal__control-btn video-modal__control-btn_record"
-								aria-label={recorderState === 'recording' ? 'stop' : 'record'}
-								onClick={handleRecord}
-								disabled={stream ? false : true}
-							>
-								<svg
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<circle
-										cx="12.1839"
-										cy="11.8245"
-										r="11.389"
-										fill={recorderState === 'recording' ? '#F00000' : '#D6FF7E'}
-									/>
-								</svg>
-							</button>
-							<button
-								type="button"
-								className="video-modal__control-btn video-modal__control-btn_discard"
-								aria-label="discard"
-								onClick={discardVideo}
-								disabled={stream ? false : true}
-							>
-								<svg
-									width="19"
-									height="19"
-									viewBox="0 0 19 19"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<rect
-										x="0.852539"
-										y="0.862793"
-										width="17.9226"
-										height="17.9226"
-										rx="1.38787"
-										fill="#828282"
-									/>
-								</svg>
-							</button>
+							{video ? (
+								<>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_approve"
+										onClick={approveVideo}
+									>
+										<svg
+											width="28"
+											height="20"
+											viewBox="0 0 28 20"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 7.06488L11.1774 18L27 1"
+												stroke="white"
+												strokeWidth="2"
+												strokeLinecap="round"
+											/>
+										</svg>
+									</button>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_refuse"
+										onClick={discardVideo}
+									>
+										<svg
+											width="23"
+											height="23"
+											viewBox="0 0 23 23"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M1 1L22 22M22 1L1 21.9996"
+												stroke="white"
+												strokeWidth="2"
+												strokeLinecap="round"
+											/>
+										</svg>
+									</button>
+								</>
+							) : (
+								<>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_record"
+										aria-label={
+											recorderState === 'recording' ? 'stop' : 'record'
+										}
+										onClick={handleRecord}
+										disabled={stream ? false : true}
+									>
+										<svg
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<circle
+												cx="12.1839"
+												cy="11.8245"
+												r="11.389"
+												fill={
+													recorderState === 'recording'
+														? '#F00000'
+														: '#D6FF7E'
+												}
+											/>
+										</svg>
+									</button>
+									<button
+										type="button"
+										className="video-modal__control-btn video-modal__control-btn_discard"
+										aria-label="discard"
+										onClick={discardVideo}
+										disabled={stream ? false : true}
+									>
+										<svg
+											width="19"
+											height="19"
+											viewBox="0 0 19 19"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<rect
+												x="0.852539"
+												y="0.862793"
+												width="17.9226"
+												height="17.9226"
+												rx="1.38787"
+												fill="#828282"
+											/>
+										</svg>
+									</button>
+								</>
+							)}
 						</div>
 					</div>
 				</div>
