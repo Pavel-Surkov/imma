@@ -114,7 +114,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(jpe?g|png|gif)$/i,
+				test: /\.(jpe?g|png|gif|MP4)$/i,
 				type: 'asset/resource'
 			},
 			{

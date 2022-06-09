@@ -141,11 +141,11 @@ export const LifeFeedMobile = ({
 
 					const dateOutput: string = dateConvert(new Date(row.inft.date.last_update));
 					const dateString: string = convertDateToString(new Date(row.date));
-					const lastActivity: ActivityT | undefined = row.activity[0];
+					const lastActivity: ActivityT | undefined = row.activity ? row.activity[0] : null;
 
-					const lastActivityDate: string = convertDateToString(
+					const lastActivityDate: string = lastActivity ? convertDateToString(
 						new Date(lastActivity.epoch)
-					);
+					) : null;
 
 					const uid: string = `#${row.uid.slice(0, 10)}...`;
 
@@ -256,15 +256,15 @@ export const LifeFeedMobile = ({
 							</div>
 							<div className="lifefeed-mobile__activity">
 								<img
-									src={lastActivity.icon ? lastActivity.icon : avatar}
+									src={lastActivity ? (lastActivity.icon ? lastActivity.icon : avatar) : ''}
 									alt="avatar"
 								/>
 								<div className="lifefeed-mobile__activity-block">
-									<p>{lastActivity.event}</p>
+									<p>{lastActivity ? lastActivity.event : ''}</p>
 									<p className="title">
 										by&nbsp;
 										<a className="link" href="/">
-											{lastActivity.from}
+											{lastActivity ? lastActivity.from : ''}
 										</a>
 									</p>
 									<p className="title">{lastActivityDate}</p>
