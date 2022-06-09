@@ -59,7 +59,7 @@ export const LifeFeedTable = ({
 					const shortToken: string = row.token.slice(0, 13) + '...';
 
 					const dateString: string = convertDateToString(row.date);
-					const lastActivity: ActivityT | undefined = row.activity[0];
+					const lastActivity: ActivityT | undefined = row.activity ? row.activity[0] : null;
 
 					return (
 						<tr className="table-row" key={row.id}>
@@ -189,11 +189,11 @@ export const LifeFeedTable = ({
 						const shortToken: string = row.nfta.token_address.slice(0, 13) + '...';
 
 						const dateOutput: string = dateConvert(new Date(row.inft.date.last_update));
-						const lastActivity: ActivityT | undefined = row.activity[0];
+						const lastActivity: ActivityT | undefined = row.activity ? row.activity[0] : null;
 
-						const lastActivityDate: string = convertDateToString(
+						const lastActivityDate: string = lastActivity ? convertDateToString(
 							new Date(lastActivity.epoch)
-						);
+						) : null;
 
 						const uid: string = `#${row.uid.slice(0, 5)}...`;
 
@@ -310,15 +310,15 @@ export const LifeFeedTable = ({
 								<td className="table-col">
 									<div className="table-col__wrapper">
 										<img
-											src={lastActivity.icon ? lastActivity.icon : avatar}
+											src={lastActivity ? (lastActivity.icon ? lastActivity.icon : avatar) : ''}
 											alt="activity icon"
 										/>
 										<div>
-											<p>{lastActivity.event}</p>
+											<p>{lastActivity ? lastActivity.event : ''}</p>
 											<p className="title">
 												by{' '}
 												<a className="link" href="/">
-													{lastActivity.from}
+													{lastActivity ? lastActivity.from : ''}
 												</a>
 											</p>
 											<p className="title">{lastActivityDate}</p>

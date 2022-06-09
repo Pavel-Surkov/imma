@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { extendDefaultPlugins } = require('svgo'); //loseless img optimization
 
@@ -23,7 +23,8 @@ const optimize = () => {
 	if (isProd) {
 		(configObj.minimize = true),
 			(configObj.minimizer = [
-				new OptimizeCssAssetsWebpackPlugin(),
+				//new OptimizeCssAssetsWebpackPlugin(),
+				new CssMinimizerPlugin(),
 				new TerserWebpackPlugin({
 					parallel: true
 				})
@@ -114,7 +115,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.(jpe?g|png|gif)$/i,
+				test: /\.(jpe?g|png|gif|MP4)$/i,
 				type: 'asset/resource'
 			},
 			{

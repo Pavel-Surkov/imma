@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import mainVideo from '../../assets/video/main-video.MP4';
 
 export interface NftVideo {
 	id: string;
@@ -41,6 +42,8 @@ export const NftVideoItem = ({
 	videoHeight?: number;
 }) => {
 	const [convertedDate, setConvertedDate] = useState<null | string>(null);
+	const vidRef = useRef(null);
+  const [show, setShow] = useState(true);
 
 	useEffect(() => {
 		if (properties.inft) {
@@ -58,6 +61,15 @@ export const NftVideoItem = ({
 		}
 	}, [properties]);
 
+	const handlePlayVideo = () => {
+		if (show) {
+			vidRef.current.play();
+		} else {
+			vidRef.current.pause();
+		}
+		setShow(prev => !prev);
+  }
+
 	if (properties.uid) {
 		return (
 			<div
@@ -67,30 +79,37 @@ export const NftVideoItem = ({
 				<video
 					width="370"
 					height="658"
-					src={properties.inft.metadata.animation_url}
+					src={mainVideo}
 					className="video-preview"
+					ref={vidRef}
+					onClick={handlePlayVideo}
 				></video>
-				<div className="video-play__wrapper">
-					<Link to={`allnft/${properties.uid}`} className="video-play">
-						<svg
-							data-svg="play"
-							width="21"
-							height="26"
-							viewBox="0 0 21 26"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M0.200195 12.9473V2.55576C0.200195 0.98489 1.9281 0.0272036 3.26019 0.859764L19.8866 11.2513C21.1399 12.0346 21.1399 13.8599 19.8866 14.6433L3.26019 25.0348C1.9281 25.8673 0.200195 24.9096 0.200195 23.3388V12.9473Z"
-								fill="#D6FF7E"
-							/>
-						</svg>
-					</Link>
-				</div>
+				{show
+					&&
+					<div className="video-play__wrapper" onClick={handlePlayVideo}>
+						<div className="video-play">
+							<svg
+								data-svg="play"
+								width="21"
+								height="26"
+								viewBox="0 0 21 26"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M0.200195 12.9473V2.55576C0.200195 0.98489 1.9281 0.0272036 3.26019 0.859764L19.8866 11.2513C21.1399 12.0346 21.1399 13.8599 19.8866 14.6433L3.26019 25.0348C1.9281 25.8673 0.200195 24.9096 0.200195 23.3388V12.9473Z"
+									fill="#D6FF7E"
+								/>
+							</svg>
+						</div>
+					</div>
+				}
+				{properties.nfta.image &&
 				<div className="video-icon">
 					<img width="44" height="44" src={properties.nfta.image} alt="" />
 				</div>
-				<div className="video-bottom">
+				}
+				{/*<div className="video-bottom">
 					<div className="video-bottom__sign">
 						<img height="60" src={properties.inft.metadata.image} alt="sign"></img>
 					</div>
@@ -98,7 +117,7 @@ export const NftVideoItem = ({
 						<p>@{properties.inft.metadata.name}</p>
 						<time className="video-bottom__tag-date">{convertedDate}</time>
 					</div>
-				</div>
+				</div>*/}
 			</div>
 		);
 	} else {
