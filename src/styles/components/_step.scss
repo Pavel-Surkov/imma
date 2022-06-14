@@ -59,6 +59,42 @@
 	&-wrapper {
 		@include grid(30px, stretch);
 		grid-template-columns: repeat(3, 1fr);
+
+		&__sign-buttons {
+			position: absolute;
+			right: -48px;
+		}
+		&__sign-button {
+			display: flex;
+			width: 39.49px;
+			height: 39.49px;
+			background: rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(20.9149px);
+			border-radius: 0.836594px;
+			display: flex;
+			justify-content: center;
+			vertical-align: middle;
+			display: block;
+			margin-bottom: 7px;
+			transition: all 0.25s ease;
+		}
+		&__sign-button:hover {
+			transition: all 0.25s ease;
+			background: #D6FF7E;
+		}
+		&__sign-button svg path {
+			transition: all 0.25s ease;
+		}
+		&__sign-button:hover svg path {
+			stroke: black;
+			transition: all 0.25s ease;
+		}
+		&__sign-button:last-child {
+			margin-bottom: 0;
+		}
+		&__sign-button svg {
+			height: 100%;
+		}
 		&_blockchain {
 			& .step-block__radio-btn {
 				margin-bottom: 20px;
