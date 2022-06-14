@@ -724,7 +724,7 @@ export const Creation = (props) => {
           {ipfsCid}
 				</div>
 			</div>
-			<div className="container-fluid">
+			{/*<div className="container-fluid">
 	      <form>
 	        <div className="container">
 	          <h3>Create IMMA NFT</h3>
@@ -753,7 +753,7 @@ export const Creation = (props) => {
 	          </button>
 	        </div>
 	      </form>
-	    </div>
+	    </div>*/}
 		</section>
 	);
 };
