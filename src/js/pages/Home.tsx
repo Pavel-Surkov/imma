@@ -110,6 +110,7 @@ export const Home: React.FC = () => {
   const getApiDetails = ()=>{
     const selected = config.globals.selected.environment
     const network = network_ref.current
+    console.log('network ' + network_ref.current);
     const api_key = selected==='production'?`base_url`:`base_url_${selected}`
     const api_path = `/api/ethereum/${network}`
 
@@ -175,7 +176,7 @@ export const Home: React.FC = () => {
     api_details_ref.current = getApiDetails()
   }
 
-  const network_ref = useRef('main');
+  const network_ref = useRef('rinkeby');
   const api_details_ref = useRef( getApiDetails());
 
   const [selected_chainId,setSelectedCainId] = useState(1)
@@ -199,20 +200,29 @@ export const Home: React.FC = () => {
 			<div className="bg-lights"></div>
 			<HomeMain />
 			<Welcome />
-			<About /><div className="api">
-      <h1>ethereum connection test</h1>
-      <div className="container">
+			<About />
+      <div className="api">
+      {/*<div className="container">
 	      <h3>Global Network</h3>
 	      <label htmlFor="network">Network </label>
 	      <select onChange={handleNetworkChange} name="network" id="network">
+          <option value="network_rinkeby">rinkeby</option>
 	        <option value="network_main">main net</option>
-	        <option value="network_rinkeby">rinkeby</option>
 	      </select>
 	      <p style={{color:connected_message.color}}>{connected_message.message}</p>
-	    </div>
-      {/* <a href="https://metamask.app.link/dapp/mobiletest.imma.club">click</a> */}
-      <button onClick={loginWallet}>login with wallet</button>
-      <Creation api_details_ref={api_details_ref} api_base_url={api_base_url} ethers={ethers} session={session_ref} signer_ref={signer_ref} creator_ref={creator_ref} signRedeemVoucher={signRedeemVoucher} claim={claim} />
+        <button onClick={loginWallet}>login with wallet</button>
+	    </div>*/}
+      <Creation
+        api_details_ref={api_details_ref}
+        api_base_url={api_base_url}
+        ethers={ethers}
+        session={session_ref}
+        signer_ref={signer_ref}
+        creator_ref={creator_ref}
+        signRedeemVoucher={signRedeemVoucher}
+        claim={claim}
+        loginWallet={loginWallet}
+      />
 		  <LifeFeed />
 			<AllNft />
 			<ImmaProtocol />
