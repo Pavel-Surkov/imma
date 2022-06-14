@@ -8,7 +8,7 @@ import { AllNft } from '../components/AllNft';
 import { ImmaProtocol } from '../components/ImmaProtocol';
 import { Faq } from '../components/Faq';
 import {connect,signRedeemVoucher,claim,isConnected} from '../components/wallet';
-import React, {
+import {
   useEffect,
   useState,
   useRef
@@ -16,21 +16,19 @@ import React, {
 import config from '../config/default.json';
 import {ethers} from 'ethers';
 import axios from 'axios';
-import {Create} from '../components/create';
-import {Creatiom} from '../components/Creation';
 
 export const Home: React.FC = () => {
 	const onChainIdChange = (chainIdhex)=>{
-    const chainId = parseInt(Number(chainIdhex))
-    console.log('onChainIdChange #1: ')
-    console.log('selected_chainId: ',selected_chainId)
-    console.log('connected_chainid: ',chainId)
-    setConnectedCainId(chainId)
+    const chainId = parseInt(chainIdhex);
+    console.log('onChainIdChange #1: ');
+    console.log('selected_chainId: ',selected_chainId);
+    console.log('connected_chainid: ',chainId);
+    setConnectedCainId(chainId);
     if (chainId!==selected_chainId){
-      setConnectedMessage({message:`user on chainId# ${chainId}`,color:'red'})
+      setConnectedMessage({message:`user on chainId# ${chainId}`,color:'red'});
     }else{
-      setConnectedMessage({message:`user connected currectly, chanId# ${chainId}`,color:'green'})
-      setSessionRef()
+      setConnectedMessage({message:`user connected currectly, chanId# ${chainId}`,color:'green'});
+      setSessionRef();
     }
   }
   const setSessionRef = ()=>{
@@ -60,6 +58,7 @@ export const Home: React.FC = () => {
       session_fp.current = response.session_fp
       signer_ref.current = response.signer
       creator_ref.current = response.wallet
+      console.log("ref: " + creator_ref);
       setSessionRef()
     }else{
       console.log('meesage: ',message)
@@ -181,7 +180,7 @@ export const Home: React.FC = () => {
 
   const [selected_chainId,setSelectedCainId] = useState(1)
   const [connected_chainId,setConnectedCainId] = useState(0)
-  const [connected_message,setConnectedMessage] = useState({message:''})
+  const [connected_message,setConnectedMessage] = useState({message:'', color: ''})
   const [listenersSingelton,setlistenersSingelton] = useState(false)
   const is_connected_ref = useRef(null);
   const session_fp = useRef('');
@@ -200,27 +199,25 @@ export const Home: React.FC = () => {
 			<div className="bg-lights"></div>
 			<HomeMain />
 			<Welcome />
-			<About />
-			{/*<Creation />*/}
-			<LifeFeed />
+			<About /><div className="api">
+      <h1>ethereum connection test</h1>
+      <div className="container">
+	      <h3>Global Network</h3>
+	      <label htmlFor="network">Network </label>
+	      <select onChange={handleNetworkChange} name="network" id="network">
+	        <option value="network_main">main net</option>
+	        <option value="network_rinkeby">rinkeby</option>
+	      </select>
+	      <p style={{color:connected_message.color}}>{connected_message.message}</p>
+	    </div>
+      {/* <a href="https://metamask.app.link/dapp/mobiletest.imma.club">click</a> */}
+      <button onClick={loginWallet}>login with wallet</button>
+      <Creation api_details_ref={api_details_ref} api_base_url={api_base_url} ethers={ethers} session={session_ref} signer_ref={signer_ref} creator_ref={creator_ref} signRedeemVoucher={signRedeemVoucher} claim={claim} />
+		  <LifeFeed />
 			<AllNft />
 			<ImmaProtocol />
 			<Faq />
-			<div className="api">
-	      <h1>ethereum connection test</h1>
-	      <div className="container">
-  	      <h3>Global Network</h3>
-  	      <label htmlFor="network">Network </label>
-  	      <select onChange={handleNetworkChange} name="network" id="network">
-  	        <option value="network_main">main net</option>
-  	        <option value="network_rinkeby">rinkeby</option>
-  	      </select>
-  	      <p style={{color:connected_message.color}}>{connected_message.message}</p>
-  	    </div>
-        {/* <a href="https://metamask.app.link/dapp/mobiletest.imma.club">click</a> */}
-        <button onClick={loginWallet}>login with wallet</button>
-        <Creation api_details_ref={api_details_ref} api_base_url={api_base_url} ethers={ethers} session={session_ref} signer_ref={signer_ref} creator_ref={creator_ref} signRedeemVoucher={signRedeemVoucher} claim={claim} />
-      </div>
+			</div>
     </main>
 	);
 };

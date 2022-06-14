@@ -76,8 +76,9 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	// Video save & upload
 	useEffect(() => {
 		if (videoApproved && video && signedUrlData) {
+			/*video.name = filename;
+			video.type = contentType;*/
 			dispatch({ type: 'SET_VIDEO', value: video });
-
 			uploads3(signedUrlData.uploadURL, contentType, video).then((response) => {
 				if (response.status === 200) {
 					console.log('video upload is successful');
@@ -115,6 +116,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		setIsModalOpened(true);
 
 		const getMedia = async (constraints) => {
+			console.log('get media');
 			const video: HTMLVideoElement = mediaRef.current;
 
 			let stream: null | MediaStream = null;
@@ -135,7 +137,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		// Options for media stream
 		const hdConstraints = {
 			audio: true,
-			video: { width: { min: 1280 }, height: { min: 720 }, facingMode: 'user' }
+			video: { width: { min: 0 }, height: { min: 0 }, facingMode: 'user' }
 		};
 
 		getMedia(hdConstraints);

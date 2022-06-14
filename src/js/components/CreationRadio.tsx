@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 interface IPriceRadio {
+	id?: string;
 	isFree: boolean;
 	price: {
 		isFree: boolean;
@@ -11,7 +12,7 @@ interface IPriceRadio {
 	input?: true;
 }
 
-export const PriceRadio = ({ isFree, price, dispatch, input }: IPriceRadio) => {
+export const PriceRadio = ({ id, isFree, price, dispatch, input }: IPriceRadio) => {
 	const [maxPrice, setMaxPrice] = useState<number>(50000);
 
 	// Handler controls value of the price input
@@ -146,6 +147,10 @@ export const BlockchainRadio = ({ type, blockchain, dispatch }: IBlockchainRadio
 	);
 };
 
+interface CodeSessionT {
+	current: string;
+}
+
 interface ISocialRadio {
 	type: 'instagram' | 'twitter';
 	verification: {
@@ -153,11 +158,24 @@ interface ISocialRadio {
 		isVerified: boolean;
 	};
 	dispatch: React.Dispatch<any>;
+	session: {
+		current: string;
+	};
+	rid: string;
+	sendCode: (api_base_url: string, codeSession: string, userName: string, type_: string, rid: string) => void;
+	api_details_ref: {
+		current: {
+			api_base_url: string;
+			api_path: string;
+			api_server: string;
+			network: string;
+			selected: string;
+		}
+	}
 }
 
-export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
+export const SocialRadio = ({ type, verification, dispatch, session, rid, sendCode, api_details_ref }: ISocialRadio) => {
 	const checkboxRef = useRef(null);
-
 	const [userName, setUserName] = useState<string>('');
 	const [isChecked, setIsChecked] = useState<boolean>(
 		verification.social === type ? true : false
@@ -170,6 +188,21 @@ export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
 	}, [verification.social]);
 
 	const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
+	const send_code = async (event) => {
+		try {
+			console.log("in send_code");
+			event.preventDefault();
+			if (!userName) return alert("no username");
+			//if (!social) return alert("no social selection");
+			const type_ = type;
+			const codeSession = session.current;
+			console.log("session: ", session);
+			sendCode(api_details_ref.current.api_base_url, codeSession, userName, type_, rid);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<label className="step-block step-block_social step-block__radio-label">
@@ -207,7 +240,7 @@ export const SocialRadio = ({ type, verification, dispatch }: ISocialRadio) => {
 					type="submit"
 					className="btn-arrow step-block__btn"
 					disabled={!isChecked}
-					onClick={(evt) => handleSubmit(evt)}
+					onClick={(evt) => send_code(evt)}
 				>
 					Send me the code
 				</button>

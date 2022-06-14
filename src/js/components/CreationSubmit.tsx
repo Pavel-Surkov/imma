@@ -20,9 +20,10 @@ type DraggableEventHandler = (e?: Event, data?: DraggableData) => void | false;
 interface ICreationSubmit {
 	state: State;
 	dispatch: React.Dispatch<any>;
+	handle_create: (event: any) => Promise<void>;
 }
 
-export const CreationSubmit = ({ state, dispatch }: ICreationSubmit) => {
+export const CreationSubmit = ({ state, dispatch, handle_create }: ICreationSubmit) => {
 	const scaleRef = useRef(null);
 	const toggleRef = useRef(null);
 
@@ -49,6 +50,7 @@ export const CreationSubmit = ({ state, dispatch }: ICreationSubmit) => {
 
 		if (currentPosition >= boundRight) {
 			console.log('swiped');
+			handle_create(e);
 			// TODO: Here must be a function that sends filled form of nft creation
 		}
 	};

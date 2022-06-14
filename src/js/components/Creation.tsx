@@ -67,13 +67,14 @@ export const Creation = (props) => {
   const [partnerAddress, setPartnerAddress] = useState(partner_address);
   const [socialUsername, setSocialUsername] = useState("");
   const [socialCode, setSocialCode] = useState("");
-  const [signature, setSignature] = useState("");
-  const [video, setVideo] = useState("");
+
+  const [signature, setSignature] = useState(null);
+  const [video, setVideo] = useState(null);
   const [price, setPrice] = useState("");
   const [originalNft, setOriginalNft] = useState("");
   const [ipfsCid, setIpfsCid] = useState("");
-  const [checkPartnerAddressMsg, setCheckPartnerAddressMsg] = useState("");
-  const [checkOriginalNftMsg, setCheckOriginalNftMsg] = useState("");
+  const [checkPartnerAddressMsg, setCheckPartnerAddressMsg] = useState(null);
+  const [checkOriginalNftMsg, setCheckOriginalNftMsg] = useState(null);
 
 	const signFieldRef = useRef(null);
 	const containerRef = useRef(null);
@@ -101,6 +102,8 @@ export const Creation = (props) => {
 
 		// Inits signature pad
 		if (!signaturePad) {
+      console.log('enable signature pad');
+
 			function resizeCanvas(): void {
 				var ratio = Math.max(window.devicePixelRatio || 1, 1);
 				canvas.width = canvas.offsetWidth * ratio;
@@ -120,6 +123,59 @@ export const Creation = (props) => {
 			signaturePad.clear();
 		}
 	};
+
+  const dataURItoBlob = (dataURI) => {
+    // convert base64 to raw binary data held in a string
+    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+    var byteString = atob(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to an ArrayBuffer
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
+
+  const handleSaveSign = (): void => {
+    if (signaturePad) {
+      const dataURL = signaturePad.toDataURL('image/png');
+      const blob = dataURItoBlob(dataURL);
+      const resultFile = new File([blob], "signature.png", {type:"image/png"});
+      setSignature(resultFile);
+		} else {
+      console.log('no signature pad');
+		}
+  }
+
+  useEffect(() => {
+    console.log('new signature:');
+    console.log(signature);
+    if (signature) {
+      upload_sign_file();
+    }
+  }, [signature]);
+
+  useEffect(() => {
+    console.log('new video file');
+    console.log(state.video);
+    if (state.video) {
+      setVideo(state.video);
+      upload_video_file();
+    }
+  }, [state.video]);
+
+  const handleClearSign = (): void => {
+    if (signaturePad) {
+			signaturePad.clear();
+		} else {
+      console.log('no signature pad');
+		}
+  }
 
 	const createVideo = (): void => {
 		const getMedia = async (constraints) => {
@@ -185,9 +241,9 @@ export const Creation = (props) => {
           api_details_ref.current.api_base_url,
           session.current,
           rid,
-          video.name,
-          video.type,
-          video
+          'myvideo.mp4',
+          'video/mp4',
+          state.video
         );
       }
       if (key === "signature") {
@@ -206,14 +262,27 @@ export const Creation = (props) => {
     }
   };
 
-  const upload_file = async (event) => {
+  const upload_video_file = async () => {
     try {
-      event.preventDefault();
-      const id_ = event.target.id;
-      const key = id_.replace("button_", "");
+      const key = "video";
+      if (!state.video) return alert(`no ${key} file`);
+      const signed_url_response = await get_signed_url(key);
+      if (!signed_url_response) return alert("failed signing url");
+      const download_url = signed_url_response.data.results.downloadURL;
+      const upload_url = signed_url_response.data.results.uploadURL;
+      console.log("downloadURL: ", download_url);
+      console.log("uploadURL: ", upload_url);
       if (key === "video") {
-        if (!video) return alert(`no ${key} file`);
+        await upload(upload_url, state.video.type, state.video);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const upload_sign_file = async () => {
+    try {
+      const key = "signature";
       if (key === "signature") {
         if (!signature) return alert(`no ${key} file`);
       }
@@ -224,9 +293,6 @@ export const Creation = (props) => {
       const upload_url = signed_url_response.data.results.uploadURL;
       console.log("downloadURL: ", download_url);
       console.log("uploadURL: ", upload_url);
-      if (key === "video") {
-        await upload(upload_url, video.type, video);
-      }
       if (key === "signature") {
         await upload(upload_url, signature.type, signature);
       }
@@ -237,28 +303,10 @@ export const Creation = (props) => {
 
   const handleChange = async (event) => {
     const id = event.target.id;
-    if (["price_usd", "price_eth"].includes(id)) {
-      const value = event.target.value ? parseFloat(event.target.value) : "";
-      console.log("value: ", typeof value);
-      if (value === "") {
-        setPriceEth("");
-        setPriceUsd("");
-        return;
-      }
-      const value_ = parseFloat(value);
-      if (id === "price_usd") {
-        const price_eth = value_ / 2000;
-        setPriceEth(price_eth);
-        setPriceUsd(value);
-      } else {
-        const price_usd = value_ * 2000;
-        setPriceUsd(price_usd);
-        setPriceEth(value);
-      }
-      return;
-    }
     if (["video", "signature"].includes(id)) {
       const value = event.target.files[0];
+      console.log("test signature url: ");
+      console.log(value);
       if (id === "video") {
         setVideo(value);
       } else {
@@ -274,11 +322,6 @@ export const Creation = (props) => {
     if (id === "partner_address") {
       const value = event.target.value;
       setPartnerAddress(value);
-      return;
-    }
-    if (id === "price") {
-      const value = event.target.value;
-      setPrice(value);
       return;
     }
     if (id === "blockchain") {
@@ -305,33 +348,32 @@ export const Creation = (props) => {
 
   const gatherPreSignedData = ()=>{
     try {
-      let price_eth = 0
+      let price_eth = 0;
       if (priceEth!=''){
-        price_eth = priceEth;
+        price_eth = parseFloat(priceEth);
+      }
+      let price = '';
+      if (state.price.isFree === true) {
+        price = 'price_free';
+      } else {
+        price = 'price_value';
       }
       const essentials = {
         'creator_address': creator_ref.current,
         'original_nft': originalNft,
         'partner_address': partnerAddress,
         'price': price,
-        'price_eth': price_eth,
-        'price_usd': priceUsd,
-        // 'x':this.state.creator_address,
-        // 'x':this.state.creator_address,
-        // 'x':this.state.creator_address,
-        // 'x':this.state.creator_address,
-        // 'x':this.state.creator_address,
-        // 'x':this.state.creator_address,
-        // 'x':this.state.creator_address,
-        // 'x':this.state.creator_address,
+        'price_eth': state.price.ethereumValue,
+        'price_usd': state.price.dollarValue,
       }
       const invalid = [];
       for (const [key,value] of Object.entries(essentials)){
         if (!value) invalid.push(`${key}`);
       }
       const response = {
+        'essentials': null,
         'valid':false,
-        invalid
+        invalid,
       }
       if (invalid.length) return response;
       response.valid = true;
@@ -349,7 +391,7 @@ export const Creation = (props) => {
       const response = gatherPreSignedData();
       if (!response) return alert('error in gather');
       if (!response.valid) return alert('missing data: ' + response.invalid.join(', '));
-      console.log('rid ' + rid);
+      console.log(response);
       const presigned_response = await getPreSignRedeemVoucher(
         rid,
         api_details_ref.current.api_base_url,
@@ -358,9 +400,8 @@ export const Creation = (props) => {
       );
       if (!presigned_response) return alert("something went wrong");
       if (presigned_response.status !== 200)
-        return alert("status code ", presigned_response.status);
+        return alert("status code " + presigned_response.status);
       const results = presigned_response.data.results;
-      // console.log("results: ", results);
       const signature = await signRedeemVoucher(signer.current,results);
       console.log("signature: ", signature);
       if (!signature) return alert('signature failed');
@@ -369,7 +410,6 @@ export const Creation = (props) => {
       const verify_response = await verifySignature(rid, api_details_ref.current.api_base_url, session.current,signature);
       if (!verify_response) return alert('verify failed');
       setIpfsCid(verify_response.data.results.ipfs_cid);
-      // console.log(verify_response)
     } catch (error) {
       console.log(error);
     }
@@ -446,25 +486,73 @@ export const Creation = (props) => {
 					<h2 className="title title_size-m creation-title">IMMA NFT creation</h2>
 					<CreationStep number="01" title="Add wallet">
 						<div className="step-wrapper">
-							<CreationForm
-								title="Original NFT for your imma NFT to follow"
-								state={state}
-								dispatch={dispatch}
-								wallet="original"
-							/>
-							<CreationForm
-								title="The imma NFT creator wallet"
-								state={state}
-								dispatch={dispatch}
-								wallet="creator"
-							/>
+              <div className="step-block__wrapper">
+                <form action="" className="form step-block">
+                  <h4 className="title title_size-xs step-block__title">Original NFT for your imma NFT to follow</h4>
+                  <input
+                    className="input step-block__input"
+                    type="text"
+                    id="original_nft"
+                    name="original_nft"
+                    onChange={handleChange}
+                    required
+                  />
+                  <button
+                    id="check_original_nft"
+                    type="submit"
+                    className="btn-arrow step-block__submit"
+                    onClick={check_nfta}
+                  >
+                    Confirm
+                  </button>
+                  {checkOriginalNftMsg}
+                </form>
+              </div>
+              <div className="step-block__wrapper">
+                <form action="" className="form step-block">
+                  <h4 className="title title_size-xs step-block__title">The imma NFT creator wallet</h4>
+                  <input
+                    className="input step-block__input"
+                    type="text"
+      	            id="creator_address"
+      	            name="creator_address"
+      	            value={creator_ref.current}
+      	            disabled
+                    required
+                  />
+                  <button
+                    id="check_original_nft"
+                    type="submit"
+                    className="btn-arrow step-block__submit"
+                    onClick={null}
+                  >
+                    Confirm
+                  </button>
+                </form>
+              </div>
 							{state.wallets.customWallet && (
-								<CreationForm
-									title="Broke wallet"
-									state={state}
-									dispatch={dispatch}
-									wallet="custom"
-								/>
+                <div className="step-block__wrapper">
+            			<form action="" className="form step-block">
+            				<h4 className="title title_size-xs step-block__title">Broke wallet</h4>
+            				<input
+            					className="input step-block__input"
+            					type="text"
+        	            id="partner_address"
+        	            name="partner_address"
+            					value={partnerAddress}
+            					onChange={handleChange}
+            					required
+            				/>
+            				<button
+                      id="check_partner_address"
+            					className="btn-arrow step-block__submit"
+            					onClick={check_address_}
+            				>
+            					Confirm
+            				</button>
+                    {checkPartnerAddressMsg}
+            			</form>
+            		</div>
 							)}
 							{!state.wallets.customWallet && (
 								<div className="step-block_add">
@@ -485,7 +573,7 @@ export const Creation = (props) => {
 					</CreationStep>
 					<CreationStep number="02" title="Price for the first sell">
 						<div className="step-wrapper">
-							<PriceRadio isFree={true} price={state.price} dispatch={dispatch} />
+							<PriceRadio id="price" isFree={true} price={state.price} dispatch={dispatch} />
 							<PriceRadio
 								isFree={false}
 								price={state.price}
@@ -563,6 +651,10 @@ export const Creation = (props) => {
 									{signatureText}
 								</span>
 							</div>
+              <div>
+                <button onClick={handleSaveSign} id="sign-save">Save</button>
+                <button onClick={handleClearSign} id="sign-clear">Clear</button>
+              </div>
 						</div>
 					</CreationStep>
 					<CreationStep
@@ -574,180 +666,54 @@ export const Creation = (props) => {
 								type="instagram"
 								verification={state.verification}
 								dispatch={dispatch}
+                session={session}
+                rid={rid}
+                sendCode={sendCode}
+                api_details_ref={api_details_ref}
 							/>
 							<SocialRadio
 								type="twitter"
 								verification={state.verification}
 								dispatch={dispatch}
+                session={session}
+                rid={rid}
+                sendCode={sendCode}
+                api_details_ref={api_details_ref}
 							/>
 						</div>
 						<form className="step-code" action="">
 							<label>
 								Enter the code
 								<div className="step-code__input-wrapper">
-									<input className="input" type="text" name="social_code" />
-									<button className="btn step-code__submit" type="submit">
-										Submit
-									</button>
+                  <input
+                    className="input"
+      	            onChange={handleChange}
+      	            type="number"
+      	            id="social_code"
+      	            name="social_code"
+      	            key="social_code"
+      	          ></input>
+      	          <button
+      	            id="submit_code"
+      	            name="submit_code"
+      	            key="submit_code"
+      	            onClick={confirm_code}
+                    className="btn step-code__submit"
+      	          >
+      	            Submit
+      	          </button>
+      	          <br></br>
+      	          {confirmMsg}
 								</div>
 							</label>
 						</form>
 					</CreationStep>
-					<CreationSubmit state={state} dispatch={dispatch} />
+					<CreationSubmit handle_create={handle_create} state={state} dispatch={dispatch} />
+          {ipfsCid}
 				</div>
 			</div>
 			<div className="container-fluid">
 	      <form>
-	        <div className="container">
-	          <h3>01 Add Wallet</h3>
-	          <label htmlFor="original_nft">OriginalNFT:</label>{" "}
-	          <input
-	            onChange={handleChange}
-	            type="text"
-	            id="original_nft"
-	            name="original_nft"
-	          ></input>
-	          <button id="check_original_nft" onClick={check_nfta}>check</button>
-	          {checkOriginalNftMsg}
-	          <br></br>
-	          <label htmlFor="creator_address">Creator:</label>{" "}
-	          <input
-	            // onChange={this.handleChange}
-	            type="text"
-	            id="creator_address"
-	            name="creator_address"
-	            value={creator_ref.current}
-	            disabled
-	          ></input>
-	          <br></br>
-	          <label htmlFor="partner_address">Partner:</label>{" "}
-	          <input
-	            onChange={handleChange}
-	            type="text"
-	            id="partner_address"
-	            name="partner_address"
-	            value={partnerAddress}
-	          ></input>
-	          <button id="check_partner_address" onClick={check_address_}>check</button>
-	          {checkPartnerAddressMsg}
-	        </div>
-	        <br></br>
-	        <div className="container">
-	          <h3>02 Price of the IMMA NFT</h3>
-	          <select onChange={handleChange} name="price" id="price">
-	            <option value="price_free">For Free</option>
-	            <option value="price_value">For A Price</option>
-	          </select>
-	          <br></br>
-	          <label htmlFor="price_eth">Price ETH </label>
-	          <input
-	            onChange={handleChange}
-	            type="number"
-	            id="price_eth"
-	            name="price_eth"
-	            key="price_eth"
-	            value={priceEth}
-	          ></input>
-	          <br></br>
-	          <label htmlFor="price_usd">Price USD </label>
-	          <input
-	            onChange={handleChange}
-	            type="number"
-	            id="price_usd"
-	            name="price_usd"
-	            key="price_usd"
-	            value={priceUsd}
-	          ></input>
-	        </div>
-	        <div className="container">
-	          <h3>03 Network</h3>
-	          <label htmlFor="network">Blockchain network </label>
-
-	          <select
-	            onChange={handleChange}
-	            name="blockchain"
-	            id="blockchain"
-	          >
-	            <option value="ethereum">ethereum</option>
-	            <option value="polygon" disabled>
-	              polygon
-	            </option>
-	          </select>
-	        </div>
-	        <div className="container">
-	          <h3>03 Create a video</h3>
-	          <label htmlFor="video">Choose Video </label>
-	          <input
-	            onChange={handleChange}
-	            type="file"
-	            id="video"
-	            name="video"
-	            key="video"
-	          ></input>
-	          <button id="button_video" onClick={upload_file}>
-	            upload video
-	          </button>
-	        </div>
-	        <div className="container">
-	          <h3>05 Your signature</h3>
-	          <label htmlFor="signature">Choose signature </label>
-	          <input
-	            onChange={handleChange}
-	            type="file"
-	            id="signature"
-	            name="signature"
-	            key="signature"
-	          ></input>
-	          <button id="button_signature" onClick={upload_file}>
-	            upload signature
-	          </button>
-	        </div>
-	        <div className="container">
-	          <h3>
-	            06 Enter a Twitter or Instagram username to verify your user
-	          </h3>
-
-	          {/* <label htmlFor="social">Blockchain network </label> */}
-	          <select onChange={handleChange} name="social" id="social">
-	            <option value="social_instagram">Instagram</option>
-	            <option value="social_twitter">Twitter</option>
-	          </select>
-	          <br></br>
-	          <label htmlFor="social_username">social username </label>
-	          <input
-	            onChange={handleChange}
-	            type="text"
-	            id="social_username"
-	            name="social_username"
-	            key="social_username"
-	          ></input>
-	          <button
-	            id="send_code"
-	            name="send_code"
-	            key="send_code"
-	            onClick={send_code}
-	          >
-	            send code
-	          </button>
-	          <br></br>
-	          <input
-	            onChange={handleChange}
-	            type="number"
-	            id="social_code"
-	            name="social_code"
-	            key="social_code"
-	          ></input>
-	          <button
-	            id="submit_code"
-	            name="submit_code"
-	            key="submit_code"
-	            onClick={confirm_code}
-	          >
-	            sumbit code
-	          </button>
-	          <br></br>
-	          {confirmMsg}
-	        </div>
 	        <div className="container">
 	          <h3>Create IMMA NFT</h3>
 	          <button

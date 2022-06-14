@@ -181,15 +181,17 @@ const getAddress = async (signer)=>{
   }
 }
 
-const isConnected = async (ethereum,ethers,isConnectedCallBack)=>{
+const isConnected = async (ethereum: any,ethers,isConnectedCallBack)=>{
+  console.log('ethereum');
+  console.log(ethereum);
   try {
-   
+
       const response = {
         'app':false,
         'mobile':false,
         'connected':false,
         'chainId':null,
-        // 'address':null,
+        'address':null,
       }
       if (ethereum){
         response.app = true
@@ -202,10 +204,10 @@ const isConnected = async (ethereum,ethers,isConnectedCallBack)=>{
         const address = await getAddress(signer)
         response.address = address
         isConnectedCallBack(response)
-        return        
+        return
       }
       isConnectedCallBack(response)
-    
+
   } catch (error) {
     console.log(error)
     isConnectedCallBack(null)
@@ -218,6 +220,9 @@ const connect = async (params, ethers, ethereum, _axios, onChainIdChange, setlis
     message: null,
     log: [],
     chainId: null,
+    signer: null,
+    session_fp: null,
+    wallet: null
   }
   const log = response.log
 
