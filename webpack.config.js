@@ -93,7 +93,7 @@ module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	mode: 'development',
 	entry: {
-		app: './js/index.js'
+	    app: ['babel-polyfill', './js/index.js']
 	},
 	output: {
 		filename: `./js/${filename('js')}`,

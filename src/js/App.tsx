@@ -6,7 +6,6 @@ import { AllImmaNft } from './pages/AllImmaNft';
 import { OriginalNft } from './pages/OriginalNft';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import 'regenerator-runtime/runtime';
 
 const App: React.FC = () => {
 	return (
