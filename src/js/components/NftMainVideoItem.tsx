@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import mainVideo from '../../assets/video/main-video.MP4';
+import poster from '../../assets/images/poster.jpg';
 
 export interface NftVideo {
 	id: string;
@@ -60,6 +61,7 @@ export const NftMainVideoItem = () => {
 				className="video-preview"
 				ref={vidRef}
 				onClick={handlePlayVideo}
+				poster={poster}
 			></video>
 			{show
 				&&
