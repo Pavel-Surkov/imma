@@ -11,13 +11,39 @@ import {connect,signRedeemVoucher,claim,isConnected} from '../components/wallet'
 import {
   useEffect,
   useState,
-  useRef
+  useRef,
+  useReducer
 } from "react";
 import config from '../config/default.json';
 import {ethers} from 'ethers';
 import axios from 'axios';
+import { State, reducer } from '../helpers/creationReducer';
+
+export const initialState: State = {
+  originalNft: '',
+  originalNftVerified: false,
+  creatorWallet: '',
+  creatorWalletVerified: false,
+  partnerWallet: '0x0000000000000000000000000000000000000000',
+  partnerWalletVerified: false,
+  hasPartnerWallet: false,
+	price: {
+		isFree: null,
+		dollarValue: 391.34,
+		ethereumValue: 0.14
+	},
+	blockchain: null,
+	video: null,
+	signature: null,
+	verification: {
+		social: null,
+		isVerified: false
+	}
+};
 
 export const Home: React.FC = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
 	const onChainIdChange = (chainIdhex)=>{
     const chainId = parseInt(chainIdhex);
     console.log('onChainIdChange #1: ');
@@ -57,8 +83,15 @@ export const Home: React.FC = () => {
       // setSessionFP(response.session_fp)
       session_fp.current = response.session_fp
       signer_ref.current = response.signer
-      creator_ref.current = response.wallet
-      console.log("ref: " + creator_ref);
+      dispatch({
+        type: 'SET_CREATOR_WALLET',
+        value: response.wallet
+      });
+      dispatch({
+        type: 'SET_CREATOR_WALLET_VERIFIED',
+        value: true
+      });
+      console.log("ref: " + response.wallet);
       setSessionRef()
     }else{
       console.log('meesage: ',message)
@@ -91,7 +124,10 @@ export const Home: React.FC = () => {
     callback(response)
   }
 
-  const loginWallet = async ()=>{
+  const loginWallet = async (event)=>{
+    if (event) {
+      event.preventDefault();
+    }
     if (!is_connected_ref.current.connected){
       if (is_connected_ref.current.mobile){
         alert('you are not connected, please install metamask (redirect mobile)')
@@ -202,16 +238,6 @@ export const Home: React.FC = () => {
 			<Welcome />
 			<About />
       <div className="api">
-      {/*<div className="container">
-	      <h3>Global Network</h3>
-	      <label htmlFor="network">Network </label>
-	      <select onChange={handleNetworkChange} name="network" id="network">
-          <option value="network_rinkeby">rinkeby</option>
-	        <option value="network_main">main net</option>
-	      </select>
-	      <p style={{color:connected_message.color}}>{connected_message.message}</p>
-        <button onClick={loginWallet}>login with wallet</button>
-	    </div>*/}
       <Creation
         api_details_ref={api_details_ref}
         api_base_url={api_base_url}
@@ -222,6 +248,8 @@ export const Home: React.FC = () => {
         signRedeemVoucher={signRedeemVoucher}
         claim={claim}
         loginWallet={loginWallet}
+        state={state}
+        dispatch={dispatch}
       />
 		  <LifeFeed />
 			<AllNft />

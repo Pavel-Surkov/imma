@@ -1,8 +1,6 @@
-import React, { useReducer, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SignaturePad from 'signature_pad';
-import { State, reducer } from '../helpers/creationReducer';
 import { CreationStep } from './CreationStep';
-import { CreationForm } from './CreationForm';
 import { CreationVideo } from './CreationVideo';
 import { CreationSubmit } from './CreationSubmit';
 import { PriceRadio, BlockchainRadio, SocialRadio } from './CreationRadio';
@@ -20,31 +18,6 @@ import {
 } from "../helpers/api";
 import { v4 as uuidv4 } from "uuid";
 
-export const initialState: State = {
-	wallets: {
-		originalWallet: {
-			walletNumber: '',
-			isVerified: false
-		},
-		creatorWallet: {
-			walletNumber: '',
-			isVerified: false
-		}
-	},
-	price: {
-		isFree: null,
-		dollarValue: 391.34,
-		ethereumValue: 0.14
-	},
-	blockchain: null,
-	video: null,
-	signature: null,
-	verification: {
-		social: null,
-		isVerified: false
-	}
-};
-
 export const Creation = (props) => {
   const loginWallet = props.loginWallet;
   const api_base_url = props.api_base_url;
@@ -52,26 +25,16 @@ export const Creation = (props) => {
   const session = props.session;
   const ethers = props.ethers;
   const signer = props.signer_ref;
-  const creator_ref = props.creator_ref;
   const signRedeemVoucher = props.signRedeemVoucher;
   const claim = props.claim;
-  console.log("create: session: ", session);
+  const state = props.state;
+  const dispatch = props.dispatch;
   const uuid_ = uuidv4();
-  const partner_address = '0x0000000000000000000000000000000000000000';
   const [confirmCodeVal, setConfirmCodeVal] = useState(false);
   const [confirmMsg, setConfirmMsg] = useState(<p></p>);
-  const [blockchain, setBlockchain] = useState("ethereum");
-  const [priceEth, setPriceEth] = useState("");
-  const [priceUsd, setPriceUsd] = useState("");
-  const [social, setSocial] = useState("social_instagram");
   const [rid, setRid] = useState(uuid_);
-  const [partnerAddress, setPartnerAddress] = useState(partner_address);
-  const [socialUsername, setSocialUsername] = useState("");
   const [socialCode, setSocialCode] = useState("");
 
-  const [signature, setSignature] = useState(null);
-  const [video, setVideo] = useState(null);
-  const [price, setPrice] = useState("");
   const [originalNft, setOriginalNft] = useState("");
   const [ipfsCid, setIpfsCid] = useState("");
   const [checkPartnerAddressMsg, setCheckPartnerAddressMsg] = useState(null);
@@ -80,7 +43,6 @@ export const Creation = (props) => {
 	const signFieldRef = useRef(null);
 	const containerRef = useRef(null);
 
-	const [state, dispatch] = useReducer(reducer, initialState);
 	const [signatureText, setSignatureText] = useState<string>('Sign here');
 	const [signaturePad, setSignaturePad] = useState<SignaturePad | null>(null);
 
@@ -96,8 +58,6 @@ export const Creation = (props) => {
 		}
 	}, [window.innerWidth]);
 
-	// TODO: Save signature when submiting creation form
-	// (signaturePad.toDataURL("image/svg+xml"))
 	const enableSignaturePad = (): void => {
 		const canvas: HTMLCanvasElement = signFieldRef.current;
 
@@ -147,7 +107,10 @@ export const Creation = (props) => {
       const dataURL = signaturePad.toDataURL('image/png');
       const blob = dataURItoBlob(dataURL);
       const resultFile = new File([blob], "signature.png", {type:"image/png"});
-      setSignature(resultFile);
+      dispatch({
+        type: 'SET_SIGNATURE',
+        value: resultFile
+      });
 		} else {
       console.log('no signature pad');
 		}
@@ -155,17 +118,16 @@ export const Creation = (props) => {
 
   useEffect(() => {
     console.log('new signature:');
-    console.log(signature);
-    if (signature) {
+    console.log(state.signature);
+    if (state.signature) {
       upload_sign_file();
     }
-  }, [signature]);
+  }, [state.signature]);
 
   useEffect(() => {
     console.log('new video file');
     console.log(state.video);
     if (state.video) {
-      setVideo(state.video);
       upload_video_file();
     }
   }, [state.video]);
@@ -196,22 +158,6 @@ export const Creation = (props) => {
 		getMedia({ audio: true, video: true });
 	};
 
-	const send_code = async (event) => {
-    try {
-      console.log("in send_code");
-      event.preventDefault();
-      if (!socialUsername) return alert("no username");
-      if (!social) return alert("no social selection");
-      const type_ = social.replace("social_", "");
-      const username = socialUsername;
-      const codeSession = session.current;
-      console.log("session: ", session);
-      sendCode(api_details_ref.current.api_base_url, codeSession, username, type_, rid);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const confirm_code = async (event) => {
     try {
       console.log("in confirm_code");
@@ -224,6 +170,10 @@ export const Creation = (props) => {
       if (response) {
         setConfirmCodeVal(true);
         setConfirmMsg(<p style={{ color: "green" }}>code confirm</p>);
+        dispatch({
+          type: 'SET_SOCIAL_VERIFIED',
+          value: true
+        });
       } else {
         console.log("wrong code");
         setConfirmCodeVal(false);
@@ -252,9 +202,9 @@ export const Creation = (props) => {
           api_details_ref.current.api_base_url,
           session.current,
           rid,
-          signature.name,
-          signature.type,
-          signature
+          state.signature.name,
+          state.signature.type,
+          state.signature
         );
       }
       return signed_url;
@@ -265,17 +215,14 @@ export const Creation = (props) => {
 
   const upload_video_file = async () => {
     try {
-      const key = "video";
-      if (!state.video) return alert(`no ${key} file`);
-      const signed_url_response = await get_signed_url(key);
+      if (!state.video) return alert(`no video file`);
+      const signed_url_response = await get_signed_url("video");
       if (!signed_url_response) return alert("failed signing url");
       const download_url = signed_url_response.data.results.downloadURL;
       const upload_url = signed_url_response.data.results.uploadURL;
       console.log("downloadURL: ", download_url);
       console.log("uploadURL: ", upload_url);
-      if (key === "video") {
-        await upload(upload_url, state.video.type, state.video);
-      }
+      await upload(upload_url, state.video.type, state.video);
     } catch (error) {
       console.log(error);
     }
@@ -283,79 +230,44 @@ export const Creation = (props) => {
 
   const upload_sign_file = async () => {
     try {
-      const key = "signature";
-      if (key === "signature") {
-        if (!signature) return alert(`no ${key} file`);
-      }
-      console.log(key);
-      const signed_url_response = await get_signed_url(key);
+      if (!state.signature) return alert(`no signature file`);
+      const signed_url_response = await get_signed_url("signature");
       if (!signed_url_response) return alert("failed signing url");
       const download_url = signed_url_response.data.results.downloadURL;
       const upload_url = signed_url_response.data.results.uploadURL;
       console.log("downloadURL: ", download_url);
       console.log("uploadURL: ", upload_url);
-      if (key === "signature") {
-        await upload(upload_url, signature.type, signature);
-      }
+      await upload(upload_url, state.signature.type, state.signature);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleChange = async (event) => {
-    if (!session.current) {
-      loginWallet();
-    }
     const id = event.target.id;
-    if (["video", "signature"].includes(id)) {
-      const value = event.target.files[0];
-      console.log("test signature url: ");
-      console.log(value);
-      if (id === "video") {
-        setVideo(value);
-      } else {
-        setSignature(value);
-      }
-      return;
-    }
-    if (id === "original_nft") {
-      const value = event.target.value;
-      setOriginalNft(value);
-      return;
-    }
-    if (id === "partner_address") {
-      const value = event.target.value;
-      setPartnerAddress(value);
-      return;
-    }
-    if (id === "blockchain") {
-      const value = event.target.value;
-      setBlockchain(value);
-      return;
-    }
-    if (id === "social") {
-      const value = event.target.value;
-      setSocial(value);
-      return;
-    }
-    if (id === "social_username") {
-      const value = event.target.value;
-      setSocialUsername(value);
-      return;
-    }
-    if (id === "social_code") {
-      const value = event.target.value;
-      setSocialCode(value);
-      return;
+    switch (id) {
+      case "original_nft":
+        dispatch({
+          type: 'SET_ORIGINAL_NFT',
+          value: event.target.value
+        });
+        return;
+      case "partner_address":
+        dispatch({
+          type: 'SET_PARTNER_WALLET',
+          value: event.target.value
+        });
+        return;
+      case "social_code":
+        setSocialCode(event.target.value);
+        return;
+      default:
+        return;
     }
   };
 
   const gatherPreSignedData = ()=>{
     try {
-      let price_eth = 0;
-      if (priceEth!=''){
-        price_eth = parseFloat(priceEth);
-      }
       let price = '';
       if (state.price.isFree === true) {
         price = 'price_free';
@@ -363,9 +275,9 @@ export const Creation = (props) => {
         price = 'price_value';
       }
       const essentials = {
-        'creator_address': creator_ref.current,
-        'original_nft': originalNft,
-        'partner_address': partnerAddress,
+        'creator_address': state.creatorWallet,
+        'original_nft': state.originalNft,
+        'partner_address': state.partnerWallet,
         'price': price,
         'price_eth': state.price.ethereumValue,
         'price_usd': state.price.dollarValue,
@@ -441,7 +353,7 @@ export const Creation = (props) => {
       event.preventDefault();
       const id_ = event.target.id;
       if (id_ === 'check_partner_address') {
-        const address = partnerAddress;
+        const address = state.partnerWallet;
         console.log('event: ', event.target);
         console.log('address: ', address);
         const check_response = await check_address(api_details_ref.current.api_base_url, session.current,address);
@@ -450,6 +362,10 @@ export const Creation = (props) => {
         const check_partner_address = check_response.data.results.valid;
         const check_partner_address_msg = check_partner_address ? <div style={{color:"green"}}>valid</div>:<div style={{color:"red"}}>invalid</div>;
         setCheckPartnerAddressMsg(check_partner_address_msg);
+        dispatch({
+          type: 'SET_PARTNER_WALLET_VERIFIED',
+          value: true
+        });
         return;
       }
       return alert('unknown id');
@@ -459,26 +375,35 @@ export const Creation = (props) => {
   }
 
   const check_nfta = async (event)=>{
-    try {
-      console.log('in check_address_');
-      event.preventDefault();
-      const id_ = event.target.id;
-      if (id_==='check_original_nft'){
-        const original_nft = originalNft;
-        console.log('event: ', event.target);
-        console.log('original_nft: ', original_nft);
-        const [sc,tokenId] = original_nft.split('/');
-        const check_response = await checkNFT(api_details_ref.current.api_base_url, session.current,sc, tokenId);
-        if (!check_response) return alert('failed check call');
-        if (check_response.status!==200) return alert('failed check call');
-        const check_original_nft = check_response.data.results.valid;
-        const check_original_nft_msg = check_original_nft?<div style={{color:"green"}}>valid</div>:<div style={{color:"red"}}>invalid</div>;
-        setCheckOriginalNftMsg(check_original_nft_msg);
-        return;
+    event.preventDefault();
+    if (!session.current) {
+      alert('authenticate and try again');
+      loginWallet();
+    } else {
+      try {
+        console.log('in check_address_');
+        const id_ = event.target.id;
+        if (id_==='check_original_nft'){
+          const original_nft = state.originalNft;
+          console.log('event: ', event.target);
+          console.log('original_nft: ', original_nft);
+          const [sc,tokenId] = original_nft.split('/');
+          const check_response = await checkNFT(api_details_ref.current.api_base_url, session.current,sc, tokenId);
+          if (!check_response) return alert('failed check call');
+          if (check_response.status!==200) return alert('failed check call');
+          const check_original_nft = check_response.data.results.valid;
+          const check_original_nft_msg = check_original_nft?<div style={{color:"green"}}>valid</div>:<div style={{color:"red"}}>invalid</div>;
+          setCheckOriginalNftMsg(check_original_nft_msg);
+          dispatch({
+            type: 'SET_ORIGINAL_NFT_VERIFIED',
+            value: true
+          });
+          return;
+        }
+        return alert('unknown id');
+      } catch (error) {
+        console.log(error);
       }
-      return alert('unknown id');
-    } catch (error) {
-      console.log(error);
     }
   }
 
@@ -520,7 +445,7 @@ export const Creation = (props) => {
                     type="text"
       	            id="creator_address"
       	            name="creator_address"
-      	            value={creator_ref.current}
+      	            value={state.creatorWallet ? state.creatorWallet : 'login with wallet'}
       	            disabled
                     required
                   />
@@ -528,13 +453,13 @@ export const Creation = (props) => {
                     id="check_original_nft"
                     type="submit"
                     className="btn-arrow step-block__submit"
-                    onClick={null}
+                    onClick={!session.current ? loginWallet : (e) => e.preventDefault()}
                   >
                     Confirm
                   </button>
                 </form>
               </div>
-							{state.wallets.customWallet && (
+							{state.hasPartnerWallet && (
                 <div className="step-block__wrapper">
             			<form action="" className="form step-block">
             				<h4 className="title title_size-xs step-block__title">Broke wallet</h4>
@@ -543,7 +468,7 @@ export const Creation = (props) => {
             					type="text"
         	            id="partner_address"
         	            name="partner_address"
-            					value={partnerAddress}
+            					value={state.partnerWallet}
             					onChange={handleChange}
             					required
             				/>
@@ -558,12 +483,12 @@ export const Creation = (props) => {
             			</form>
             		</div>
 							)}
-							{!state.wallets.customWallet && (
+							{!state.hasPartnerWallet && (
 								<div className="step-block_add">
 									<button
 										type="button"
 										className="step-block__add-btn"
-										onClick={() => dispatch({ type: 'ADD_CUSTOM_WALLET' })}
+										onClick={() => dispatch({ type: 'ADD_PARTNER_WALLET' })}
 									>
 										<span></span>
 										<span></span>
@@ -724,36 +649,6 @@ export const Creation = (props) => {
           {ipfsCid}
 				</div>
 			</div>
-			{/*<div className="container-fluid">
-	      <form>
-	        <div className="container">
-	          <h3>Create IMMA NFT</h3>
-	          <button
-	            id="create_nft"
-	            name="create_nft"
-	            key="create_nft"
-	            onClick={handle_create}
-	          >
-	            Create
-	          </button>
-	          <br></br>
-	          {ipfsCid}
-	        </div>
-	        <br></br>
-	        <div className="container">
-	          <h3>TestClaim</h3>
-	          <button
-	            id="test_claim"
-	            name="test_claim"
-	            key="test_claim"
-	            value='bafybeidvuzr7mzfz6vtga622rjjrlftwsgmjnm6wbjh2ahcdh6rx5qnpya'
-	            onClick={handle_claim}
-	          >
-	            Claim
-	          </button>
-	        </div>
-	      </form>
-	    </div>*/}
 		</section>
 	);
 };

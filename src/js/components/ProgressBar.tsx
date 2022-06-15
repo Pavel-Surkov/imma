@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Wallet } from '../helpers/creationReducer';
 import { State } from '../helpers/creationReducer';
 
 type ProgressItem = 'current' | 'completed' | 'staging';
@@ -61,14 +60,11 @@ export const ProgressBar = ({ state, containerRef }: ProgressBarProps) => {
 
 		if (state) {
 			// First step of the bar
-			const keys: string[] = Object.keys(state.wallets);
-
-			keys.forEach((key) => {
-				if (state.wallets[key].isVerified) {
-					progress = 8;
-					newProgressItems[0] = { id: 1, state: 'completed' };
-				}
-			});
+			const checkPartnerWalet = state.hasPartnerWallet ? (state.partnerWalletVerified ? true : false) : true;
+			if (state.creatorWalletVerified && state.originalNftVerified && checkPartnerWalet) {
+				progress = 8;
+				newProgressItems[0] = { id: 1, state: 'completed' };
+			}
 
 			// Second step of the bar
 			if (state.price.isFree !== null) {
@@ -95,7 +91,7 @@ export const ProgressBar = ({ state, containerRef }: ProgressBarProps) => {
 			}
 
 			// Sixth step of the bar
-			if (state.verification.social) {
+			if (state.verification.isVerified) {
 				progress = 90;
 				newProgressItems[5] = { id: 6, state: 'completed' };
 			}

@@ -194,7 +194,6 @@ export const SocialRadio = ({ type, verification, dispatch, session, rid, sendCo
 			console.log("in send_code");
 			event.preventDefault();
 			if (!userName) return alert("no username");
-			//if (!social) return alert("no social selection");
 			const type_ = type;
 			const codeSession = session.current;
 			console.log("session: ", session);
