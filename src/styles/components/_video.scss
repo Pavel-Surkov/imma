@@ -22,12 +22,44 @@
 			position: relative;
 		}
 		&__close {
-			&-wrapper {
-				position: absolute;
-				z-index: 20;
-				top: 0;
-				right: -30px;
-			}
+			display: flex;
+			justify-content: center;
+			width: 29.44px;
+			height: 29.44px;
+			background: rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(15.5957px);
+			border-radius: 0.623827px;
+			margin-right: 10px;
+		}
+		&__approve {
+			display: flex;
+			justify-content: center;
+			width: 29.44px;
+			height: 29.44px;
+			background: rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(15.5957px);
+			border-radius: 0.623827px;
+		}
+		&__approve.active {
+			background: none;
+			border: 1px solid #D6FF7E;
+			backdrop-filter: blur(15.5957px);
+			border-radius: 4px;
+		}
+		&__approve.active path {
+			stroke: #D6FF7E;
+		}
+		&__top-buttons-wrapper {
+			display: flex;
+			margin-bottom: 12px;
+			margin-left: auto;
+			width: max-content;
+		}
+		&__close svg {
+			height: 100%;
+		}
+		&__approve svg {
+			height: 100%;
 		}
 		&__video {
 			max-width: calc(100vw - 40px);
@@ -45,8 +77,8 @@
 				border-radius: 2px;
 				@include grid(0, center, center);
 				background: rgba($white, 0.2);
-				width: 70px;
-				height: 70px;
+				width: 60px;
+				height: 60px;
 				margin-right: 12px;
 				&:last-child {
 					margin: 0;
@@ -55,6 +87,9 @@
 					&:hover rect {
 						fill: #f00000;
 					}
+				}
+				&_pause {
+					display: none;
 				}
 				&:active {
 					opacity: 0.8;
