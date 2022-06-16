@@ -193,9 +193,9 @@ const isConnected = async (ethereum: any,ethers,isConnectedCallBack)=>{
         'chainId':null,
         'address':null,
       }
+      response.mobile = isMobileDevice()
       if (ethereum){
         response.app = true
-        response.mobile = isMobileDevice()
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const chainId = await signer.getChainId()
