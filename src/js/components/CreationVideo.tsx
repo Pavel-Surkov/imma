@@ -223,9 +223,9 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	return (
 		<>
 			<div className="step-wrapper step-wrapper_video">
-				<button type="button" className="btn-video" onClick={createVideo}>
-					Create a video
-				</button>
+					<button type="button" className={`btn-video ${video ? 'btn-video-uploaded' : ''}`} onClick={createVideo}>
+						{!video ? 'Create a video' : 'Video uploaded'}
+					</button>
 				<span>
 					*there is only an option to shoot something at the moment, there is no option to
 					upload anything from the gallery

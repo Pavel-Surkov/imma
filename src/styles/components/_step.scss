@@ -125,6 +125,29 @@
 		position: relative;
 		height: 100%;
 		@include flex(column, flex-start, flex-end);
+		.input-wrap {
+			width: 100%;
+			position: relative;
+		}
+		.filed-error {
+			font-family: 'Questrial';
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 14px;
+			text-align: center;
+			color: rgba(255, 255, 255, 0.5);
+			position: absolute;
+			bottom: -20px;
+		}
+		.input-icon {
+			position: absolute;
+			top: 15px;
+			right: 16px;
+		}
+		.input-error {
+			border: 1px solid #FF2525;
+		}
 		&__title {
 			padding-bottom: 30px;
 			margin-bottom: auto;

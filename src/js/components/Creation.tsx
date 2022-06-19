@@ -360,12 +360,19 @@ export const Creation = (props) => {
         if (!check_response) return alert('failed check call');
         if (check_response.status !== 200) return alert('failed check call');
         const check_partner_address = check_response.data.results.valid;
-        const check_partner_address_msg = check_partner_address ? <div style={{color:"green"}}>valid</div>:<div style={{color:"red"}}>invalid</div>;
+        const check_partner_address_msg = check_partner_address?'':<div className="filed-error">Code error</div>;
         setCheckPartnerAddressMsg(check_partner_address_msg);
-        dispatch({
-          type: 'SET_PARTNER_WALLET_VERIFIED',
-          value: true
-        });
+        if (check_partner_address) {
+          dispatch({
+            type: 'SET_PARTNER_WALLET_VERIFIED',
+            value: true
+          });
+        } else {
+          dispatch({
+            type: 'SET_PARTNER_WALLET_VERIFIED',
+            value: false
+          });
+        }
         return;
       }
       return alert('unknown id');
@@ -392,12 +399,19 @@ export const Creation = (props) => {
           if (!check_response) return alert('failed check call');
           if (check_response.status!==200) return alert('failed check call');
           const check_original_nft = check_response.data.results.valid;
-          const check_original_nft_msg = check_original_nft?<div style={{color:"green"}}>valid</div>:<div style={{color:"red"}}>invalid</div>;
+          const check_original_nft_msg = check_original_nft?'':<div className="filed-error">Code error</div>;
           setCheckOriginalNftMsg(check_original_nft_msg);
-          dispatch({
-            type: 'SET_ORIGINAL_NFT_VERIFIED',
-            value: true
-          });
+          if (check_original_nft) {
+            dispatch({
+              type: 'SET_ORIGINAL_NFT_VERIFIED',
+              value: true
+            });
+          } else {
+            dispatch({
+              type: 'SET_ORIGINAL_NFT_VERIFIED',
+              value: false
+            });
+          }
           return;
         }
         return alert('unknown id');
@@ -418,14 +432,30 @@ export const Creation = (props) => {
               <div className="step-block__wrapper">
                 <form action="" className="form step-block">
                   <h4 className="title title_size-xs step-block__title">Original NFT for your imma NFT to follow</h4>
-                  <input
-                    className="input step-block__input"
-                    type="text"
-                    id="original_nft"
-                    name="original_nft"
-                    onChange={handleChange}
-                    required
-                  />
+                  <div className="input-wrap">
+                    <input
+                      className={`input step-block__input ${(checkOriginalNftMsg && !state.originalNftVerified) ? 'input-error' : ''}`}
+                      type="text"
+                      id="original_nft"
+                      name="original_nft"
+                      onChange={handleChange}
+                      required
+                    />
+                    {state.originalNftVerified ?
+                      <div className="input-icon">
+                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" stroke-width="2"/>
+                        </svg>
+                      </div>
+                      :
+                      ((checkOriginalNftMsg) ? <div className="input-icon">
+                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 1L13 13M13 1L1 13" stroke="#FF2525" stroke-width="2"/>
+                        </svg>
+                      </div> : '')
+                    }
+                    {checkOriginalNftMsg}
+                  </div>
                   <button
                     id="check_original_nft"
                     type="submit"
@@ -434,21 +464,30 @@ export const Creation = (props) => {
                   >
                     Confirm
                   </button>
-                  {checkOriginalNftMsg}
                 </form>
               </div>
               <div className="step-block__wrapper">
                 <form action="" className="form step-block">
                   <h4 className="title title_size-xs step-block__title">The imma NFT creator wallet</h4>
-                  <input
-                    className="input step-block__input"
-                    type="text"
-      	            id="creator_address"
-      	            name="creator_address"
-      	            value={state.creatorWallet ? state.creatorWallet : 'login with wallet'}
-      	            disabled
-                    required
-                  />
+                  <div className="input-wrap">
+                    <input
+                      className="input step-block__input"
+                      type="text"
+        	            id="creator_address"
+        	            name="creator_address"
+        	            value={state.creatorWallet ? state.creatorWallet : 'login with wallet'}
+        	            disabled
+                      required
+                    />
+                    {state.creatorWalletVerified ?
+                      <div className="input-icon">
+                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" stroke-width="2"/>
+                        </svg>
+                      </div>
+                      : ''
+                    }
+                  </div>
                   <button
                     id="check_original_nft"
                     type="submit"
@@ -463,15 +502,32 @@ export const Creation = (props) => {
                 <div className="step-block__wrapper">
             			<form action="" className="form step-block">
             				<h4 className="title title_size-xs step-block__title">Broke wallet</h4>
-            				<input
-            					className="input step-block__input"
-            					type="text"
-        	            id="partner_address"
-        	            name="partner_address"
-            					value={state.partnerWallet}
-            					onChange={handleChange}
-            					required
-            				/>
+
+                    <div className="input-wrap">
+                      <input
+                        className={`input step-block__input ${(checkPartnerAddressMsg && !state.partnerWalletVerified) ? 'input-error' : ''}`}
+                        type="text"
+                        id="partner_address"
+                        name="partner_address"
+                        value={state.partnerWallet}
+                        onChange={handleChange}
+                        required
+                      />
+                      {state.partnerWalletVerified ?
+                        <div className="input-icon">
+                          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" stroke-width="2"/>
+                          </svg>
+                        </div>
+                        :
+                        ((checkPartnerAddressMsg) ? <div className="input-icon">
+                          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L13 13M13 1L1 13" stroke="#FF2525" stroke-width="2"/>
+                          </svg>
+                        </div> : '')
+                      }
+                      {checkPartnerAddressMsg}
+                    </div>
             				<button
                       id="check_partner_address"
             					className="btn-arrow step-block__submit"
@@ -479,7 +535,6 @@ export const Creation = (props) => {
             				>
             					Confirm
             				</button>
-                    {checkPartnerAddressMsg}
             			</form>
             		</div>
 							)}

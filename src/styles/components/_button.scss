@@ -92,6 +92,20 @@
 			height: 23px;
 			background: icon('camera.svg') no-repeat 50% / contain;
 		}
+		&-uploaded {
+			padding-left: 85px;
+    	padding-right: 47px;
+		}
+		&-uploaded::before {
+			content: '';
+			position: absolute;
+			left: 46px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 21px;
+			height: 13px;
+			background: icon('video-ok.svg') no-repeat 100% / contain;
+		}
 		&:hover {
 			outline: 1px solid $lightgreen;
 		}
