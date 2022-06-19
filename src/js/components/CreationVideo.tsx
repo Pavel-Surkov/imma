@@ -70,7 +70,6 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	useEffect(() => {
 		if (stream) {
 			const recorder: MediaRecorder = new MediaRecorder(stream);
-
 			setRecorder(recorder);
 		}
 	}, [stream]);
@@ -201,7 +200,10 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		setStream(null);
 	};
 
-	const discardVideo = (): void => {
+	const discardVideo = (modal): void => {
+		if (modal) {
+			createVideo();
+		}
 		videoRef.current.pause();
 		if (playButton.current) {
 			playButton.current.style.display = "block";
@@ -223,9 +225,23 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	return (
 		<>
 			<div className="step-wrapper step-wrapper_video">
+				<div className="step-wrapper_video-buttons">
 					<button type="button" className={`btn-video ${video ? 'btn-video-uploaded' : ''}`} onClick={createVideo}>
 						{!video ? 'Create a video' : 'Video uploaded'}
 					</button>
+					{video ?
+					<button
+						type="button"
+						className="step-wrapper_video__btn_refuse"
+						onClick={() => discardVideo(true)}
+					>
+						<svg width="12" height="15" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M9 21.7471C6.61406 21.7438 4.32678 20.7945 2.63967 19.1074C0.952551 17.4203 0.00328416 15.133 0 12.7471C7.35896e-09 12.5001 0.0980907 12.2633 0.272694 12.0887C0.447296 11.9141 0.684109 11.816 0.931034 11.816C1.17796 11.816 1.41477 11.9141 1.58938 12.0887C1.76398 12.2633 1.86207 12.5001 1.86207 12.7471C1.86207 14.1588 2.2807 15.5389 3.06503 16.7127C3.84935 17.8865 4.96415 18.8014 6.26843 19.3417C7.57272 19.8819 9.00792 20.0233 10.3925 19.7478C11.7772 19.4724 13.049 18.7926 14.0473 17.7943C15.0455 16.7961 15.7254 15.5242 16.0008 14.1396C16.2762 12.755 16.1348 11.3198 15.5946 10.0155C15.0543 8.71122 14.1394 7.59642 12.9656 6.8121C11.7918 6.02777 10.4117 5.60914 9 5.60914H5.89655C5.64963 5.60914 5.41281 5.51105 5.23821 5.33645C5.06361 5.16184 4.96552 4.92503 4.96552 4.6781C4.96552 4.43118 5.06361 4.19437 5.23821 4.01976C5.41281 3.84516 5.64963 3.74707 5.89655 3.74707H9C11.3869 3.74707 13.6761 4.69528 15.364 6.38311C17.0518 8.07094 18 10.3601 18 12.7471C18 15.134 17.0518 17.4232 15.364 19.111C13.6761 20.7989 11.3869 21.7471 9 21.7471Z" fill="#D6FF7E"/>
+							<path d="M9.00006 9.33357C8.87773 9.33415 8.75652 9.31029 8.64354 9.26339C8.53056 9.21649 8.42808 9.1475 8.34213 9.06046L4.61799 5.33633C4.44364 5.16176 4.3457 4.92512 4.3457 4.6784C4.3457 4.43167 4.44364 4.19503 4.61799 4.02047L8.34213 0.296328C8.42736 0.204854 8.53015 0.131486 8.64435 0.0805996C8.75856 0.029713 8.88185 0.00235056 9.00686 0.000144895C9.13187 -0.00206077 9.25604 0.0209353 9.37197 0.0677614C9.4879 0.114588 9.59321 0.184284 9.68162 0.272694C9.77003 0.361103 9.83973 0.466414 9.88655 0.582345C9.93338 0.698275 9.95638 0.822449 9.95417 0.947459C9.95196 1.07247 9.9246 1.19576 9.87372 1.30996C9.82283 1.42417 9.74946 1.52695 9.65799 1.61219L6.59178 4.6784L9.65799 7.7446C9.83234 7.91917 9.93027 8.15581 9.93027 8.40253C9.93027 8.64926 9.83234 8.8859 9.65799 9.06046C9.57203 9.1475 9.46955 9.21649 9.35657 9.26339C9.24359 9.31029 9.12238 9.33415 9.00006 9.33357Z" fill="#D6FF7E"/>
+						</svg>
+					</button>
+					: ''}
+				</div>
 				<span>
 					*there is only an option to shoot something at the moment, there is no option to
 					upload anything from the gallery

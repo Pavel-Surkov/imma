@@ -104,13 +104,32 @@
 			@include flex();
 			grid-gap: 0;
 			& .btn-video {
-				margin-right: 46px;
+				margin-right: 11px;
 			}
 			& span {
 				display: inline-block;
 				max-width: 377px;
 				align-self: flex-end;
 				@include font(1.4rem, calc(20 / 14));
+			}
+			&-buttons {
+				position: relative;
+			}
+			&__btn_refuse {
+				width: 40px;
+				height: 40px;
+				background: rgba(255, 255, 255, 0.07);
+				backdrop-filter: blur(33.3333px);
+				border-radius: 1.33333px;
+		    display: flex;
+		    justify-content: center;
+		    vertical-align: middle;
+				position: absolute;
+				right: -40px;
+				top: 0;
+			}
+			&__btn_refuse svg {
+				height: 100%;
 			}
 		}
 	}
@@ -504,8 +523,22 @@
 				& .btn-video {
 					margin: 0;
 				}
+				& .btn-video.btn-video-uploaded {
+			    padding-left: 47px;
+			    padding-right: 28px;
+			    padding-top: 22px;
+			    padding-bottom: 22px;
+    			font-size: 16px;
+				}
+				& .btn-video.btn-video-uploaded::before {
+    			left: 27px;
+    			width: 12px;
+				}
 				& span {
 					align-self: flex-start;
+				}
+				&__btn_refuse {
+					right: -51px;
 				}
 			}
 			&_social {
@@ -665,6 +698,14 @@
 					&::before {
 						left: 20px;
 					}
+				}
+				&__btn_refuse {
+					width: 66px;
+					height: 66px;
+					right: -76px;
+				}
+				&__btn_refuse svg {
+					width: 20px;
 				}
 			}
 		}
