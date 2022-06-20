@@ -1,7 +1,22 @@
 import React from 'react';
 import Button from './Button';
 
-export const StatusReleased = () => {
+type StatusReleasedProps = {
+	session: any;
+	handle_claim: (event: any) => void;
+	loginWallet: (event: any) => void;
+};
+
+export const StatusReleased = React.memo(({ session, handle_claim, loginWallet }: StatusReleasedProps) => {
+	const handleClick = (event) => {
+    event.preventDefault();
+		if (!session.current) {
+			alert('authenticate and try again');
+			loginWallet(event);
+		} else {
+			handle_claim(event);
+		}
+	}
 	return (
 		<div className="product-block status status_released">
 			<h4 className="title product-block__title">Status:</h4>
@@ -144,12 +159,12 @@ export const StatusReleased = () => {
 				</div>
 			</div>
 			<div className="status-info__btn-wrapper">
-				<Button
+				<button
 					className="btn btn_border_green btn-arrow status-info__btn"
 					type="button"
-					properties={{ text: 'Claim ownership' }}
-				></Button>
+					onClick={handleClick}
+				>Claim ownership</button>
 			</div>
 		</div>
 	);
-};
+});

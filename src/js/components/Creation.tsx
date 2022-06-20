@@ -323,7 +323,7 @@ export const Creation = (props) => {
       if (!signature) return alert('signature failed');
       console.log('rid: ', rid);
       console.log('session: ', session.current);
-      const verify_response = await verifySignature(rid, api_details_ref.current.api_base_url, session.current,signature);
+      const verify_response = await verifySignature(rid, api_details_ref.current.api_base_url, session.current, signature);
       if (!verify_response) return alert('verify failed');
       setIpfsCid(verify_response.data.results.ipfs_cid);
     } catch (error) {
@@ -340,7 +340,7 @@ export const Creation = (props) => {
       if (!claim_request_response) return alert('cliam request failed');
       if (claim_request_response.status!==200) return alert('cliam request failed');
       const results = claim_request_response.data.results;
-      const claim_response = await claim(signer.current, ethers,results);
+      const claim_response = await claim(signer.current, ethers, results);
       console.log(claim_response);
     } catch (error) {
       console.log(error);
