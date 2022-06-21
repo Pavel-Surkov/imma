@@ -53,7 +53,8 @@ export const Product: React.FC = () => {
 
 	const [video, setVideo] = useState<null | Result>(null);
 	// TODO: Set status by API
-	const [status, setStatus] = useState<'released' | 'pending'>('released');
+	const [status, setStatus] = useState<string>('');
+	const [coupled, setCoupled] = useState(false);
   const [ipfsCid, setIpfsCid] = useState("");
   const network_ref = useRef('rinkeby');
 
@@ -67,6 +68,16 @@ export const Product: React.FC = () => {
 			const video: Result = data.results.find((item: Result) => item.uid === path.nft);
 			setVideo(video);
 			setIpfsCid(video.uid);
+      if (video.inft.minted) {
+        setStatus('released');
+      } else {
+        setStatus('pending');
+      }
+      if (video.coupled) {
+        setCoupled(true);
+      } else {
+        setCoupled(false);
+      }
 		}
 	}, [data]);
 
@@ -267,7 +278,7 @@ export const Product: React.FC = () => {
     }
   };
 
-  const api_details_ref = useRef( getApiDetails());
+  const api_details_ref = useRef(getApiDetails());
   const api_base_url = api_details_ref.current.api_server;
 	const [selected_chainId,setSelectedCainId] = useState(1)
 	const [connected_chainId,setConnectedCainId] = useState(0)
@@ -299,32 +310,33 @@ export const Product: React.FC = () => {
 				</section>
 			</main>
 		);
-	}
-
-	return (
-		<main className="main product">
-			<div className="bg-lights"></div>
-			<section className="product-page">
-				<div className="product-page__wrapper">
-					<div className="container">
-						<div className="product-page__content">
-							<div className="product-page__video">
-								<h2 className="title title_size-m product-page__title_video">
-									IMMA NFT <span>#{video.uid.slice(0, 5)}...</span>
-								</h2>
-								<NftVideoItem properties={video} videoHeight={658} />
-							</div>
-							<ProductInfo
-								status={status}
-								video={video}
-								session={session_ref}
-								handle_claim={handle_claim}
-								loginWallet={loginWallet}
-							/>
-						</div>
-					</div>
-				</div>
-			</section>
-		</main>
-	);
+	} else {
+    return (
+  		<main className="main product">
+  			<div className="bg-lights"></div>
+  			<section className="product-page">
+  				<div className="product-page__wrapper">
+  					<div className="container">
+  						<div className="product-page__content">
+  							<div className="product-page__video">
+  								<h2 className="title title_size-m product-page__title_video">
+  									IMMA NFT <span>#{video.uid.slice(0, 5)}...</span>
+  								</h2>
+  								<NftVideoItem properties={video} videoHeight={658} />
+  							</div>
+  							<ProductInfo
+                  video={video}
+  								status={status}
+                  coupled={coupled}
+  								session={session_ref}
+  								handle_claim={handle_claim}
+  								loginWallet={loginWallet}
+  							/>
+  						</div>
+  					</div>
+  				</div>
+  			</section>
+  		</main>
+  	);
+  }
 };

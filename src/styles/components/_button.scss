@@ -10,6 +10,13 @@
 	color: $white;
 	position: relative;
 	border-radius: 2px;
+	&_disable::after {
+		display: none;
+		padding-right: 1.325em;
+	}
+	&_disable {
+		padding-right: 1.325em !important;
+	}
 	&::after {
 		content: '';
 		position: absolute;

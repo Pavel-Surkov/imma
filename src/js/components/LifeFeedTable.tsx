@@ -32,6 +32,8 @@ export const LifeFeedTable = ({
 		axios(config)
 			.then((response) => {
 				setData(response.data);
+				console.log('lifefeed data');
+				console.log(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
