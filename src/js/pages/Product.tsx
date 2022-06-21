@@ -273,6 +273,8 @@ export const Product: React.FC = () => {
       const results = claim_request_response.data.results;
       const claim_response = await claim(signer_ref.current, ethers, results);
       console.log(claim_response);
+      setStatus('released');
+      setCoupled(true);
     } catch (error) {
       console.log(error);
     }
