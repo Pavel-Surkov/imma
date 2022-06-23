@@ -293,7 +293,7 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 					className="btn btn_border_green status-info__btn btn_disable"
 					type="button"
 					onClick={(e) => e.preventDefault()}
-				>Already coupled</button>
+				>Claim ownership</button>
 				}
 			</div>
 			{!coupled ? <Timer /> : ''}
