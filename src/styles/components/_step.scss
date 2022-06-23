@@ -259,6 +259,38 @@
 				color: $gray-650;
 				@include font(1.4rem, calc(20 / 14));
 			}
+			.signature {
+				&__upload {
+					position: absolute;
+					width: 100%;
+					bottom: -72px;
+				}
+				&__upload-bar-wrap {
+					height: 20px;
+					padding: 3px 4px;
+					margin-top: 27px;
+				}
+				&__upload-bar-wrap.active-signature-wrap {
+					border: 1px solid rgba(255, 255, 255, 0.5);
+					border-radius: 30px;
+				}
+				&__upload-bar-text {
+					height: 18px;
+					text-align: center;
+					font-family: 'SpaceMono';
+					font-style: normal;
+					font-weight: 700;
+					font-size: 14px;
+					line-height: 130.6%;
+					color: #FFFFFF;
+					margin-top: 8px;
+				}
+				&__upload-bar {
+					height: 100%;
+					background: #D6FF7E;
+					border-radius: 17px;
+				}
+			}
 		}
 		&_social {
 			& .step-block__title_radio {

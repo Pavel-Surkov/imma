@@ -85,7 +85,7 @@ export const ProgressBar = ({ state, containerRef }: ProgressBarProps) => {
 			}
 
 			// Fifth step of the bar
-			if (state.signature) {
+			if (state.signature && state.signature.size != 3172) {
 				progress = 70;
 				newProgressItems[4] = { id: 5, state: 'completed' };
 			}

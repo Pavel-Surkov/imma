@@ -52,7 +52,7 @@ const downloadDemoFile = async (type, url) => {
 	}
 };
 
-export const uploads3 = async (url, ct, blob) => {
+export const uploads3 = async (url, ct, blob, setVideoProgress) => {
 	try {
 		const config = {
 			method: 'put',
@@ -60,7 +60,10 @@ export const uploads3 = async (url, ct, blob) => {
 			headers: {
 				'Content-Type': ct
 			},
-			onUploadProgress: (progressEvent) => console.log(progressEvent.loaded),
+			onUploadProgress: (progressEvent) => {
+				setVideoProgress(Math.round(progressEvent.loaded*(100/blob.size)));
+				console.log(progressEvent.loaded);
+			},
 			data: blob
 		};
 
@@ -86,7 +89,7 @@ export const downloadTest = async (url) => {
 	}
 };
 
-export const UploadTest = async (video, rid, ct, filename, getSignedURL) => {
+/*export const UploadTest = async (video, rid, ct, filename, getSignedURL) => {
 	try {
 		console.log('rid: ', rid);
 
@@ -110,4 +113,4 @@ export const UploadTest = async (video, rid, ct, filename, getSignedURL) => {
 	} catch (error) {
 		console.log(error);
 	}
-};
+};*/

@@ -9,6 +9,31 @@
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, calc(-50%));
+		&__upload-bar-wrap {
+			height: 20px;
+			padding: 3px 4px;
+			margin-top: 27px;
+		}
+		&__upload-bar-wrap.active-video-wrap {
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			border-radius: 30px;
+		}
+		&__upload-bar-text {
+			height: 18px;
+			text-align: center;
+			font-family: 'SpaceMono';
+			font-style: normal;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 130.6%;
+			color: #FFFFFF;
+			margin-top: 8px;
+		}
+		&__upload-bar {
+			height: 100%;
+			background: #D6FF7E;
+			border-radius: 17px;
+		}
 		&-wrapper {
 			position: relative;
 			z-index: 100;
@@ -63,13 +88,13 @@
 		}
 		&__video {
 			max-width: calc(100vw - 40px);
-			max-height: calc(100vh - 100px);
+			max-height: calc(100vh - 200px);
 			border-radius: 10px;
 			background: $black;
 		}
 		&__control {
 			position: absolute;
-			bottom: 17px;
+			bottom: 90px;
 			left: 50%;
 			transform: translateX(-50%);
 			@include flex();

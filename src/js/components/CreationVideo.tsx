@@ -39,6 +39,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	const [video, setVideo] = useState<null | Blob>(null);
 	const [videoApproved, setVideoApproved] = useState<boolean>(false);
 	const [videoUploaded, setVideoUploaded] = useState<boolean>(false);
+	const [videoProgress, setVideoProgress] = useState<number>(0);
 
 	// Params for signedUrlData query.
 	// Maybe not necessary use useState for them
@@ -47,6 +48,12 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	const [contentType, setContentType] = useState<ContentType>('video/mp4');
 
 	const [signedUrlData, setSignedUrlData] = useState(null);
+
+	useEffect(() => {
+		if (videoProgress === 100 && isModalOpened) {
+			setTimeout(() => closeVideoModal(), 1000);
+		}
+	}, [videoProgress])
 
 	// Gets signedUrlData
 	useEffect(() => {
@@ -80,12 +87,14 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			/*video.name = filename;
 			video.type = contentType;*/
 			dispatch({ type: 'SET_VIDEO', value: video });
-			uploads3(signedUrlData.uploadURL, contentType, video).then((response) => {
+			console.log("video.size" + video.size);
+			uploads3(signedUrlData.uploadURL, contentType, video, setVideoProgress).then((response) => {
 				if (response.status === 200) {
 					console.log('video upload is successful');
 					setVideoUploaded(true);
 				}
 			});
+
 		}
 	}, [videoApproved]);
 
@@ -114,6 +123,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		const htmlEl = document.documentElement;
 		htmlEl.classList.add('is-locked');
 
+		setVideoProgress(0);
 		setIsModalOpened(true);
 
 		const getMedia = async (constraints) => {
@@ -181,6 +191,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	};
 
 	const closeVideoModal = (): void => {
+		setVideoProgress(0);
 		if (recorderState === 'recording') {
 			recorder.stop();
 			setRecorderState('inactive');
@@ -201,6 +212,8 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	};
 
 	const discardVideo = (modal): void => {
+		setVideoProgress(0);
+		setVideoApproved(false);
 		if (modal) {
 			createVideo();
 		}
@@ -210,6 +223,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		}
 		if (video) {
 			setVideo(null);
+			dispatch({ type: 'SET_VIDEO', value: null });
 		} else if (recorderState === 'recording') {
 			recorder.stop();
 			setRecorderState('inactive');
@@ -219,7 +233,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 	const approveVideo = () => {
 		videoRef.current.pause();
 		setVideoApproved(true);
-		closeVideoModal();
+		//closeVideoModal();
 	};
 
 	return (
@@ -376,6 +390,12 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 									}
 								</>
 							)}
+						</div>
+						<div className={`video-modal__upload-bar-wrap ${videoProgress ? 'active-video-wrap' : ''}`}>
+							{videoProgress ? <div className="video-modal__upload-bar" style={{width: videoProgress + '%'}}></div> : ''}
+						</div>
+						<div className="video-modal__upload-bar-text">
+							{videoProgress ? (`Loading: ${videoProgress}%`) : ''}
 						</div>
 					</div>
 				</div>

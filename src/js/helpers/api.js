@@ -187,6 +187,27 @@ const upload = async (url, ct, data) => {
             headers: {
                 ct,
             },
+            onUploadProgress: (progressEvent) => console.log(progressEvent.loaded),
+            data,
+        };
+        return await axios_call(config)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const upload_sign = async (url, ct, data, setSignatureProgress) => {
+    try {
+        const config = {
+            method: 'put',
+            url,
+            headers: {
+                ct,
+            },
+            onUploadProgress: (progressEvent) => {
+      				setSignatureProgress(Math.round(progressEvent.loaded*(100/data.size)));
+      				console.log(progressEvent.loaded);
+      			},
             data,
         };
         return await axios_call(config)
@@ -199,6 +220,7 @@ export {
     confirmCode,
     getSignedUrl,
     upload,
+    upload_sign,
     sendCode,
     getPreSignRedeemVoucher,
     verifySignature,

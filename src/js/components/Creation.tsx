@@ -10,6 +10,7 @@ import {
   sendCode,
   getSignedUrl,
   upload,
+  upload_sign,
   getPreSignRedeemVoucher,
   verifySignature,
   claim_request,
@@ -45,6 +46,7 @@ export const Creation = (props) => {
 
 	const [signatureText, setSignatureText] = useState<string>('Sign here');
 	const [signaturePad, setSignaturePad] = useState<SignaturePad | null>(null);
+	const [signatureProgress, setSignatureProgress] = useState<number>(0);
 
 	// const [isFormCompleted, setIsFormCompleted] = useState<boolean>(false);
 
@@ -125,6 +127,12 @@ export const Creation = (props) => {
   }, [state.signature]);
 
   useEffect(() => {
+    if (signatureProgress === 100) {
+      setTimeout(() => setSignatureProgress(0), 1000);
+    }
+  }, [signatureProgress])
+
+  useEffect(() => {
     console.log('new video file');
     console.log(state.video);
     if (state.video) {
@@ -135,28 +143,17 @@ export const Creation = (props) => {
   const handleClearSign = (): void => {
     if (signaturePad) {
 			signaturePad.clear();
+      dispatch({
+        type: 'SET_SIGNATURE',
+        value: null
+      });
+      setSignatureProgress(0);
+  		//signaturePad.clear();
+      //setSignaturePad(null);
 		} else {
       console.log('no signature pad');
 		}
   }
-
-	const createVideo = (): void => {
-		const getMedia = async (constraints) => {
-			let stream: null | MediaStream = null;
-
-			try {
-				stream = await navigator.mediaDevices.getUserMedia(constraints);
-
-				console.log(stream);
-				/* use the stream */
-			} catch (err) {
-				console.log(err);
-				/* handle the error */
-			}
-		};
-
-		getMedia({ audio: true, video: true });
-	};
 
   const confirm_code = async (event) => {
     try {
@@ -230,14 +227,15 @@ export const Creation = (props) => {
 
   const upload_sign_file = async () => {
     try {
-      if (!state.signature) return alert(`no signature file`);
+      if (!state.signature || state.signature.size === 3172) return console.log(`no signature file`);
       const signed_url_response = await get_signed_url("signature");
       if (!signed_url_response) return alert("failed signing url");
       const download_url = signed_url_response.data.results.downloadURL;
       const upload_url = signed_url_response.data.results.uploadURL;
       console.log("downloadURL: ", download_url);
       console.log("uploadURL: ", upload_url);
-      await upload(upload_url, state.signature.type, state.signature);
+      console.log(state.signature.size);
+      await upload_sign(upload_url, state.signature.type, state.signature, setSignatureProgress);
     } catch (error) {
       console.log(error);
     }
@@ -288,7 +286,7 @@ export const Creation = (props) => {
       }
       const response = {
         'essentials': null,
-        'valid':false,
+        'valid': false,
         invalid,
       }
       if (invalid.length) return response;
@@ -326,22 +324,6 @@ export const Creation = (props) => {
       const verify_response = await verifySignature(rid, api_details_ref.current.api_base_url, session.current, signature);
       if (!verify_response) return alert('verify failed');
       setIpfsCid(verify_response.data.results.ipfs_cid);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handle_claim = async (event) => {
-    try {
-      event.preventDefault();
-      console.log("in handle_claim");
-      const ipfs_cid = ipfsCid;
-      const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session.current, ipfs_cid);
-      if (!claim_request_response) return alert('cliam request failed');
-      if (claim_request_response.status!==200) return alert('cliam request failed');
-      const results = claim_request_response.data.results;
-      const claim_response = await claim(signer.current, ethers, results);
-      console.log(claim_response);
     } catch (error) {
       console.log(error);
     }
@@ -646,6 +628,14 @@ export const Creation = (props) => {
                     </svg>
                   </button>
                 </div>
+                <div className="signature__upload">
+      						<div className={`signature__upload-bar-wrap ${signatureProgress ? 'active-signature-wrap' : ''}`}>
+      							{signatureProgress ? <div className="signature__upload-bar" style={{width: signatureProgress + '%'}}></div> : ''}
+      						</div>
+      						<div className="signature__upload-bar-text">
+      							{signatureProgress ? (`Loading: ${signatureProgress}%`) : ''}
+      						</div>
+                </div>
 							</div>
 						</div>
 					</CreationStep>
@@ -701,7 +691,6 @@ export const Creation = (props) => {
 						</form>
 					</CreationStep>
 					<CreationSubmit handle_create={handle_create} state={state} dispatch={dispatch} />
-          {ipfsCid}
 				</div>
 			</div>
 		</section>
