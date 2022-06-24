@@ -263,6 +263,7 @@
 				&__upload {
 					position: absolute;
 					width: 100%;
+					left: 0;
 					bottom: -72px;
 				}
 				&__upload-bar-wrap {
@@ -549,6 +550,23 @@
 	.step {
 		&-wrapper {
 			grid-template-columns: 100%;
+			.signature__upload {
+				position: static;
+			}
+			&__sign-elements {
+				position: absolute;
+				display: flex;
+				width: 100%;
+				bottom: -61px;
+			}
+			&__sign-buttons {
+				position: static;
+				display: flex;
+			}
+			&__sign-button:first-child {
+				margin-right: 11px;
+				margin-left: 15px;
+			}
 			&_video {
 				grid-gap: 20px;
 				flex-direction: column;
@@ -592,6 +610,9 @@
 			}
 		}
 		&-block {
+			&_sign .signature__upload-bar-wrap {
+				margin-top: 0;
+			}
 			&__radio {
 				&-label {
 					max-width: 380px;

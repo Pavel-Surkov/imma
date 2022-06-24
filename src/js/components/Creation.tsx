@@ -616,25 +616,27 @@ export const Creation = (props) => {
 								<span style={signaturePad ? { display: 'none' } : null}>
 									{signatureText}
 								</span>
-                <div className="step-wrapper__sign-buttons">
-                  <button className="step-wrapper__sign-button" onClick={handleSaveSign} id="sign-save">
-                    <svg width="19" height="13" viewBox="0 0 19 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.46094 4.99989L7.72617 11.2654L17.4666 1.5249" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  </button>
-                  <button className="step-wrapper__sign-button" onClick={handleClearSign} id="sign-clear">
-                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1.84082 1.32715L15.0859 14.5725M15.0859 1.32715L1.84082 14.5722" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  </button>
-                </div>
-                <div className="signature__upload">
-      						<div className={`signature__upload-bar-wrap ${signatureProgress ? 'active-signature-wrap' : ''}`}>
-      							{signatureProgress ? <div className="signature__upload-bar" style={{width: signatureProgress + '%'}}></div> : ''}
-      						</div>
-      						<div className="signature__upload-bar-text">
-      							{signatureProgress ? (`Loading: ${signatureProgress}%`) : ''}
-      						</div>
+                <div className="step-wrapper__sign-elements">
+                  <div className="signature__upload">
+                    <div className={`signature__upload-bar-wrap ${signatureProgress ? 'active-signature-wrap' : ''}`}>
+                      {signatureProgress ? <div className="signature__upload-bar" style={{width: signatureProgress + '%'}}></div> : ''}
+                    </div>
+                    <div className="signature__upload-bar-text">
+                      {signatureProgress ? (`Loading: ${signatureProgress}%`) : ''}
+                    </div>
+                  </div>
+                  <div className="step-wrapper__sign-buttons">
+                    <button className="step-wrapper__sign-button" onClick={handleSaveSign} id="sign-save">
+                      <svg width="19" height="13" viewBox="0 0 19 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.46094 4.99989L7.72617 11.2654L17.4666 1.5249" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </button>
+                    <button className="step-wrapper__sign-button" onClick={handleClearSign} id="sign-clear">
+                      <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.84082 1.32715L15.0859 14.5725M15.0859 1.32715L1.84082 14.5722" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
 							</div>
 						</div>
