@@ -47,6 +47,7 @@ export const Creation = (props) => {
 	const [signatureText, setSignatureText] = useState<string>('Sign here');
 	const [signaturePad, setSignaturePad] = useState<SignaturePad | null>(null);
 	const [signatureProgress, setSignatureProgress] = useState<number>(0);
+  const [emptySignSize, setEmptySignSize] = useState<number>(0);
 
 	// const [isFormCompleted, setIsFormCompleted] = useState<boolean>(false);
 
@@ -68,20 +69,26 @@ export const Creation = (props) => {
       console.log('enable signature pad');
 
 			function resizeCanvas(): void {
+        console.log('resize canvas');
 				var ratio = Math.max(window.devicePixelRatio || 1, 1);
 				canvas.width = canvas.offsetWidth * ratio;
 				canvas.height = canvas.offsetHeight * ratio;
 				canvas.getContext('2d').scale(ratio, ratio);
+
+  			const signaturePad = new SignaturePad(canvas, {
+  				penColor: 'rgb(255, 255, 255)'
+  			});
+
+  			setSignaturePad(signaturePad);
+
+        const dataURL = signaturePad.toDataURL('image/png');
+        const blob = dataURItoBlob(dataURL);
+
+        setEmptySignSize(blob.size);
 			}
 
 			window.onresize = resizeCanvas;
 			resizeCanvas();
-
-			const signaturePad = new SignaturePad(canvas, {
-				penColor: 'rgb(255, 255, 255)'
-			});
-
-			setSignaturePad(signaturePad);
 		} else {
 			signaturePad.clear();
 		}
@@ -227,7 +234,7 @@ export const Creation = (props) => {
 
   const upload_sign_file = async () => {
     try {
-      if (!state.signature || state.signature.size === 3172) return console.log(`no signature file`);
+      if (!state.signature || state.signature.size === emptySignSize) return console.log(`no signature file`);
       const signed_url_response = await get_signed_url("signature");
       if (!signed_url_response) return alert("failed signing url");
       const download_url = signed_url_response.data.results.downloadURL;
