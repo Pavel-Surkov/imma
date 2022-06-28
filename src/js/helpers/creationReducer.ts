@@ -5,8 +5,8 @@ export type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 
 export type ActionType =
 	| Action<'SET_PRICE_FREE', { value: boolean }>
-	| Action<'CHANGE_DOLLAR_PRICE', { value: number }>
-	| Action<'CHANGE_ETHEREUM_PRICE', { value: number }>
+	| Action<'CHANGE_DOLLAR_PRICE', { value: string }>
+	| Action<'CHANGE_ETHEREUM_PRICE', { value: string }>
 	| Action<'SET_BLOCKCHAIN_NETWORK', { value: 'ethereum' | 'polygon' }>
 	| Action<'SET_SOCIAL', { value: 'instagram' | 'twitter' }>
 	| Action<'CLEAN_FORM', {}>
@@ -24,8 +24,8 @@ export type ActionType =
 export interface State {
 	price: {
 		isFree: null | boolean;
-		dollarValue: null | number;
-		ethereumValue: null | number;
+		dollarValue: null | string;
+		ethereumValue: null | string;
 	};
 	originalNft: null | string;
 	originalNftVerified: boolean;
@@ -68,9 +68,8 @@ export function reducer(state: State, action: ActionType) {
 			};
 		}
 		case 'CHANGE_DOLLAR_PRICE': {
-			const dollarValue: number = action.value;
-			const ethereumValue: number = convertPrice(dollarValue, 'eth');
-
+			const dollarValue: string = action.value;
+			const ethereumValue: string = convertPrice(dollarValue, 'eth');
 			return {
 				...state,
 				price: {
@@ -81,8 +80,8 @@ export function reducer(state: State, action: ActionType) {
 			};
 		}
 		case 'CHANGE_ETHEREUM_PRICE': {
-			const ethereumValue: number = action.value;
-			const dollarValue: number = convertPrice(ethereumValue, 'dol');
+			const ethereumValue: string = action.value;
+			const dollarValue: string = convertPrice(ethereumValue, 'dol');
 
 			return {
 				...state,
@@ -182,17 +181,17 @@ export function reducer(state: State, action: ActionType) {
 
 // TODO: Add convert using API
 // Crypto convert functions
-function convertPrice(price: number, to: 'dol' | 'eth'): number {
+function convertPrice(price: string, to: 'dol' | 'eth'): string {
 	const factor: number = 2795.2857;
-
+	if (price === '') return '';
 	switch (to) {
 		case 'dol': {
-			const res: number = +(price * factor).toFixed(2);
-			return res;
+			const res: number = +(parseFloat(price) * factor).toFixed(2);
+			return res.toString();
 		}
 		case 'eth': {
-			const res: number = +(price / factor).toFixed(5);
-			return res;
+			const res: number = +(parseFloat(price) / factor).toFixed(5);
+			return res.toString();
 		}
 		default: {
 			throw new Error(`parameter 'to' is incorrect`);

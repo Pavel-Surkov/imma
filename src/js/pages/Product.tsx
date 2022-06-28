@@ -32,8 +32,8 @@ export const initialState: State = {
   hasPartnerWallet: false,
 	price: {
 		isFree: null,
-		dollarValue: 391.34,
-		ethereumValue: 0.14
+		dollarValue: '391.34',
+		ethereumValue: '0.14'
 	},
 	blockchain: null,
 	video: null,

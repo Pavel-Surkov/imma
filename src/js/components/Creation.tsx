@@ -274,22 +274,26 @@ export const Creation = (props) => {
   const gatherPreSignedData = ()=>{
     try {
       let price = '';
+      let isFree = false;
       if (state.price.isFree === true) {
         price = 'price_free';
+        isFree = true;
       } else {
         price = 'price_value';
+        isFree = false;
       }
       const essentials = {
         'creator_address': state.creatorWallet,
         'original_nft': state.originalNft,
         'partner_address': state.partnerWallet,
         'price': price,
-        'price_eth': state.price.ethereumValue,
-        'price_usd': state.price.dollarValue,
+        'price_eth': !isFree ? parseFloat(state.price.ethereumValue) : 0,
+        'price_usd': !isFree ? parseFloat(state.price.dollarValue) : 0,
       }
+      console.log(essentials);
       const invalid = [];
       for (const [key,value] of Object.entries(essentials)){
-        if (!value) invalid.push(`${key}`);
+        if (!value && !(isFree && (key === 'price_eth' || key === 'price_usd'))) invalid.push(`${key}`);
       }
       const response = {
         'essentials': null,

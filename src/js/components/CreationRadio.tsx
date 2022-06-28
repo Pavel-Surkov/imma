@@ -5,8 +5,8 @@ interface IPriceRadio {
 	isFree: boolean;
 	price: {
 		isFree: boolean;
-		dollarValue: null | number;
-		ethereumValue: null | number;
+		dollarValue: null | string;
+		ethereumValue: null | string;
 	};
 	dispatch: React.Dispatch<any>;
 	input?: true;
@@ -17,27 +17,49 @@ export const PriceRadio = ({ id, isFree, price, dispatch, input }: IPriceRadio) 
 
 	// Handler controls value of the price input
 	const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let value: string = e.target.value;
+    const value = e.target.value ? parseFloat(e.target.value) : "";
+    if (value === '') {
+			if (e.target.name === 'dollar-price') {
+				dispatch({ type: 'CHANGE_DOLLAR_PRICE', value: '' });
+			}
 
-		if (isNaN(+value)) {
-			return;
-		}
-
-		if (value.startsWith('0') && value.length >= 2) {
-			value = value.slice(1);
-		} else if (+value <= 0) {
-			value = '0';
-		} else if (+value > maxPrice) {
-			value = String(maxPrice);
+			if (e.target.name === 'eth-price') {
+				dispatch({ type: 'CHANGE_ETHEREUM_PRICE', value: '' });
+			}
 		}
 
 		if (e.target.name === 'dollar-price') {
-			dispatch({ type: 'CHANGE_DOLLAR_PRICE', value: +value });
+			dispatch({ type: 'CHANGE_DOLLAR_PRICE', value: value });
 		}
 
 		if (e.target.name === 'eth-price') {
-			dispatch({ type: 'CHANGE_ETHEREUM_PRICE', value: +value });
+			dispatch({ type: 'CHANGE_ETHEREUM_PRICE', value: value });
 		}
+		/*
+		let value: string = e.target.value;
+		let valid = false;
+
+		if (+value || +value === 0) {
+			console.log('valid ' + (+value));
+			valid = true;
+		} else {
+			value = value + '0';
+			console.log(value);
+			if (+value || +value === 0) {
+					valid = true;
+			}
+		}
+
+		if (valid) {
+
+			if (e.target.name === 'dollar-price') {
+				dispatch({ type: 'CHANGE_DOLLAR_PRICE', value: +value });
+			}
+
+			if (e.target.name === 'eth-price') {
+				dispatch({ type: 'CHANGE_ETHEREUM_PRICE', value: +value });
+			}
+		}*/
 	};
 
 	return (
@@ -66,18 +88,18 @@ export const PriceRadio = ({ id, isFree, price, dispatch, input }: IPriceRadio) 
 						<div className="step-block__input-wrapper step-block__eth-input">
 							<input
 								className="input step-block__radio-input"
-								type="text"
+								type="number"
 								name="eth-price"
-								value={+price.ethereumValue}
+								value={price.ethereumValue}
 								onChange={(evt) => handlePriceChange(evt)}
 							/>
 						</div>
 						<div className="step-block__input-wrapper step-block__dollar-input">
 							<input
 								className="input step-block__radio-input"
-								type="text"
+								type="number"
 								name="dollar-price"
-								value={+price.dollarValue}
+								value={price.dollarValue}
 								onChange={(evt) => handlePriceChange(evt)}
 							/>
 						</div>
