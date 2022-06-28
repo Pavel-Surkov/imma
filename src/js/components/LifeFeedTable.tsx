@@ -326,7 +326,7 @@ export const LifeFeedTable = ({
 											<p className="title">
 												by{' '}
 												<a className="link" href="/">
-													{lastActivity.from}
+													{lastActivity.by}
 												</a>
 											</p>
 											<p className="title">{lastActivityDate}</p>

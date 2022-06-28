@@ -19,6 +19,7 @@ export type ActivityT = {
 	event: string;
 	time?: string;
 	epoch?: 1652528075;
+	by?: string;
 	from?: string;
 	to?: string;
 	priceETH?: null | number;

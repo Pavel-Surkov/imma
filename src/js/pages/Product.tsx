@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
-import { NftVideoItem } from '../components/NftVideoItem';
+import { NftProductVideoItem } from '../components/NftProductVideoItem';
 import { tableData, ITableData } from '../helpers/nftTableData';
 import { ProductInfo } from '../components/ProductInfo';
 import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
@@ -324,7 +324,8 @@ export const Product: React.FC = () => {
   								<h2 className="title title_size-m product-page__title_video">
   									IMMA NFT <span>#{video.uid.slice(0, 5)}...</span>
   								</h2>
-  								<NftVideoItem properties={video} videoHeight={658} />
+                  <NftProductVideoItem properties={video} />
+  								{/*<NftVideoItem properties={video} videoHeight={658} />*/}
   							</div>
   							<ProductInfo
                   video={video}
