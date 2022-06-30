@@ -296,7 +296,7 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 				>Claim ownership</button>
 				}
 			</div>
-			{!coupled ? <Timer /> : ''}
+			{(status === 'released' && !coupled) ? <Timer /> : ''}
 		</div>
 	);
 });

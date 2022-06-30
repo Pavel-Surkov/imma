@@ -80,6 +80,7 @@ export const NftProductVideoItem = ({
 					className="video-preview"
 					ref={vidRef}
 					onClick={handlePlayVideo}
+					loop
 				></video>
 				{show
 					&&

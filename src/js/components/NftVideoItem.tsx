@@ -88,7 +88,7 @@ export const NftVideoItem = ({
 					</Link>
 				</div>
 				<div className="video-icon">
-					<img width="44" height="44" src={properties.nfta.image} alt="" />
+					<img width="44" height="44" src={properties.nfta.metadata.image} alt="" />
 				</div>
 				<div className="video-bottom">
 					<div className="video-bottom__sign">
@@ -102,6 +102,7 @@ export const NftVideoItem = ({
 			</div>
 		);
 	} else {
+		console.log('nft error')
 		return null;
 	}
 };

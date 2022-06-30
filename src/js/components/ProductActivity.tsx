@@ -10,12 +10,12 @@ export const ProductActivity = React.memo(({ video }: { video: Result }) => {
 			<h4 className="title product-block__title">Activity:</h4>
 			<div className="activity">
 				<ul className="activity-list">
-					{video.activity.map((activity) => {
+					{video.activity.map((activity, i) => {
 						const activityDate: string = convertDateToString(new Date(activity.epoch));
 
 						return (
 							// TODO: When adding API delete 'i' from key
-							<li className="activity-item" key={activity.epoch}>
+							<li className="activity-item" key={activity.epoch + '-' + i}>
 								<div className="activity-item__wrapper">
 									<img
 										width="50"
@@ -30,7 +30,7 @@ export const ProductActivity = React.memo(({ video }: { video: Result }) => {
 											<p className="activity-item__wallet">
 												by{' '}
 												<a className="link link_hover_green" href="/">
-													{activity.from}
+													{activity.by}
 												</a>
 											</p>
 										)}

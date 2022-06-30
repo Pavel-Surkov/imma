@@ -203,24 +203,24 @@ export const Home: React.FC = () => {
 
   const handleNetworkChange = (event)=>{
     const value = event.target.value
-    console.log('value: ',value)
+    console.log('value: ',value);
     const network_to_id = {
       'network_main':1,
       'network_rinkeby':4,
     }
     if (!network_to_id.hasOwnProperty(value))return;
-    const selected = network_to_id[value]
-    check_network(selected)
-    api_details_ref.current = getApiDetails()
+    const selected = network_to_id[value];
+    check_network(selected);
+    api_details_ref.current = getApiDetails();
   }
 
   const network_ref = useRef('rinkeby');
   const api_details_ref = useRef( getApiDetails());
 
-  const [selected_chainId,setSelectedCainId] = useState(1)
-  const [connected_chainId,setConnectedCainId] = useState(0)
-  const [connected_message,setConnectedMessage] = useState({message:'', color: ''})
-  const [listenersSingelton,setlistenersSingelton] = useState(false)
+  const [selected_chainId,setSelectedCainId] = useState(1);
+  const [connected_chainId,setConnectedCainId] = useState(0);
+  const [connected_message,setConnectedMessage] = useState({message:'', color: ''});
+  const [listenersSingelton,setlistenersSingelton] = useState(false);
   const is_connected_ref = useRef(null);
   const session_fp = useRef('');
   const session_ref = useRef('');

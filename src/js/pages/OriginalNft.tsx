@@ -1,34 +1,65 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { OriginalNftInfo } from '../components/OriginalNftInfo';
 import nftPicture from '../../assets/images/nft-picture.png';
 import nftPicture2x from '../../assets/images/nft-picture@2x.png';
+import axios from 'axios';
+import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
+import { Result } from '../helpers/getLiveFeedTypes';
 
-export const OriginalNft = () => {
-	return (
-		<main className="main original">
-			<div className="bg-lights"></div>
-			<section className="original-page">
-				<div className="original-page__wrapper">
-					<div className="container">
-						<div className="product-page__content">
-							<div className="original-page__nft">
-								<h2 className="title title_size-m original-page__title">
-									NFT: <span>The Name Of&nbsp;NFT</span>
-								</h2>
-								<img
-									width="370"
-									src={nftPicture}
-									srcSet={
-										nftPicture2x ? `${nftPicture} 1x, ${nftPicture2x} 2x` : null
-									}
-									alt=""
-								/>
+export const OriginalNft = () => {	const path = useParams();
+	const [inft, setInft] = useState<null | Result>(null);
+
+	const [data, setData] = useState<any | null>(null);
+
+	useEffect(() => {
+		if (data && path) {
+			const inft: Result = data.results.find((item: Result) => item.uid === path.nft);
+			setInft(inft);
+		}
+	}, [data]);
+
+	useEffect(() => {
+		const config = {
+			method: 'get',
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getLiveFeed`
+		};
+
+		axios(config)
+			.then((response) => {
+				setData(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
+
+	if (inft) {
+		return (
+			<main className="main original">
+				<div className="bg-lights"></div>
+				<section className="original-page">
+					<div className="original-page__wrapper">
+						<div className="container">
+							<div className="product-page__content">
+								<div className="original-page__nft">
+									<h2 className="title title_size-m original-page__title">
+										NFT: <span>{inft.nfta.metadata.name}</span>
+									</h2>
+									<img
+										width="370"
+										src={inft.nfta.metadata.image}
+										alt=""
+									/>
+								</div>
+								<OriginalNftInfo inft={inft} />
 							</div>
-							<OriginalNftInfo />
 						</div>
 					</div>
-				</div>
-			</section>
-		</main>
-	);
+				</section>
+			</main>
+		);
+	} else {
+		return null;
+	}
 };

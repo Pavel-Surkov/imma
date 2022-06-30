@@ -77,6 +77,9 @@
 		& .video {
 			height: 100%;
 			@include flex(row, flex-end);
+			a {
+				height: 100%;
+			}
 			&-play {
 				&__link {
 					position: absolute;
@@ -180,6 +183,7 @@
 					height: 100%;
 					& p:nth-child(2) {
 						margin-bottom: 0;
+													word-break: break-all;
 					}
 				}
 				&:nth-child(4) {

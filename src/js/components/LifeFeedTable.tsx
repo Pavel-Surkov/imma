@@ -209,12 +209,14 @@ export const LifeFeedTable = ({
 							<tr className="table-row" key={row.index}>
 								<td className="table-col">
 									<div className="video" style={{ height: '100%' }}>
+									<Link to={`/allnft/${row.uid}`}>
 										<video
 											width="370"
 											src={row.inft.metadata.animation_url}
 											className="video-preview"
 										></video>
-										<div className="video-play__wrapper">
+									</Link>
+										{/*<div className="video-play__wrapper">
 											<Link to={`/allnft/${row.uid}`} className="video-play">
 												<svg
 													data-svg="play"
@@ -230,7 +232,7 @@ export const LifeFeedTable = ({
 													/>
 												</svg>
 											</Link>
-										</div>
+										</div>*/}
 									</div>
 								</td>
 								<td className="table-col">

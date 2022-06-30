@@ -62,6 +62,7 @@ export const NftMainVideoItem = () => {
 				ref={vidRef}
 				onClick={handlePlayVideo}
 				poster={poster}
+				loop
 			></video>
 			{show
 				&&

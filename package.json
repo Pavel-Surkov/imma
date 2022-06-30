@@ -13,6 +13,7 @@
 		"prop-types": "^15.8.1",
 		"react-draggable": "^4.4.4",
 		"react-scripts": "5.0.1",
+		"recharts": "^2.1.12",
 		"regenerator-runtime": "^0.13.9",
 		"require": "^2.4.20",
 		"signature_pad": "^4.0.4",

@@ -1,0 +1,50 @@
+.price-graphic {
+  width: 670px;
+  height: 303.93px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(50px);
+  border-radius: 2px;
+  padding: 50px;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  .recharts-responsive-container {
+    height: 126px !important;
+    text {
+      font-family: 'Questrial';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 130.6%;
+      color: #EBEBEB;
+    }
+    .recharts-surface {
+      overflow: visible;
+    }
+    .recharts-cartesian-grid-horizontal line {
+      position: relative;
+    }
+  }
+  &__title {
+    font-family: 'SpaceMono';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 130.6%;
+    color: #FFFFFF;
+  }
+  &__number {
+    font-family: 'SpaceMono';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 130.6%;
+    color: #D6FF7E;
+    margin-top: 7px;
+    margin-bottom: 30px;
+    display: flex;
+    svg {
+      margin-right: 3px;
+      margin-top: 4px;
+    }
+  }
+}
