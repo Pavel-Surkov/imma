@@ -21,7 +21,7 @@
       overflow: visible;
     }
     .recharts-cartesian-grid-horizontal line {
-      position: relative;
+      transform: scale(1.05,1) translate(-17px, 0);
     }
   }
   &__title {
