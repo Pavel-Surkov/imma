@@ -35,7 +35,7 @@ const accountChangeListener = async (accounts)=>{
    console.log('accountsChanged: ', userAddress)
    const validSession = checkSession(userAddress)
    console.log('validSession: ',validSession)
-   
+
   //  if (!validSession) {
   //    console.log('initiate loginRequest from account change')
   //    await loginRequest(userAddress)
@@ -154,7 +154,7 @@ function isMobileDevice() {
 
 async function connect(onConnected) {
   if (!window.ethereum) {
-    alert("Get MetaMask!");
+    /*alert("Get MetaMask!")*/;
     return;
   }
 

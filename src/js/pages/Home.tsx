@@ -131,17 +131,17 @@ export const Home: React.FC = () => {
     if (!is_connected_ref.current.connected){
       console.log(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
-        alert('you are not connected, please install metamask (redirect mobile)')
+        /*alert('you are not connected, please install metamask (redirect mobile)')*/
         const domain = window.location.hostname;
         window.location.replace(`https://metamask.app.link/dapp/${domain}`)
         return
       }else{
-        alert('you are not connected, please install metamask (redirect desktop)')
+        /*alert('you are not connected, please install metamask (redirect desktop)')*/
         window.location.replace("https://metamask.io/download/")
         return
       }
     }
-    if (selected_chainId!==is_connected_ref.current.chainId)return alert('please change wallet network for selected one' )
+    if (selected_chainId!==is_connected_ref.current.chainId)return /*alert('please change wallet network for selected one' )*/
     init_wallet(callBack)
   }
 

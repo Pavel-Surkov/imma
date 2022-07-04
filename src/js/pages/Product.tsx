@@ -177,17 +177,17 @@ export const Product: React.FC = () => {
     if (!is_connected_ref.current.connected){
       console.log(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
-        alert('you are not connected, please install metamask (redirect mobile)')
+        /*alert('you are not connected, please install metamask (redirect mobile)')*/
         const domain = window.location.hostname;
         window.location.replace(`https://metamask.app.link/dapp/${domain}`)
         return
       }else{
-        alert('you are not connected, please install metamask (redirect desktop)')
+        /*alert('you are not connected, please install metamask (redirect desktop)')*/
         window.location.replace("https://metamask.io/download/")
         return
       }
     }
-    if (selected_chainId!==is_connected_ref.current.chainId)return alert('please change wallet network for selected one' )
+    if (selected_chainId!==is_connected_ref.current.chainId)return /*alert('please change wallet network for selected one' )*/
     init_wallet(callBack)
   }
 
@@ -268,8 +268,8 @@ export const Product: React.FC = () => {
       console.log("in handle_claim");
       const ipfs_cid = ipfsCid;
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session_ref.current, ipfs_cid);
-      if (!claim_request_response) return alert('cliam request failed');
-      if (claim_request_response.status!==200) return alert('cliam request failed');
+      if (!claim_request_response) return /*alert('cliam request failed')*/;
+      if (claim_request_response.status!==200) return /*alert('cliam request failed')*/;
       const results = claim_request_response.data.results;
       const claim_response = await claim(signer_ref.current, ethers, results);
       console.log(claim_response);

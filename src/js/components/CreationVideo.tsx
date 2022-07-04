@@ -116,7 +116,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 
 	const createVideo = (): void => {
 		if (!hasGetUserMedia()) {
-			alert('getUserMedia() is not supported by your browser');
+			/*alert('getUserMedia() is not supported by your browser')*/;
 		}
 
 		// Disables scroll (fixes the screen)

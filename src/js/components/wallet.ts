@@ -330,7 +330,7 @@ const claim = async (signer, ethers,results) => {
     const contract = new ethers.Contract(root_address, root_abi, signer);
     const res = await contract.redeem(redeemVoucher,claimVoucher, { value }).catch((error) => {
       if (error.error) {
-        alert(error.error.message);
+        /*alert(error.error.message)*/;
         return null;
       }
     });

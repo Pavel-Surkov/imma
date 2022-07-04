@@ -60,87 +60,129 @@ const CustomizedAxisTick = (props) => {
 }
 
 export const OriginalNftGraphic = (props) => {
+	const data = [];
 	const inft = props.inft;
-	console.log(inft);
 	const priceHistoryNfta = inft.nfta.price_history;
 	const priceHistoryInft = inft.inft.price_history;
 	let avgPrice = 0;
-	priceHistoryNfta.sort(function (a, b) {
-	  if (a.timestamp > b.timestamp) {
-	    return 1;
-	  }
-	  if (a.timestamp < b.timestamp) {
-	    return -1;
-	  }
-	  return 0;
-	});
-	priceHistoryInft.sort(function (a, b) {
-	  if (a.timestamp > b.timestamp) {
-	    return 1;
-	  }
-	  if (a.timestamp < b.timestamp) {
-	    return -1;
-	  }
-	  return 0;
-	});
-	let prevElem = null;
-	const data = [];
-	priceHistoryNfta.map((elem, i) => {
-		//i = i - removedElements;
-		const a = new Date(elem.timestamp * 1000);
-  	let month = String(a.getMonth() + 1);
-		if (month.length === 1) {
-			month = '0' + month;
-		}
-		let date = String(a.getDate());
-		if (date.length === 1) {
-			date = '0' + date;
-		}
-		const year = String(a.getFullYear());
-		const dataElem = {
-			date: month + '/' + date + '/' + year,
-			dateLabel: month + '/' + date,
-			nftaPrice: elem.priceEth,
-		}
-		if (prevElem) {
-			if (prevElem.date === dataElem.date) {
-				data.pop();
+	if (priceHistoryNfta.length === 0) {
+		const today = new Date();
+		const currentMonth = today.getMonth()+1;
+		const currentYear = today.getFullYear();
+		for (let i = currentMonth-6; i <= currentMonth; i++) {
+			let month;
+			if (String(i + 1).length === 1) {
+				month = '0' + (i + 1);
+			} else {
+				month = i + 1;
 			}
+			const dataElem = {
+				date: month + '/' + 2022,
+				dateLabel: month + '/' + 2022,
+				nftaPrice: 0,
+			}
+			data.push(dataElem);
 		}
-		data.push(dataElem);
-		prevElem = dataElem;
-	});
-	prevElem = null;
-	priceHistoryInft.map((elem, i) => {
-		const a = new Date(elem.timestamp * 1000);
-  	let month = String(a.getMonth() + 1);
-		if (month.length === 1) {
-			month = '0' + month;
-		}
-		let date = String(a.getDate());
-		if (date.length === 1) {
-			date = '0' + date;
-		}
-		const year = String(a.getFullYear());
-		const fullDate = month + '/' + date + '/' + year;
-		const dataElem = {
-			date: fullDate,
-			dateLabel: month + '/' + date,
-			inftPrice: elem.priceEth,
-		}
-		const index = data.findIndex(x => x.date === fullDate);
-		if (index === -1) {
+	} else {
+		priceHistoryNfta.sort(function (a, b) {
+		  if (a.timestamp > b.timestamp) {
+		    return 1;
+		  }
+		  if (a.timestamp < b.timestamp) {
+		    return -1;
+		  }
+		  return 0;
+		});
+		let prevElem = null;
+		priceHistoryNfta.map((elem, i) => {
+			//i = i - removedElements;
+			const a = new Date(elem.timestamp * 1000);
+	  	let month = String(a.getMonth() + 1);
+			if (month.length === 1) {
+				month = '0' + month;
+			}
+			let date = String(a.getDate());
+			if (date.length === 1) {
+				date = '0' + date;
+			}
+			const year = String(a.getFullYear());
+			const dataElem = {
+				date: month + '/' + year,
+				dateLabel: month + '/' + year,
+				nftaPrice: elem.priceEth,
+			}
 			if (prevElem) {
 				if (prevElem.date === dataElem.date) {
 					data.pop();
 				}
 			}
-			prevElem = dataElem;
 			data.push(dataElem);
-		} else {
-			data[index].inftPrice = elem.priceEth;
+			prevElem = dataElem;
+		});
+	}
+	if (priceHistoryInft.length === 0) {
+		for (let i = 0; i < 6; i++) {
+			let month;
+			if (String(i + 1).length === 1) {
+				month = '0' + (i + 1);
+			} else {
+				month = i + 1;
+			}
+			const dataElem = {
+				date: month + '/' + 2022,
+				dateLabel: month + '/' + 2022,
+				inftPrice: 0,
+			}
+			const index = data.findIndex(x => x.date === (month + '/' + 2022));
+			if (index === -1) {
+				data.push(dataElem);
+			} else {
+				data[index].inftPrice = 0;
+			}
 		}
-	});
+	} else {
+		priceHistoryInft.sort(function (a, b) {
+		  if (a.timestamp > b.timestamp) {
+		    return 1;
+		  }
+		  if (a.timestamp < b.timestamp) {
+		    return -1;
+		  }
+		  return 0;
+		});
+		let prevElem = null;
+		priceHistoryInft.map((elem, i) => {
+			const a = new Date(elem.timestamp * 1000);
+	  	let month = String(a.getMonth() + 1);
+			if (month.length === 1) {
+				month = '0' + month;
+			}
+			let date = String(a.getDate());
+			if (date.length === 1) {
+				date = '0' + date;
+			}
+			const year = String(a.getFullYear());
+			const fullDate = month + '/' + year;
+			const dataElem = {
+				date: fullDate,
+				dateLabel: month + '/' + year,
+				inftPrice: elem.priceEth,
+			}
+			const index = data.findIndex(x => x.date === fullDate);
+			if (index === -1) {
+				if (prevElem) {
+					if (prevElem.date === dataElem.date) {
+						data.pop();
+					}
+				}
+				prevElem = dataElem;
+				data.push(dataElem);
+			} else {
+				data[index].inftPrice = elem.priceEth;
+			}
+		});
+	}
+
 	let lastInftPrice = -1;
 	let lastNftaPrice = -1;
 	/* set both price values for all time points */
