@@ -34,32 +34,32 @@ export const OriginalNft = () => {	const path = useParams();
 			});
 	}, []);
 
-	if (inft) {
-		return (
-			<main className="main original">
-				<div className="bg-lights"></div>
-				<section className="original-page">
-					<div className="original-page__wrapper">
-						<div className="container">
-							<div className="product-page__content">
-								<div className="original-page__nft">
-									<h2 className="title title_size-m original-page__title">
-										NFT: <span>{inft.nfta.metadata.name}</span>
-									</h2>
-									<img
-										width="370"
-										src={inft.nfta.metadata.image}
-										alt=""
-									/>
-								</div>
-								<OriginalNftInfo inft={inft} />
+	return (
+		<main className="main original">
+			<div className="bg-lights"></div>
+			<section className="original-page">
+				<div className="original-page__wrapper">
+					<div className="container">
+						<div className="product-page__content">
+							{(inft) ? (
+							<>
+							<div className="original-page__nft">
+								<h2 className="title title_size-m original-page__title">
+									NFT: <span>{inft.nfta.metadata.name}</span>
+								</h2>
+								<img
+									width="370"
+									src={inft.nfta.metadata.image}
+									alt=""
+								/>
 							</div>
+							<OriginalNftInfo inft={inft} />
+							</>
+							) : ''}
 						</div>
 					</div>
-				</section>
-			</main>
-		);
-	} else {
-		return null;
-	}
+				</div>
+			</section>
+		</main>
+	);
 };

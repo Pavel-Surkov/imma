@@ -65,6 +65,7 @@ export const OriginalNftGraphic = (props) => {
 	const priceHistoryNfta = inft.nfta.price_history;
 	const priceHistoryInft = inft.inft.price_history;
 	let avgPrice = 0;
+	console.log(priceHistoryNfta);
 	if (priceHistoryNfta.length === 0) {
 		const today = new Date();
 		const currentMonth = today.getMonth()+1;
@@ -84,6 +85,13 @@ export const OriginalNftGraphic = (props) => {
 			data.push(dataElem);
 		}
 	} else {
+		priceHistoryNfta.map((elem, i) => {
+			const a = new Date(elem.timestamp * 1000);
+	  	let month = String(a.getMonth() + 1);
+			let date = String(a.getDate());
+			const year = String(a.getFullYear());
+			console.log(date + '/' + month + '/' + year);
+		});
 		priceHistoryNfta.sort(function (a, b) {
 		  if (a.timestamp > b.timestamp) {
 		    return 1;
@@ -92,6 +100,14 @@ export const OriginalNftGraphic = (props) => {
 		    return -1;
 		  }
 		  return 0;
+		});
+		console.log('after sort');
+		priceHistoryNfta.map((elem, i) => {
+			const a = new Date(elem.timestamp * 1000);
+	  	let month = String(a.getMonth() + 1);
+			let date = String(a.getDate());
+			const year = String(a.getFullYear());
+			console.log(date + '/' + month + '/' + year);
 		});
 		let prevElem = null;
 		priceHistoryNfta.map((elem, i) => {

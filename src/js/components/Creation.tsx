@@ -683,10 +683,11 @@ export const Creation = (props) => {
                   <input
                     className="input"
       	            onChange={handleChange}
-      	            type="number"
+      	            type="text"
       	            id="social_code"
       	            name="social_code"
       	            key="social_code"
+                    maxLength={8}
       	          ></input>
       	          <button
       	            id="submit_code"

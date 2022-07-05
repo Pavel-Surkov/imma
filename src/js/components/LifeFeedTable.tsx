@@ -28,6 +28,8 @@ export const LifeFeedTable = ({
 			// Origin: 'imma_postman'
 			// }
 		};
+		console.log('config.url');
+		console.log(config.url);
 
 		axios(config)
 			.then((response) => {
