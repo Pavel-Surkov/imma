@@ -268,7 +268,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			</div>
 			<div className="video-modal" style={!isModalOpened ? { display: 'none' } : null}>
 				<div className="video-modal-wrapper">
-					<h2 className="title title_size-m video-modal__title">Create a video</h2>
+					<h2 className="title title_size-m video-modal__title">Create a video (debug)</h2>
 					<div className="video-modal__screen">
 						<div className="video-modal__top-buttons-wrapper">
 							<button
