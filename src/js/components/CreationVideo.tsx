@@ -119,8 +119,11 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			/*alert('getUserMedia() is not supported by your browser')*/;
 		}
 
+
+		alert('stream');
+
 		// Disables scroll (fixes the screen)
-		const htmlEl = document.documentElement;
+		/*const htmlEl = document.documentElement;
 		htmlEl.classList.add('is-locked');
 
 		setVideoProgress(0);
@@ -137,7 +140,6 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 
 				console.log('stream start');
 				console.log(stream);
-				alert('stream');
 
 				//video.srcObject = stream;
 
@@ -154,7 +156,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			video: { width: { min: 0 }, height: { min: 0 }, facingMode: 'user' }
 		};
 
-		getMedia(hdConstraints);
+		getMedia(hdConstraints);*/
 	};
 
 	const handleRecord = (): void => {
