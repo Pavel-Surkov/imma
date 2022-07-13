@@ -64,9 +64,85 @@ export const OriginalNftGraphic = (props) => {
 	const inft = props.inft;
 	const priceHistoryNfta = inft.nfta.price_history;
 	const priceHistoryInft = inft.inft.price_history;
-	let avgPrice = 0;
+	console.log('priceHistoryNfta');
 	console.log(priceHistoryNfta);
+	console.log('priceHistoryInft');
+	console.log(priceHistoryInft);
+	let avgPrice = 0;
+
+	const today = new Date();
+	const currentMonth = today.getMonth()+1;
+	const currentYear = today.getFullYear();
+
+	let startMonth = currentMonth-9;
+	let startYear = currentYear;
+
+	if (startMonth < 1) {
+		startMonth = 12 + startMonth;
+		startYear = startYear - 1;
+	}
+
+	for (let i = 0; i < 10; i++) {
+		let month = String(startMonth);
+		if (month.length === 1) {
+			month = '0' + month;
+		}
+		data.push({
+			date: month + '/' + startYear,
+			dateLabel: month + '/' + String(startYear).slice(-2),
+			inftPrice: -1,
+			nftaPrice: -1
+		});
+		startMonth++;
+		if (startMonth>12) {
+			startMonth = 1;
+			startYear++;
+		}
+	}
 	if (priceHistoryNfta.length === 0) {
+		console.log('length === 0');
+		data.map(elem => {
+			elem.nftaPrice = 0;
+		})
+	} else {
+		priceHistoryNfta.map((elem, i) => {
+			const a = new Date(elem.timestamp * 1000);
+			let month = String(a.getMonth() + 1);
+			if (month.length === 1) {
+				month = '0' + month;
+			}
+			const year = String(a.getFullYear());
+			const index = data.findIndex(x => x.date === (month + '/' + year));
+			if (index != -1) {
+				data[index].nftaPrice = elem.priceEth;
+			}
+		});
+	}
+
+	console.log(data);
+
+
+	if (priceHistoryInft.length === 0) {
+		data.map(elem => {
+			elem.inftPrice = 0;
+		})
+	} else {
+		priceHistoryInft.map((elem, i) => {
+			const a = new Date(elem.timestamp * 1000);
+			let month = String(a.getMonth() + 1);
+			if (month.length === 1) {
+				month = '0' + month;
+			}
+			const year = String(a.getFullYear());
+			const index = data.findIndex(x => x.date === (month + '/' + year));
+			console.log(month + '/' + year)
+			if (index != -1) {
+				data[index].inftPrice = elem.priceEth;
+			}
+		});
+	}
+
+	/*if (priceHistoryNfta.length === 0) {
 		const today = new Date();
 		const currentMonth = today.getMonth()+1;
 		const currentYear = today.getFullYear();
@@ -85,13 +161,6 @@ export const OriginalNftGraphic = (props) => {
 			data.push(dataElem);
 		}
 	} else {
-		priceHistoryNfta.map((elem, i) => {
-			const a = new Date(elem.timestamp * 1000);
-	  	let month = String(a.getMonth() + 1);
-			let date = String(a.getDate());
-			const year = String(a.getFullYear());
-			console.log(date + '/' + month + '/' + year);
-		});
 		priceHistoryNfta.sort(function (a, b) {
 		  if (a.timestamp > b.timestamp) {
 		    return 1;
@@ -100,14 +169,6 @@ export const OriginalNftGraphic = (props) => {
 		    return -1;
 		  }
 		  return 0;
-		});
-		console.log('after sort');
-		priceHistoryNfta.map((elem, i) => {
-			const a = new Date(elem.timestamp * 1000);
-	  	let month = String(a.getMonth() + 1);
-			let date = String(a.getDate());
-			const year = String(a.getFullYear());
-			console.log(date + '/' + month + '/' + year);
 		});
 		let prevElem = null;
 		priceHistoryNfta.map((elem, i) => {
@@ -157,6 +218,13 @@ export const OriginalNftGraphic = (props) => {
 			}
 		}
 	} else {
+		priceHistoryInft.map((elem, i) => {
+			const a = new Date(elem.timestamp * 1000);
+	  	let month = String(a.getMonth() + 1);
+			let date = String(a.getDate());
+			const year = String(a.getFullYear());
+			console.log(date + '/' + month + '/' + year);
+		});
 		priceHistoryInft.sort(function (a, b) {
 		  if (a.timestamp > b.timestamp) {
 		    return 1;
@@ -165,6 +233,14 @@ export const OriginalNftGraphic = (props) => {
 		    return -1;
 		  }
 		  return 0;
+		});
+		console.log('after sort');
+		priceHistoryInft.map((elem, i) => {
+			const a = new Date(elem.timestamp * 1000);
+	  	let month = String(a.getMonth() + 1);
+			let date = String(a.getDate());
+			const year = String(a.getFullYear());
+			console.log(date + '/' + month + '/' + year);
 		});
 		let prevElem = null;
 		priceHistoryInft.map((elem, i) => {
@@ -197,40 +273,64 @@ export const OriginalNftGraphic = (props) => {
 				data[index].inftPrice = elem.priceEth;
 			}
 		});
-	}
+	}*/
 
 	let lastInftPrice = -1;
 	let lastNftaPrice = -1;
 	/* set both price values for all time points */
 	data.map((elem, i) => {
-		if (('nftaPrice' in elem) && !('inftPrice' in elem)) {
-			data[i].inftPrice = lastInftPrice;
-			lastNftaPrice = elem.nftaPrice;
+		if (elem.nftaPrice === -1) {
+			data[i].nftaPrice = lastNftaPrice;
 		} else {
-			if (!('nftaPrice' in elem) && ('inftPrice' in elem)) {
-				data[i].nftaPrice = lastNftaPrice;
-				lastNftaPrice = elem.inftPrice;
+			lastNftaPrice = elem.nftaPrice;
+		}
+		if (elem.inftPrice === -1) {
+			data[i].inftPrice = lastInftPrice;
+		} else {
+			lastInftPrice = elem.inftPrice;
+		}
+		/*if ((elem.nftaPrice === -1) && (elem.inftPrice != -1)) {
+			data[i].nftaPrice = lastNftaPrice;
+			lastInftPrice = elem.inftPrice;
+		} else {
+			if ((elem.nftaPrice != -1) && (elem.inftPrice === -1)) {
+				data[i].inftPrice = lastInftPrice;
+				lastNftaPrice = elem.nftaPrice;
 			} else {
 				lastInftPrice = elem.inftPrice;
 				lastNftaPrice = elem.nftaPrice;
+				console.log('lastInftPrice');
+				console.log(elem.inftPrice);
+				console.log('lastNftaPrice');
+				console.log(elem.nftaPrice);
 			}
-		}
+		}*/
 	});
 	lastInftPrice = -1;
 	lastNftaPrice = -1;
 	data.slice(0).reverse().map((elem, i) => {
-		if ((elem.nftaPrice != -1) && !(elem.inftPrice != -1)) {
+		if (elem.nftaPrice === -1) {
+			data[data.length-1-i].nftaPrice = lastNftaPrice;
+		} else {
+			lastNftaPrice = elem.nftaPrice;
+		}
+		if (elem.inftPrice === -1) {
+			data[data.length-1-i].inftPrice = lastInftPrice;
+		} else {
+			lastInftPrice = elem.inftPrice;
+		}
+		/*if ((elem.nftaPrice != -1) && (elem.inftPrice === -1)) {
 			data[data.length-1-i].inftPrice = lastInftPrice;
 			lastNftaPrice = elem.nftaPrice;
 		} else {
-			if (!(elem.nftaPrice != -1) && (elem.inftPrice != -1)) {
-				data[data.length-1-i].nftaPrice = lastInftPrice;
-				lastNftaPrice = elem.inftPrice;
+			if ((elem.nftaPrice === -1) && (elem.inftPrice != -1)) {
+				data[data.length-1-i].nftaPrice = lastNftaPrice;
+				lastInftPrice = elem.inftPrice;
 			} else {
 				lastInftPrice = elem.inftPrice;
 				lastNftaPrice = elem.nftaPrice;
 			}
-		}
+		}*/
 	});
 	/* averege price */
 	data.map((elem, i) => {
@@ -255,7 +355,7 @@ export const OriginalNftGraphic = (props) => {
         <LineChart width={300} height={100} data={data}>
 					<CartesianGrid x1={5000} stroke={'rgba(255, 255, 255, 0.2)'} vertical={false} />
 					<YAxis tick={<CustomizedAxisTick dy={5} dx={-30} vertical={true} />} tickLine={false} axisLine={false} />
-					<XAxis tick={<CustomizedAxisTick dy={19} dx={20} />} tickLine={false} axisLine={false} dataKey="dateLabel" />
+					<XAxis interval={0} tick={<CustomizedAxisTick dy={19} dx={20} />} tickLine={false} axisLine={false} dataKey="dateLabel" />
           <Line type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={2} dot={null} />
           <Line type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={2} dot={null} />
         </LineChart>

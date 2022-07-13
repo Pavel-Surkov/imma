@@ -494,7 +494,7 @@ export const Creation = (props) => {
 							{state.hasPartnerWallet && (
                 <div className="step-block__wrapper">
             			<form action="" className="form step-block">
-            				<h4 className="title title_size-xs step-block__title">Broke wallet</h4>
+            				<h4 className="title title_size-xs step-block__title">Broker wallet</h4>
 
                     <div className="input-wrap">
                       <input

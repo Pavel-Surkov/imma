@@ -109,6 +109,10 @@
 				& p {
 					@include font(1.6rem, calc(21 / 16));
 				}
+				&:nth-child(2) .table-author p {
+					@include font(1.6rem, calc(21 / 16));
+    			word-break: break-all;
+				}
 				& .title {
 					margin-bottom: 9px;
 					@include font(1.4rem, calc(18 / 14));

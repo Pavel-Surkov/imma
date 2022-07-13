@@ -135,11 +135,12 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			try {
 				stream = await navigator.mediaDevices.getUserMedia(constraints);
 
+				console.log('stream start');
 				console.log(stream);
 
-				video.srcObject = stream;
+				//video.srcObject = stream;
 
-				setStream(stream);
+				//setStream(stream);
 			} catch (err) {
 				console.log(err);
 			}

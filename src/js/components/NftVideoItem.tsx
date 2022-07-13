@@ -67,7 +67,8 @@ export const NftVideoItem = ({
 				<video
 					width="370"
 					height="658"
-					src={properties.inft.metadata.animation_url}
+					src={properties.inft.metadata.animation_url + '#t=1'}
+					preload="metadata"
 					className="video-preview"
 				></video>
 				<div className="video-play__wrapper">

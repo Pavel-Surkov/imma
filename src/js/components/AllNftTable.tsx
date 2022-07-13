@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { monthConvertArr } from './NftVideoItem';
+import { dateConvert, convertDateToString } from '../helpers/nftTableData';
 //import { ITableData } from '../helpers/nftTableData';
 
 function convertDate(date: Date) {
@@ -31,9 +32,9 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 					const shortOwnerWallet: string = row.inft.owner.wallet.slice(0, 9) + '...';
 					console.log('last update')
 					console.log(row.inft.date.last_update);
-					const convertedDate: string = 'date';//convertDate(row.inft.date.last_update);
+					const convertedDate: string = dateConvert(new Date(row.inft.date.last_update));
 
-					const lastPrice: number = Number(row.inft.price_history[0]);
+					const lastPrice: number = row.inft.price_history[0] ? Number(row.inft.price_history[0].priceEth) : 0;
 
 					const maxNftsInTable: number = 8;
 
@@ -54,7 +55,8 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 											<video
 												width="370"
 												height="123"
-												src={row.inft.metadata.animation_url}
+												src={row.inft.metadata.animation_url + '#t=1'}
+												preload="metadata"
 												className="video-preview"
 											></video>
 										</Link>
@@ -133,7 +135,7 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 							<td className="table-col">
 								<div className="table-col__wrapper">
 									<p className="title">IMMA NFT</p>
-									<p>#{row.uid}</p>
+									<p>#{row.uid.slice(0, 17) + '...'}</p>
 								</div>
 							</td>
 							<td className="table-col">
@@ -188,7 +190,10 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 			//const shortToken: string = row.token.slice(0, 17) + '...';
 				const shortOwnerWallet: string = row.inft.owner.wallet.slice(0, 9) + '...';
 
-				const lastPrice: number = Number(row.inft.price_history[0]);
+				const lastPrice: number = row.inft.price_history[0] ? Number(row.inft.price_history[0].priceEth) : 0;
+
+				console.log('row.inft.price_history[0]');
+				console.log(row.inft.price_history[0]);
 
 				const maxNftsInTable: number = 8;
 
@@ -206,7 +211,8 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 							<div className="video">
 								<video
 									width="138"
-									src={row.inft.metadata.animation_url}
+									src={row.inft.metadata.animation_url + '#t=1'}
+									preload="metadata"
 									className="video-preview"
 								></video>
 								{/*<img
@@ -219,7 +225,7 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 									alt=""
 								></img>*/}
 								<div className="video-play__wrapper">
-									<Link to={`/allnft/${row.slug}`} className="video-play">
+									<Link to={`/allnft/${row.uid}`} className="video-play">
 										<svg
 											data-svg="play"
 											width="21"
@@ -236,7 +242,7 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 									</Link>
 								</div>
 								<div className="video-play__link">
-									<Link to={`/allnft/${row.slug}`}>
+									<Link to={`/allnft/${row.uid}`}>
 										<svg
 											width="21"
 											height="9"
@@ -253,7 +259,9 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 									</Link>
 								</div>
 							</div>
-							<img data-img="sign" src={row.sign} alt="sign" />
+							{row.inft.metadata.image && (
+								<img data-img="sign" src={row.inft.metadata.image} alt="sign" />
+							)}
 						</div>
 						<div className="lifefeed-mobile__info">
 							<div className="lifefeed-mobile__info-block">
@@ -271,12 +279,12 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 											fill="white"
 										/>
 									</svg>
-									<p>{row.author}</p>
+									<p>{row.inft.metadata.name}</p>
 								</div>
 							</div>
 							<div className="lifefeed-mobile__info-block">
-								<h4 className="title">IMMA NFT {row.hash}</h4>
-								<p>{row.hash}</p>
+								<h4 className="title">IMMA NFT</h4>
+								<p>#{row.uid.slice(0, 17) + '...'}</p>
 							</div>
 							<div className="lifefeed-mobile__info-block">
 								<p className="title">Original NFT token address</p>

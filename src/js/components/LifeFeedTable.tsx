@@ -214,7 +214,8 @@ export const LifeFeedTable = ({
 									<Link to={`/allnft/${row.uid}`}>
 										<video
 											width="370"
-											src={row.inft.metadata.animation_url}
+											src={row.inft.metadata.animation_url + '#t=1'}
+											preload="metadata"
 											className="video-preview"
 										></video>
 									</Link>

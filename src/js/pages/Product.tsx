@@ -65,7 +65,7 @@ export const Product: React.FC = () => {
 
 	useEffect(() => {
 		if (data && path) {
-			const video: Result = data.results.find((item: Result) => item.uid === path.nft);
+			const video: any = data.results;//.results.find((item: Result) => item.uid === path.nft);
 			setVideo(video);
 			setIpfsCid(video.uid);
       if (video.inft.minted) {
@@ -82,14 +82,27 @@ export const Product: React.FC = () => {
 	}, [data]);
 
 	useEffect(() => {
-		const config = {
+    const config = {
+			method: 'get',
+			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getNFT`,
+			params: {
+				requested: 'inft',
+				ipfs_cid: path.nft
+			}
+			// headers: {
+			// Origin: 'imma_postman'
+			// }
+		};
+		/*const config = {
 			method: 'get',
 			url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getLiveFeed`
-		};
+		};*/
 
 		axios(config)
 			.then((response) => {
 				setData(response.data);
+        console.log('response.data');
+        console.log(response.data);
 			})
 			.catch((error) => {
 				console.log(error);
