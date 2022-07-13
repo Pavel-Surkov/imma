@@ -137,11 +137,13 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 
 				console.log('stream start');
 				console.log(stream);
+				alert('stream');
 
 				//video.srcObject = stream;
 
 				//setStream(stream);
 			} catch (err) {
+				alert('stream error');
 				console.log(err);
 			}
 		};
