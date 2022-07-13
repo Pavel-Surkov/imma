@@ -123,7 +123,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		alert('stream');
 
 		// Disables scroll (fixes the screen)
-		/*const htmlEl = document.documentElement;
+		const htmlEl = document.documentElement;
 		htmlEl.classList.add('is-locked');
 
 		setVideoProgress(0);
@@ -136,10 +136,10 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			let stream: null | MediaStream = null;
 
 			try {
-				stream = await navigator.mediaDevices.getUserMedia(constraints);
+				//stream = await navigator.mediaDevices.getUserMedia(constraints);
 
 				console.log('stream start');
-				console.log(stream);
+				//console.log(stream);
 
 				//video.srcObject = stream;
 
@@ -156,7 +156,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			video: { width: { min: 0 }, height: { min: 0 }, facingMode: 'user' }
 		};
 
-		getMedia(hdConstraints);*/
+		getMedia(hdConstraints);
 	};
 
 	const handleRecord = (): void => {
@@ -246,7 +246,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			<div className="step-wrapper step-wrapper_video">
 				<div className="step-wrapper_video-buttons">
 					<button type="button" className={`btn-video ${video ? 'btn-video-uploaded' : ''}`} onClick={createVideo}>
-						{!video ? 'Create a video (debug)' : 'Video uploaded'}
+						{!video ? 'Create a video (2.1 debug)' : 'Video uploaded'}
 					</button>
 					{video ?
 					<button
