@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
 							<img width="117" src={logo} alt="logo"></img>
 						</a>
 						<div className="footer-content__up-wrapper">
-							<a href={`${path.pathname}/#header`} className="footer-content__up">
+							<a href="/#header" className="footer-content__up">
 								<svg
 									width="19"
 									height="33"
