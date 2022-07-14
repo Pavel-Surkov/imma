@@ -272,6 +272,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 					<h2 className="title title_size-m video-modal__title">Create a video</h2>
 					<div className="video-modal__screen">
 						<div className="video-modal__top-buttons-wrapper">
+							<h2 className="title title_size-m video-modal__title mobile-title">Create a video</h2>
 							<button
 								type="button"
 								className="video-modal__close"

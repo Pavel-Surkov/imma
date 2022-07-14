@@ -43,6 +43,9 @@
 			margin-bottom: 20px;
 			@include font(3.6rem, calc(47 / 36));
 		}
+		&__title.mobile-title {
+			display: none;
+		}
 		&__screen {
 			position: relative;
 		}
@@ -242,9 +245,16 @@
 		width: 100%;
 		margin: 0 auto;
 		&-modal {
+			&__top-buttons-wrapper {
+				width: 100%;
+			}
 			&__title {
 				margin-bottom: 10px;
 				@include font(2rem, calc(26 / 20));
+				display: none;
+			}
+			&__title.mobile-title {
+				display: block;
 			}
 			&__control {
 				&-btn {
@@ -261,6 +271,7 @@
 				}
 			}
 			&__close {
+				margin-left: auto;
 				&-wrapper {
 					right: 10px;
 					top: 10px;
