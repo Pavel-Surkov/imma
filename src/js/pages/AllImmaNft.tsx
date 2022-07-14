@@ -116,7 +116,7 @@ export const AllImmaNft = () => {
 				dispatch({ type: 'SET_DATA', value: response.data.results })
 				dispatch({ type: 'SET_INIT_DATA', value: response.data.results })
 				console.log('lifefeed data');
-				console.log(response.data.results);
+				console.log(response.data);
 			})
 			.catch((error) => {
 				console.log(error);

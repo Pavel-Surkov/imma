@@ -137,13 +137,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 
 			try {
 				stream = await navigator.mediaDevices.getUserMedia(constraints);
-
-				//console.log('stream start');
-				//console.log(navigator.mediaDevices);
-				//alert(JSON.stringify(navigator.mediaDevices));
-
 				video.srcObject = stream;
-
 				setStream(stream);
 			} catch (err) {
 				alert('stream error');
@@ -154,7 +148,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 		// Options for media stream
 		const hdConstraints = {
 			audio: false,
-			video: { width: { min: 0 }, height: { min: 0 }, facingMode: 'user' }
+			video: true//{ width: { min: 0 }, height: { min: 0 }, facingMode: 'user' }
 		};
 
 		getMedia(hdConstraints);
@@ -247,7 +241,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			<div className="step-wrapper step-wrapper_video">
 				<div className="step-wrapper_video-buttons">
 					<button type="button" className={`btn-video ${video ? 'btn-video-uploaded' : ''}`} onClick={createVideo}>
-						{!video ? 'Create a video (2.3 debug)' : 'Video uploaded'}
+						{!video ? 'Create a video (3.0 debug)' : 'Video uploaded'}
 					</button>
 					{video ?
 					<button
