@@ -241,7 +241,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 			<div className="step-wrapper step-wrapper_video">
 				<div className="step-wrapper_video-buttons">
 					<button type="button" className={`btn-video ${video ? 'btn-video-uploaded' : ''}`} onClick={createVideo}>
-						{!video ? 'Create a video (3.0 debug)' : 'Video uploaded'}
+						{!video ? 'Create a video' : 'Video uploaded'}
 					</button>
 					{video ?
 					<button

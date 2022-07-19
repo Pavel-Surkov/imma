@@ -26,12 +26,12 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 		<table className="table lifefeed-table">
 			<tbody className="table-body">
 				{(tableData) ? tableData.map((row, i) => {
-					console.log(row);
+					//console.log(row);
 					const shortToken: string = row.nfta.token_address.slice(0, 17) + '...';
 					//const shortToken: string = row.token.slice(0, 17) + '...';
 					const shortOwnerWallet: string = row.inft.owner.wallet.slice(0, 9) + '...';
-					console.log('last update')
-					console.log(row.inft.date.last_update);
+					//console.log('last update')
+					//console.log(row.inft.date.last_update);
 					const convertedDate: string = dateConvert(new Date(row.inft.date.last_update));
 
 					const lastPrice: number = row.inft.price_history[0] ? Number(row.inft.price_history[0].priceEth) : 0;
@@ -42,11 +42,11 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 						<tr
 							className="table-row"
 							key={`all-nft-${i}`}
-							style={
+							/*style={
 								i >= maxNftsInTable && !allTableVisible
 									? { display: 'none' }
 									: { display: 'flex' }
-							}
+							}*/
 						>
 							<td className="table-col">
 								<div className="video__wrapper">
@@ -192,8 +192,8 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 
 				const lastPrice: number = row.inft.price_history[0] ? Number(row.inft.price_history[0].priceEth) : 0;
 
-				console.log('row.inft.price_history[0]');
-				console.log(row.inft.price_history[0]);
+				//console.log('row.inft.price_history[0]');
+				//console.log(row.inft.price_history[0]);
 
 				const maxNftsInTable: number = 8;
 
@@ -201,11 +201,11 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 					<div
 						className="lifefeed-mobile__item"
 						key={`all-nft-mob-${i}`}
-						style={
+						/*style={
 							i >= maxNftsInTable && !allTableVisible
 								? { display: 'none' }
 								: { display: 'flex' }
-						}
+						}*/
 					>
 						<div className="lifefeed-mobile__video">
 							<div className="video">
