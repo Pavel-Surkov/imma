@@ -49,7 +49,14 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 ];*/
 
 const CustomizedAxisTick = (props) => {
-	const { x, y, stroke, payload, dx, dy, vertical } = props;
+	const { x, y, stroke, payload, isMobile } = props;
+	let {dx, dy} = props;
+	if (isMobile) {
+		dy = 10;
+		if (payload.index % 2 !== 0) {
+			dy += 16;
+		}
+	}
 	return (
 		<g transform={`translate(${x},${y})`}>
       <text x={0} y={0} dx={dx} dy={dy} textAnchor="end" fill="#EBEBEB">
@@ -60,6 +67,17 @@ const CustomizedAxisTick = (props) => {
 }
 
 export const OriginalNftGraphic = (props) => {
+	const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const windowWidth = window.innerWidth;
+		if (windowWidth < 768) {
+			setIsMobile(true);
+		} else {
+			setIsMobile(false);
+		}
+	}, [window.innerWidth]);
+
 	const data = [];
 	const inft = props.inft;
 	const priceHistoryNfta = inft.nfta.price_history;
@@ -352,14 +370,32 @@ export const OriginalNftGraphic = (props) => {
 				<span>{avgPrice}</span>
 			</div>
 			<ResponsiveContainer width="100%">
-        <LineChart width={300} height={100} data={data}>
+        <LineChart data={data}>
 					<CartesianGrid x1={5000} stroke={'rgba(255, 255, 255, 0.2)'} vertical={false} />
-					<YAxis tick={<CustomizedAxisTick dy={5} dx={-30} vertical={true} />} tickLine={false} axisLine={false} />
-					<XAxis interval={0} tick={<CustomizedAxisTick dy={19} dx={20} />} tickLine={false} axisLine={false} dataKey="dateLabel" />
+					{isMobile ?
+					<YAxis width={10} tick={<CustomizedAxisTick dy={3} dx={0} />} tickLine={false} axisLine={false} />
+					:
+					<YAxis tick={<CustomizedAxisTick dy={5} dx={-30} />} tickLine={false} axisLine={false} />
+					}
+					<XAxis interval={0} tick={<CustomizedAxisTick dy={19} dx={20} isMobile={isMobile} />} tickLine={false} axisLine={false} dataKey="dateLabel" />
           <Line type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={2} dot={null} />
           <Line type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={2} dot={null} />
         </LineChart>
       </ResponsiveContainer>
+			{isMobile ?
+				<div className="price-graphic__description">
+					<div className="price-graphic__description-item">
+						<div className="price-graphic__description-line yellow-line"></div>
+						<div className="price-graphic__description-text">The price of the IMMA NFT</div>
+					</div>
+					<div className="price-graphic__description-item">
+						<div className="price-graphic__description-line red-line"></div>
+						<div className="price-graphic__description-text">The price of the original NFT</div>
+					</div>
+				</div>
+				:
+				''
+			}
 		</div>
 	);
 };

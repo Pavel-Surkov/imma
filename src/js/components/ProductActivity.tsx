@@ -29,7 +29,10 @@ export const ProductActivity = React.memo(({ video }: { video: Result }) => {
 										{activity.from && (
 											<p className="activity-item__wallet">
 												by{' '}
-												<a className="link link_hover_green" href="/">
+												<a
+													className="link link_hover_green"
+													href={`https://rinkeby.etherscan.io/address/${activity.by}`}
+												>
 													{activity.by}
 												</a>
 											</p>

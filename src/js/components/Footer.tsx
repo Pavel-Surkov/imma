@@ -19,7 +19,7 @@ const footerSocialIcons: Array<socialLinkT> = [
 			url: instagram,
 			url_hovered: instagram_hvr
 		},
-		link: '#'
+		link: 'https://instagram.com/imma.love.nft?igshid=YmMyMTA2M2Y='
 	},
 	{
 		id: '2',
@@ -28,7 +28,7 @@ const footerSocialIcons: Array<socialLinkT> = [
 			url: twitter,
 			url_hovered: twitter_hvr
 		},
-		link: '#'
+		link: 'https://twitter.com/ImmaloveNFT'
 	},
 	{
 		id: '3',
@@ -37,7 +37,7 @@ const footerSocialIcons: Array<socialLinkT> = [
 			url: facebook,
 			url_hovered: facebook_hvr
 		},
-		link: '#'
+		link: 'https://www.facebook.com/ImmaNFT'
 	},
 	{
 		id: '4',
@@ -46,7 +46,7 @@ const footerSocialIcons: Array<socialLinkT> = [
 			url: discord,
 			url_hovered: discord_hvr
 		},
-		link: '#'
+		link: 'https://discord.gg/fRgeZc9R'
 	}
 ];
 

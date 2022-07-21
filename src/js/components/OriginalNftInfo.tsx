@@ -5,6 +5,9 @@ import { OriginalNftGraphic } from './OriginalNftGraphic';
 
 export const OriginalNftInfo = (props) => {
 	const inft = props.inft;
+	const SMART_CONTRACT = inft.nfta.token_address;
+	const TOKEN_ID = inft.nfta.token_id;
+	console.log(inft);
 	// For managing owner link's length
 	const [miniScreen, setMiniScreen] = useState(window.innerWidth < 360 ? true : false);
 
@@ -35,7 +38,7 @@ export const OriginalNftInfo = (props) => {
 				<h4 className="title product-block__title">Price History</h4>
 				{/* Graph */}
 				<OriginalNftGraphic inft={inft} />
-				<a href="https://opensea.io/" className="link original-page__graph-link">
+				<a href={`https://testnets.opensea.io/assets/rinkeby/${SMART_CONTRACT}/${TOKEN_ID}`} className="link original-page__graph-link">
 					See in opensea
 				</a>
 			</div>
