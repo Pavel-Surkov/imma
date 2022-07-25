@@ -88,6 +88,8 @@ export const NftVideoItem = ({
 						</svg>
 					</Link>
 				</div>
+				{properties.nfta.metadata ?
+				<>
 				<div className="video-icon">
 					<img width="44" height="44" src={properties.nfta.metadata.image} alt="" />
 				</div>
@@ -100,6 +102,8 @@ export const NftVideoItem = ({
 						<time className="video-bottom__tag-date">{convertedDate}</time>
 					</div>
 				</div>
+				</> : ''
+				}
 			</div>
 		);
 	} else {
