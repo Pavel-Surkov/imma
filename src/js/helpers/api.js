@@ -136,11 +136,12 @@ const checkNFT = async (api_base_url, session,sc,tokenId)=>{
 }
 
 
-const confirmCode = async (api_base_url, session, code) => {
+const confirmCode = async (api_base_url, session, code, rid) => {
     try {
         const FormData = require('form-data');
         const data = new FormData();
         data.append('code', code);
+        data.append('rid', rid);
         const config = {
             method: 'post',
             url: `${api_base_url}/confirmCode`,

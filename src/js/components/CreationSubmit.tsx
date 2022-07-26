@@ -21,9 +21,12 @@ interface ICreationSubmit {
 	state: State;
 	dispatch: React.Dispatch<any>;
 	handle_create: (event: any) => Promise<void>;
+	loginWallet: () => void;
+	session: any;
+	rid: string;
 }
 
-export const CreationSubmit = ({ state, dispatch, handle_create }: ICreationSubmit) => {
+export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, session, rid }: ICreationSubmit) => {
 	const scaleRef = useRef(null);
 	const toggleRef = useRef(null);
 
@@ -45,12 +48,29 @@ export const CreationSubmit = ({ state, dispatch, handle_create }: ICreationSubm
 		setBoundRight(bound);
 	}, []);
 
+	/*useEffect(() => {
+		console.log('sessionsessionsessionsessionsessionsession');
+		console.log(session);
+	}, [session]);*/
+
 	const handleToggleStop = (e: DraggableEvent, data: DraggableData): void => {
 		const currentPosition: number = Math.ceil(data.x);
 
 		if (currentPosition >= boundRight) {
 			console.log('swiped');
-			handle_create(e);
+			if (!session.current) {
+				//while (!session.current) {
+					//alert('authenticate and try again');
+					loginWallet();
+					//if (session.current) {
+						//handle_create(e);
+						//alert('create');
+					//}
+				//}
+			} else {
+				handle_create(e);
+				alert('create');
+			}
 			// TODO: Here must be a function that sends filled form of nft creation
 		}
 	};

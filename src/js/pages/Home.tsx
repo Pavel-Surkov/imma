@@ -74,27 +74,27 @@ export const Home: React.FC = () => {
   const callBack =async (response)=>{
     console.log('in callback')
     console.log('response: ',response)
-    const message = response.message
+    const message = response.message;
     if (message==='ok'){
-      const chainId = response.chainId
+      const chainId = response.chainId;
       setConnectedCainId(chainId)
       setConnectedMessage({message:`user connected currectly, chanId# ${chainId}`,color:'green'})
       console.log('response.session_fp: ',response.session_fp)
       // setSessionFP(response.session_fp)
       session_fp.current = response.session_fp
       signer_ref.current = response.signer
-      dispatch({
+      /*dispatch({
         type: 'SET_CREATOR_WALLET',
         value: response.wallet
       });
       dispatch({
         type: 'SET_CREATOR_WALLET_VERIFIED',
         value: true
-      });
+      });*/
       console.log("ref: " + response.wallet);
       setSessionRef()
     }else{
-      console.log('meesage: ',message)
+      console.log('meesage: ', message)
       setConnectedMessage({message,color:'red'})
       if (message==='redirect to mobile deep link')return window.location.replace("https://metamask.app.link/dapp/mobiletest.imma.club/");
       if (message==='redirect to install wallet')return window.location.replace("https://metamask.io/download/");
@@ -102,7 +102,7 @@ export const Home: React.FC = () => {
   }
 
   const isConnectedCallBack = (response)=>{
-      is_connected_ref.current = response
+      is_connected_ref.current = response;
       if (!is_connected_ref.current.connect){
         if (is_connected_ref.current.mobile){
           // return window.location.replace("https://metamask.app.link/dapp/mobiletest.imma.club/")
@@ -110,7 +110,7 @@ export const Home: React.FC = () => {
           // return window.location.replace("https://metamask.io/download/");
         }
       }
-      console.log('callback network_ref.current: ',network_ref.current)
+      console.log('callback network_ref.current: ', network_ref.current)
       check_network(networkNameToId(network_ref.current))
   }
 
@@ -124,7 +124,7 @@ export const Home: React.FC = () => {
     callback(response)
   }
 
-  const loginWallet = async (event)=>{
+  const loginWallet = async (event, callBack)=>{
     if (event) {
       event.preventDefault();
     }

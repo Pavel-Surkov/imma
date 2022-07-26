@@ -39,6 +39,7 @@ export const Creation = (props) => {
   const [originalNft, setOriginalNft] = useState("");
   const [ipfsCid, setIpfsCid] = useState("");
   const [checkPartnerAddressMsg, setCheckPartnerAddressMsg] = useState(null);
+  const [checkCreatorWalletMsg, setCheckCreatorWalletMsg] = useState(null);
   const [checkOriginalNftMsg, setCheckOriginalNftMsg] = useState(null);
 
 	const signFieldRef = useRef(null);
@@ -170,7 +171,7 @@ export const Creation = (props) => {
       if (!socialCode) return /*alert("no code")*/;
       const code = parseInt(socialCode);
       const codeSession = session.current;
-      const response = await confirmCode(api_details_ref.current.api_base_url, codeSession, code);
+      const response = await confirmCode(api_details_ref.current.api_base_url, codeSession, code, rid);
       if (response) {
         setConfirmCodeVal(true);
         setConfirmMsg(<p style={{ color: "green" }}>code confirm</p>);
@@ -260,6 +261,12 @@ export const Creation = (props) => {
       case "partner_address":
         dispatch({
           type: 'SET_PARTNER_WALLET',
+          value: event.target.value
+        });
+        return;
+      case "creator_address":
+        dispatch({
+          type: 'SET_CREATOR_WALLET',
           value: event.target.value
         });
         return;
@@ -368,6 +375,29 @@ export const Creation = (props) => {
         }
         return;
       }
+      if (id_ === 'check_creator_wallet') {
+        const address = state.creatorWallet;
+        console.log('event: ', event.target);
+        console.log('address: ', address);
+        const check_response = await check_address(api_details_ref.current.api_base_url, session.current,address);
+        if (!check_response) return /*alert('failed check call')*/;
+        if (check_response.status !== 200) return /*alert('failed check call')*/;
+        const check_creator_wallet = check_response.data.results.valid;
+        const check_creator_wallet_msg = check_creator_wallet?'':<div className="filed-error">Code error</div>;
+        setCheckCreatorWalletMsg(check_creator_wallet_msg);
+        if (check_creator_wallet) {
+          dispatch({
+            type: 'SET_CREATOR_WALLET_VERIFIED',
+            value: true
+          });
+        } else {
+          dispatch({
+            type: 'SET_CREATOR_WALLET_VERIFIED',
+            value: false
+          });
+        }
+        return;
+      }
       return /*alert('unknown id')*/;
     } catch (error) {
       console.log(error);
@@ -376,41 +406,36 @@ export const Creation = (props) => {
 
   const check_nfta = async (event)=>{
     event.preventDefault();
-    if (!session.current) {
-      /*alert('authenticate and try again')*/;
-      loginWallet();
-    } else {
-      try {
-        console.log('in check_address_');
-        const id_ = event.target.id;
-        if (id_==='check_original_nft'){
-          const original_nft = state.originalNft;
-          console.log('event: ', event.target);
-          console.log('original_nft: ', original_nft);
-          const [sc,tokenId] = original_nft.split('/');
-          const check_response = await checkNFT(api_details_ref.current.api_base_url, session.current,sc, tokenId);
-          if (!check_response) return /*alert('failed check call')*/;
-          if (check_response.status!==200) return /*alert('failed check call')*/;
-          const check_original_nft = check_response.data.results.valid;
-          const check_original_nft_msg = check_original_nft?'':<div className="filed-error">Code error</div>;
-          setCheckOriginalNftMsg(check_original_nft_msg);
-          if (check_original_nft) {
-            dispatch({
-              type: 'SET_ORIGINAL_NFT_VERIFIED',
-              value: true
-            });
-          } else {
-            dispatch({
-              type: 'SET_ORIGINAL_NFT_VERIFIED',
-              value: false
-            });
-          }
-          return;
+    try {
+      console.log('in check_address_');
+      const id_ = event.target.id;
+      if (id_==='check_original_nft'){
+        const original_nft = state.originalNft;
+        console.log('event: ', event.target);
+        console.log('original_nft: ', original_nft);
+        const [sc,tokenId] = original_nft.split('/');
+        const check_response = await checkNFT(api_details_ref.current.api_base_url, session.current,sc, tokenId);
+        if (!check_response) return /*alert('failed check call')*/;
+        if (check_response.status!==200) return /*alert('failed check call')*/;
+        const check_original_nft = check_response.data.results.valid;
+        const check_original_nft_msg = check_original_nft?'':<div className="filed-error">Code error</div>;
+        setCheckOriginalNftMsg(check_original_nft_msg);
+        if (check_original_nft) {
+          dispatch({
+            type: 'SET_ORIGINAL_NFT_VERIFIED',
+            value: true
+          });
+        } else {
+          dispatch({
+            type: 'SET_ORIGINAL_NFT_VERIFIED',
+            value: false
+          });
         }
-        return /*alert('unknown id')*/;
-      } catch (error) {
-        console.log(error);
+        return;
       }
+      return /*alert('unknown id')*/;
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -437,13 +462,13 @@ export const Creation = (props) => {
                     {state.originalNftVerified ?
                       <div className="input-icon">
                         <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" stroke-width="2"/>
+                          <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" strokeWidth="2"/>
                         </svg>
                       </div>
                       :
                       ((checkOriginalNftMsg) ? <div className="input-icon">
                         <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 1L13 13M13 1L1 13" stroke="#FF2525" stroke-width="2"/>
+                          <path d="M1 1L13 13M13 1L1 13" stroke="#FF2525" strokeWidth="2"/>
                         </svg>
                       </div> : '')
                     }
@@ -464,28 +489,33 @@ export const Creation = (props) => {
                   <h4 className="title title_size-xs step-block__title">The imma NFT creator wallet</h4>
                   <div className="input-wrap">
                     <input
-                      className="input step-block__input"
+                      className={`input step-block__input ${(checkCreatorWalletMsg && !state.creatorWalletVerified) ? 'input-error' : ''}`}
                       type="text"
         	            id="creator_address"
         	            name="creator_address"
-        	            value={state.creatorWallet ? state.creatorWallet : 'login with wallet'}
-        	            disabled
+                      onChange={handleChange}
                       required
                     />
                     {state.creatorWalletVerified ?
                       <div className="input-icon">
                         <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" stroke-width="2"/>
+                          <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" strokeWidth="2"/>
                         </svg>
                       </div>
-                      : ''
+                      :
+                      ((checkCreatorWalletMsg) ? <div className="input-icon">
+                        <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1 1L13 13M13 1L1 13" stroke="#FF2525" strokeWidth="2"/>
+                        </svg>
+                      </div> : '')
                     }
+                    {checkCreatorWalletMsg}
                   </div>
                   <button
-                    id="check_original_nft"
+                    id="check_creator_wallet"
                     type="submit"
                     className="btn-arrow step-block__submit"
-                    onClick={!session.current ? loginWallet : (e) => e.preventDefault()}
+                    onClick={check_address_}
                   >
                     Confirm
                   </button>
@@ -509,13 +539,13 @@ export const Creation = (props) => {
                       {state.partnerWalletVerified ?
                         <div className="input-icon">
                           <svg width="14" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" stroke-width="2"/>
+                            <path d="M1 3.5L5.5 8L12.5 1" stroke="#D6FF7E" strokeWidth="2"/>
                           </svg>
                         </div>
                         :
                         ((checkPartnerAddressMsg) ? <div className="input-icon">
                           <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 1L13 13M13 1L1 13" stroke="#FF2525" stroke-width="2"/>
+                            <path d="M1 1L13 13M13 1L1 13" stroke="#FF2525" strokeWidth="2"/>
                           </svg>
                         </div> : '')
                       }
@@ -704,7 +734,14 @@ export const Creation = (props) => {
 							</label>
 						</form>
 					</CreationStep>
-					<CreationSubmit handle_create={handle_create} state={state} dispatch={dispatch} />
+					<CreationSubmit
+            loginWallet={loginWallet}
+            handle_create={handle_create}
+            state={state}
+            dispatch={dispatch}
+            session={session}
+            rid={rid}
+          />
 				</div>
 			</div>
 		</section>
