@@ -346,7 +346,8 @@ export const Creation = (props) => {
         return alert("status code " + presigned_response.status);
       }
       if (isMobileDevice) {
-        window.location.replace(`https://metamask.deeplink.com/?rid=${rid}`);
+        const domain = window.location.hostname;
+        window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
         alert('in mobile');
       }
       const results = presigned_response.data.results;
