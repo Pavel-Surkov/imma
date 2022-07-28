@@ -348,7 +348,7 @@ export const Creation = (props) => {
       if (isMobileDevice) {
         const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
-        window.location.replace(`https://metamask.app.link/dapp/mobiletest.imma.club/${domain}?rid=${rid}`);
+        window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
         alert('mobiletest.imma.club');
       }
       const results = presigned_response.data.results;
