@@ -18,6 +18,7 @@ import config from '../config/default.json';
 import {ethers} from 'ethers';
 import axios from 'axios';
 import { State, reducer } from '../helpers/creationReducer';
+import { v4 as uuidv4 } from "uuid";
 
 export const initialState: State = {
   originalNft: '',
@@ -79,7 +80,7 @@ export const Home: React.FC = () => {
       const chainId = response.chainId;
       setConnectedCainId(chainId)
       setConnectedMessage({message:`user connected currectly, chanId# ${chainId}`,color:'green'})
-      console.log('response.session_fp: ',response.session_fp)
+      console.log('response.session_fp: ', response.session_fp)
       // setSessionFP(response.session_fp)
       session_fp.current = response.session_fp
       signer_ref.current = response.signer

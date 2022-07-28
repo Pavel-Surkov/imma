@@ -57,20 +57,20 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 		const currentPosition: number = Math.ceil(data.x);
 
 		if (currentPosition >= boundRight) {
-			console.log('swiped');
-			if (!session.current) {
+			console.log(session.current);
+			//if (!session.current) {
 				//while (!session.current) {
 					//alert('authenticate and try again');
-					loginWallet();
+					//loginWallet();
 					//if (session.current) {
 						//handle_create(e);
 						//alert('create');
 					//}
 				//}
-			} else {
-				handle_create(e);
-				alert('create');
-			}
+			//} else {
+			handle_create(e);
+				//alert('create');
+			//}
 			// TODO: Here must be a function that sends filled form of nft creation
 		}
 	};

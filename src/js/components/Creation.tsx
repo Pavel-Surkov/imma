@@ -12,6 +12,7 @@ import {
   upload,
   upload_sign,
   getPreSignRedeemVoucher,
+  setPreSignRedeemVoucher,
   verifySignature,
   claim_request,
   check_address,
@@ -23,7 +24,6 @@ export const Creation = (props) => {
   const loginWallet = props.loginWallet;
   const api_base_url = props.api_base_url;
   const api_details_ref = props.api_details_ref;
-  const session = props.session;
   const ethers = props.ethers;
   const signer = props.signer_ref;
   const signRedeemVoucher = props.signRedeemVoucher;
@@ -34,6 +34,7 @@ export const Creation = (props) => {
   const [confirmCodeVal, setConfirmCodeVal] = useState(false);
   const [confirmMsg, setConfirmMsg] = useState(<p></p>);
   const [rid, setRid] = useState(uuid_);
+  const session = useRef(uuid_);
   const [socialCode, setSocialCode] = useState("");
 
   const [originalNft, setOriginalNft] = useState("");
@@ -321,20 +322,38 @@ export const Creation = (props) => {
       event.preventDefault();
       console.log("in handle_create");
       const response = gatherPreSignedData();
-      if (!response) return /*alert('error in gather')*/;
-      if (!response.valid) return /*alert('missing data: ' + response.invalid.join(', '))*/;
+      if (!response) return alert('error in gather');
+      if (!response.valid) return alert('missing data: ' + response.invalid.join(', '));
       console.log(response);
-      const presigned_response = await getPreSignRedeemVoucher(
+      /*const presigned_response = await getPreSignRedeemVoucher(
+        rid,
+        api_details_ref.current.api_base_url,
+        session.current,
+        response.essentials
+      );*/
+      const presigned_response = await setPreSignRedeemVoucher(
         rid,
         api_details_ref.current.api_base_url,
         session.current,
         response.essentials
       );
-      if (!presigned_response) return /*alert("something went wrong")*/;
-      if (presigned_response.status !== 200)
-        return /*alert("status code " + presigned_response.status)*/;
+      if (!presigned_response) return alert("something went wrong");
+      if (presigned_response.status !== 200) {
+        return alert("status code " + presigned_response.status);
+      } else {
+        alert('presigned_response.status ' + presigned_response.status);
+      }
       const results = presigned_response.data.results;
-      const signature = await signRedeemVoucher(signer.current,results);
+      const ethereum = window.ethereum;
+      console.log("ethereum: ");
+      console.log(ethereum);
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      console.log("provider: ");
+      console.log(provider);
+      const signer = provider.getSigner();
+      console.log("signer: ");
+      console.log(signer);
+      const signature = await signRedeemVoucher(signer, results);
       console.log("signature: ", signature);
       if (!signature) return /*alert('signature failed')*/;
       console.log('rid: ', rid);
