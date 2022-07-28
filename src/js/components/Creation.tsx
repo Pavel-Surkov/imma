@@ -347,7 +347,7 @@ export const Creation = (props) => {
         return alert("status code " + presigned_response.status);
       }
       if (isMobileDevice) {
-        const domain = window.location.hostname;
+        //const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
         //window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
         //alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
