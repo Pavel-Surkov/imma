@@ -21,6 +21,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 export const Creation = (props) => {
+  const domain = window.location.hostname;
   const loginWallet = props.loginWallet;
   const api_base_url = props.api_base_url;
   const api_details_ref = props.api_details_ref;
@@ -348,8 +349,9 @@ export const Creation = (props) => {
       if (isMobileDevice) {
         const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
-        window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
-        alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
+        //window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
+        //alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
+        document.getElementById("#creation-redirect").click();
       }
       const results = presigned_response.data.results;
       const ethereum = window.ethereum;
@@ -468,6 +470,7 @@ export const Creation = (props) => {
 
 	return (
 		<section id="creation" className="section creation" ref={containerRef}>
+      <a id="creation-redirect" href={`https://metamask.app.link/dapp/${domain}/?rid=${rid}`}>redirect</a>
 			<div className="section-wrapper creation-wrapper">
 				<ProgressBar containerRef={containerRef} state={state} />
 				<div className="creation-content">
