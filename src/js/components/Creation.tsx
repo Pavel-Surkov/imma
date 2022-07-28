@@ -317,6 +317,10 @@ export const Creation = (props) => {
     }
   }
 
+  function isMobileDevice() {
+    return 'ontouchstart' in window || 'onmsgesturechange' in window;
+  }
+
   const handle_create = async (event) => {
     try {
       event.preventDefault();
@@ -340,8 +344,10 @@ export const Creation = (props) => {
       if (!presigned_response) return alert("something went wrong");
       if (presigned_response.status !== 200) {
         return alert("status code " + presigned_response.status);
-      } else {
-        alert('presigned_response.status ' + presigned_response.status);
+      }
+      if (isMobileDevice) {
+        window.location.replace(`https://metamask.deeplink.com/?rid=${rid}`);
+        alert('in mobile');
       }
       const results = presigned_response.data.results;
       const ethereum = window.ethereum;

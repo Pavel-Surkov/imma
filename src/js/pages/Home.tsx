@@ -136,7 +136,7 @@ export const Home: React.FC = () => {
         const domain = window.location.hostname;
         window.location.replace(`https://metamask.app.link/dapp/${domain}`)
         return
-      }else{
+      } else {
         /*alert('you are not connected, please install metamask (redirect desktop)')*/
         window.location.replace("https://metamask.io/download/")
         return
