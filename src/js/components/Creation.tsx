@@ -349,7 +349,7 @@ export const Creation = (props) => {
         const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
         window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
-        alert('mobiletest.imma.club');
+        alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
       }
       const results = presigned_response.data.results;
       const ethereum = window.ethereum;
