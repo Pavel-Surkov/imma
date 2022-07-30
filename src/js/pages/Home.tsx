@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { HomeMain } from '../components/HomeMain';
 import { Welcome } from '../components/Welcome';
 import { About } from '../components/About';
@@ -44,6 +45,13 @@ export const initialState: State = {
 
 export const Home: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const path = useParams();
+
+  useEffect(() => {
+		if (path.rid) {
+		    alert('rid detected');
+		}
+	}, [path]);
 
 	const onChainIdChange = (chainIdhex)=>{
     const chainId = parseInt(chainIdhex);

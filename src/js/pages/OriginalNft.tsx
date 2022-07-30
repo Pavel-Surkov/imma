@@ -7,7 +7,8 @@ import axios from 'axios';
 import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
 import { Result } from '../helpers/getLiveFeedTypes';
 
-export const OriginalNft = () => {	const path = useParams();
+export const OriginalNft = () => {
+	const path = useParams();
 	const [inft, setInft] = useState<null | Result>(null);
 
 	const [data, setData] = useState<any | null>(null);
