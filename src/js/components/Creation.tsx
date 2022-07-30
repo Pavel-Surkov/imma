@@ -555,7 +555,6 @@ export const Creation = (props) => {
                 <div className="step-block__wrapper">
             			<form action="" className="form step-block">
             				<h4 className="title title_size-xs step-block__title">Broker wallet</h4>
-
                     <div className="input-wrap">
                       <input
                         className={`input step-block__input ${(checkPartnerAddressMsg && !state.partnerWalletVerified) ? 'input-error' : ''}`}

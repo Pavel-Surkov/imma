@@ -68,7 +68,8 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 					//}
 				//}
 			//} else {
-			handle_create(e);
+			loginWallet();
+			//handle_create(e);
 				//alert('create');
 			//}
 			// TODO: Here must be a function that sends filled form of nft creation
