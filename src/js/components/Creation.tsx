@@ -349,9 +349,9 @@ export const Creation = (props) => {
       if (isMobileDevice) {
         //const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
-        //window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
-        //alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
-        document.getElementById("creation-redirect").click();
+        window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
+        alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
+        //document.getElementById("creation-redirect").click();
       }
       const results = presigned_response.data.results;
       const ethereum = window.ethereum;
