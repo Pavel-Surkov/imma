@@ -63,12 +63,12 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 					//alert('authenticate and try again');
 					//loginWallet();
 					//if (session.current) {
-						//handle_create(e);
+						handle_create(e);
 						//alert('create');
 					//}
 				//}
 			//} else {
-			loginWallet();
+			//loginWallet();
 			//handle_create(e);
 				//alert('create');
 			//}
