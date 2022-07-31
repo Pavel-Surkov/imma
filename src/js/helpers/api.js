@@ -82,6 +82,7 @@ const getOnlyPreSignRedeemVoucher = async (rid, api_base_url, session) => {
         const config = {
             method: 'get',
             url: `${api_base_url}/getNFT?rid=${rid}`,
+            url: `${api_base_url}/getOnlyPreSignRedeemVoucher?rid=${rid}`,
             headers: {
                 session,
             }
@@ -176,10 +177,6 @@ const confirmCode = async (api_base_url, session, code, rid) => {
         const data = new FormData();
         data.append('code', code);
         data.append('rid', rid);
-        console.log('THIS IS RID!!!');
-        console.log(rid);
-        console.log('THIS IS SESSION!!!');
-        console.log(session);
         const config = {
             method: 'post',
             url: `${api_base_url}/confirmCode`,
