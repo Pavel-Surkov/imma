@@ -7,7 +7,7 @@ const axios_call = async (payload) => {
             return response;
         })
         .catch((error) => {
-            console.log(error);
+            alert(error);
             return null;
         });
 }

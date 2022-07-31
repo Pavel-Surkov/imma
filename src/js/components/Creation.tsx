@@ -79,6 +79,7 @@ export const Creation = (props) => {
         api_details_ref.current.api_base_url,
         session.current
       );
+      //alert(JSON.stringify(presigned_response));
       if (!presigned_response) return alert("something went wrong");
       if (presigned_response.status !== 200) {
         return alert("status code " + presigned_response.status);
@@ -356,12 +357,6 @@ export const Creation = (props) => {
       if (!response) return alert('error in gather');
       if (!response.valid) return alert('missing data: ' + response.invalid.join(', '));
       console.log(response);
-      /*const presigned_response = await getPreSignRedeemVoucher(
-        rid,
-        api_details_ref.current.api_base_url,
-        session.current,
-        response.essentials
-      );*/
       const presigned_response = await setPreSignRedeemVoucher(
         rid,
         api_details_ref.current.api_base_url,
