@@ -74,7 +74,6 @@ export const Creation = (props) => {
 
   const handleOnlyPreSignRedeemVoucher = async () => {
     try {
-      alert(rid);
       const presigned_response = await getOnlyPreSignRedeemVoucher(
         rid,
         api_details_ref.current.api_base_url,

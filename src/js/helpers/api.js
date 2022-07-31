@@ -86,8 +86,7 @@ const getOnlyPreSignRedeemVoucher = async (rid, api_base_url, session) => {
                 session,
             }
         };
-        alert(`${api_base_url}/getNFT?rid=${rid}`);
-        return await axios_call(config);
+        return null;/*await axios_call(config);*/
     } catch (error) {
         console.log(error)
     }
