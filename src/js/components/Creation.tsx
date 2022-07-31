@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SignaturePad from 'signature_pad';
 import { CreationStep } from './CreationStep';
 import { CreationVideo } from './CreationVideo';
@@ -12,6 +13,7 @@ import {
   upload,
   upload_sign,
   getPreSignRedeemVoucher,
+  getOnlyPreSignRedeemVoucher,
   setPreSignRedeemVoucher,
   verifySignature,
   claim_request,
@@ -52,7 +54,13 @@ export const Creation = (props) => {
 	const [signatureProgress, setSignatureProgress] = useState<number>(0);
   const [emptySignSize, setEmptySignSize] = useState<number>(0);
 
-	// const [isFormCompleted, setIsFormCompleted] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+		if (searchParams.get("rid")) {
+      handleOnlyPreSignRedeemVoucher();
+    }
+	}, [searchParams]);
 
 	useEffect(() => {
 		const windowWidth = window.innerWidth;
@@ -63,6 +71,25 @@ export const Creation = (props) => {
 			setSignatureText('Sign here');
 		}
 	}, [window.innerWidth]);
+
+  const handleOnlyPreSignRedeemVoucher = async () => {
+    try {
+      alert(rid);
+      const presigned_response = await getOnlyPreSignRedeemVoucher(
+        rid,
+        api_details_ref.current.api_base_url,
+        session.current
+      );
+      if (!presigned_response) return alert("something went wrong");
+      if (presigned_response.status !== 200) {
+        return alert("status code " + presigned_response.status);
+      } else {
+        return alert("OnlyPreSign status code " + presigned_response.status);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 	const enableSignaturePad = (): void => {
 		const canvas: HTMLCanvasElement = signFieldRef.current;

@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const axios_call = async (payload) => {
-    console.log('axios: ', payload)
+    console.log('axios: ', payload);
     return await axios(payload)
         .then((response) => {
             return response;
@@ -72,6 +72,22 @@ const getPreSignRedeemVoucher = async (rid,api_base_url, session,essentials) => 
             data: data
         };
         return await axios_call(config)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const getOnlyPreSignRedeemVoucher = async (rid, api_base_url, session) => {
+    try {
+        const config = {
+            method: 'get',
+            url: `${api_base_url}/getNFT?rid=${rid}`,
+            headers: {
+                session,
+            }
+        };
+        alert(`${api_base_url}/getNFT?rid=${rid}`);
+        return await axios_call(config);
     } catch (error) {
         console.log(error)
     }
@@ -248,6 +264,7 @@ export {
     upload_sign,
     sendCode,
     getPreSignRedeemVoucher,
+    getOnlyPreSignRedeemVoucher,
     setPreSignRedeemVoucher,
     verifySignature,
     claim_request,
