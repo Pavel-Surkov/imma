@@ -86,7 +86,7 @@ const getOnlyPreSignRedeemVoucher = async (rid, api_base_url, session) => {
                 session,
             }
         };
-        return null;/*await axios_call(config);*/
+        return await axios_call(config);
     } catch (error) {
         console.log(error)
     }
