@@ -7,7 +7,7 @@ const axios_call = async (payload) => {
             return response;
         })
         .catch((error) => {
-            alert(error);
+            alert(error.response.data.message);
             return null;
         });
 }
@@ -28,9 +28,9 @@ const sendCode = async (api_base_url, session, username, type_, rid) => {
             },
             data: data
         };
-        await axios_call(config)
+        await axios_call(config);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -49,11 +49,11 @@ const verifySignature  = async (rid,api_base_url, session,signature)=>{
             },
             data: data
         };
-        const res = await axios_call(config)
-        console.log('verifySignature: ',res.status)
+        const res = await axios_call(config);
+        console.log('verifySignature: ', res.status);
         return res
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
     }
 }
 
@@ -62,7 +62,7 @@ const getPreSignRedeemVoucher = async (rid,api_base_url, session,essentials) => 
         const FormData = require('form-data');
         const data = new FormData();
         data.append('rid', rid);
-        data.append('essentials',JSON.stringify(essentials))
+        data.append('essentials',JSON.stringify(essentials));
         const config = {
             method: 'post',
             url: `${api_base_url}/getPreSignRedeemVoucher`,
@@ -71,9 +71,9 @@ const getPreSignRedeemVoucher = async (rid,api_base_url, session,essentials) => 
             },
             data: data
         };
-        return await axios_call(config)
+        return await axios_call(config);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -88,7 +88,7 @@ const getOnlyPreSignRedeemVoucher = async (rid, api_base_url, session) => {
         };
         return await axios_call(config);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -97,7 +97,7 @@ const setPreSignRedeemVoucher = async (rid, api_base_url, session, essentials) =
         const FormData = require('form-data');
         const data = new FormData();
         data.append('rid', rid);
-        data.append('essentials', JSON.stringify(essentials))
+        data.append('essentials', JSON.stringify(essentials));
         const config = {
             method: 'post',
             url: `${api_base_url}/setPreSignRedeemVoucher`,
@@ -108,7 +108,7 @@ const setPreSignRedeemVoucher = async (rid, api_base_url, session, essentials) =
         };
         return await axios_call(config);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -125,9 +125,9 @@ const claim_request = async (api_base_url, session,ipfs_cid)=>{
             },
             params
         };
-        return await axios_call(config)
+        return await axios_call(config);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -144,9 +144,9 @@ const check_address = async (api_base_url, session,address)=>{
             },
             data: data
         };
-        return await axios_call(config)
+        return await axios_call(config);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -166,10 +166,9 @@ const checkNFT = async (api_base_url, session,sc,tokenId)=>{
         };
         return await axios_call(config)
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
-
 
 const confirmCode = async (api_base_url, session, code, rid) => {
     try {
