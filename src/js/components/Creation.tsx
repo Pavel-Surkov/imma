@@ -88,11 +88,20 @@ export const Creation = (props) => {
       if (presigned_response.status !== 200) {
         return alert("status code " + presigned_response.status);
       } else {
-        alert("OnlyPreSign status code " + presigned_response.status);
+        console.log("OnlyPreSign fields________");
+        console.log("OnlyPreSign status code " + presigned_response.status);
         const results = presigned_response.data.results;
+        console.log("Presigned_response.data");
+        console.log(presigned_response.data);
+        console.log("Results ");
+        console.log(results);
+        console.log("Results voucher ");
+        console.log(results.voucher);
         const ethereum = window.ethereum;
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
+        console.log("Signer ");
+        console.log(signer);
         const signature = await signRedeemVoucher(signer, results);
         if (!signature) return alert('signature failed');
         const verify_response = await verifySignature(_rid, api_details_ref.current.api_base_url, _rid, signature);
