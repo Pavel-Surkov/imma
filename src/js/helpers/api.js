@@ -83,7 +83,7 @@ const getOnlyPreSignRedeemVoucher = async (rid, api_base_url, session) => {
             method: 'get',
             url: `${api_base_url}/getOnlyPreSignRedeemVoucher?rid=${rid}`,
             headers: {
-                session,
+                rid,
             }
         };
         console.log('getOnlyPreSignRedeemVoucher________________________');
