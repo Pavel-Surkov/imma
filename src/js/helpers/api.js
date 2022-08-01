@@ -81,12 +81,15 @@ const getOnlyPreSignRedeemVoucher = async (rid, api_base_url, session) => {
     try {
         const config = {
             method: 'get',
-            url: `${api_base_url}/getNFT?rid=${rid}`,
             url: `${api_base_url}/getOnlyPreSignRedeemVoucher?rid=${rid}`,
             headers: {
                 session,
             }
         };
+        console.log('getOnlyPreSignRedeemVoucher________________________');
+        console.log(session);
+        console.log(rid);
+        console.log(`${api_base_url}/getOnlyPreSignRedeemVoucher?rid=${rid}`);
         return await axios_call(config);
     } catch (error) {
         console.log(error);

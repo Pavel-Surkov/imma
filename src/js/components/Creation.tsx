@@ -55,10 +55,13 @@ export const Creation = (props) => {
   const [emptySignSize, setEmptySignSize] = useState<number>(0);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isOnlyPreSignRedeemVoucher, setIsOnlyPreSignRedeemVoucher] = useState(false);
 
   useEffect(() => {
-		if (searchParams.get("rid")) {
-      handleOnlyPreSignRedeemVoucher();
+		if (searchParams.get("rid") && !isOnlyPreSignRedeemVoucher) {
+      const _rid = searchParams.get("rid");
+      setIsOnlyPreSignRedeemVoucher(true);
+      handleOnlyPreSignRedeemVoucher(_rid);
     }
 	}, [searchParams]);
 
@@ -72,10 +75,10 @@ export const Creation = (props) => {
 		}
 	}, [window.innerWidth]);
 
-  const handleOnlyPreSignRedeemVoucher = async () => {
+  const handleOnlyPreSignRedeemVoucher = async (_rid) => {
     try {
       const presigned_response = await getOnlyPreSignRedeemVoucher(
-        rid,
+        _rid,
         api_details_ref.current.api_base_url,
         session.current
       );
