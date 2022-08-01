@@ -82,7 +82,7 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 
 	return (
 		<div className="step">
-			<a style={{fontSize: 50}} href="https://metamask.app.link/dapp/imma-nft.netlify.app/?rid=1b8a63e9-d590-4ff6-adde-66efe2f295b8" /*onClick={handleSubmit}*/>SUBMIT</a>
+			<a style={{fontSize: 50}} href="https://metamask.app.link/dapp/imma-nft.netlify.app/?rid=95128fdc-422d-456c-8553-b78112e2b320" /*onClick={handleSubmit}*/>SUBMIT</a>
 			<div className="step-submit">
 				<div className="step-submit__img">
 					<img
