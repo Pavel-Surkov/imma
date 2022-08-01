@@ -94,9 +94,9 @@ export const Creation = (props) => {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const signature = await signRedeemVoucher(signer, results);
-        if (!signature) return;
+        if (!signature) return alert('signature failed');
         const verify_response = await verifySignature(_rid, api_details_ref.current.api_base_url, _rid, signature);
-        if (!verify_response) return /*alert('verify failed')*/;
+        if (!verify_response) return alert('verify failed');
         setIpfsCid(verify_response.data.results.ipfs_cid);
       }
     } catch (error) {
