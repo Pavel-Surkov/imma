@@ -77,7 +77,7 @@ export const Creation = (props) => {
 
   const handleOnlyPreSignRedeemVoucher = async (_rid) => {
     try {
-      alert('rid in only pre...' + _rid);
+      alert('rid in only pre... ' + _rid);
       const presigned_response = await getOnlyPreSignRedeemVoucher(
         _rid,
         api_details_ref.current.api_base_url,
@@ -88,7 +88,16 @@ export const Creation = (props) => {
       if (presigned_response.status !== 200) {
         return alert("status code " + presigned_response.status);
       } else {
-        return alert("OnlyPreSign status code " + presigned_response.status);
+        alert("OnlyPreSign status code " + presigned_response.status);
+        const results = presigned_response.data.results;
+        const ethereum = window.ethereum;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const signature = await signRedeemVoucher(signer, results);
+        if (!signature) return;
+        const verify_response = await verifySignature(_rid, api_details_ref.current.api_base_url, _rid, signature);
+        if (!verify_response) return /*alert('verify failed')*/;
+        setIpfsCid(verify_response.data.results.ipfs_cid);
       }
     } catch (error) {
       console.log(error);
@@ -171,7 +180,7 @@ export const Creation = (props) => {
     if (signatureProgress === 100) {
       setTimeout(() => setSignatureProgress(0), 1000);
     }
-  }, [signatureProgress])
+  }, [signatureProgress]);
 
   useEffect(() => {
     console.log('new video file');

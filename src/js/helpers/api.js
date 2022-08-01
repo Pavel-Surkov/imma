@@ -116,7 +116,7 @@ const setPreSignRedeemVoucher = async (rid, api_base_url, session, essentials) =
     }
 }
 
-const claim_request = async (api_base_url, session,ipfs_cid)=>{
+const claim_request = async (api_base_url, session, ipfs_cid)=>{
     try {
         const params = {
             ipfs_cid
