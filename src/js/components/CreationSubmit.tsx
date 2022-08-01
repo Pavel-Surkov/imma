@@ -78,6 +78,7 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 
 	const handleSubmit = (e) => {
 		handle_create(e);
+		console.log('submit');
 	}
 
 	return (
