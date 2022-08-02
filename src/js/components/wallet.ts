@@ -313,7 +313,8 @@ const signRedeemVoucher = async (signer, payload) => {
   try {
     const response = await window.ethereum.request({ method: 'eth_requestAccounts' });
     alert('response: ' + JSON.stringify(response));
-    alert('signer: ' + JSON.stringify(signer));
+    alert('signer: ');
+    alert(signer);
     alert('payload: ' + JSON.stringify(payload));
     const signature = await signer._signTypedData(payload.domain, payload.types, payload.voucher)
     return signature

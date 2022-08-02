@@ -389,7 +389,8 @@ export const Creation = (props) => {
       if (presigned_response.status !== 200) {
         return alert("status code " + presigned_response.status);
       }
-      if (isMobileDevice) {
+      if (isMobileDevice()) {
+        alert('mobile device')
         //const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
         window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
