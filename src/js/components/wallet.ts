@@ -311,12 +311,12 @@ const connect = async (params, ethers, ethereum, _axios, onChainIdChange, setlis
 
 const signRedeemVoucher = async (signer, payload) => {
   try {
-    console.log('payload.voucher: ',payload.voucher)
     alert('signer: ' + JSON.stringify(signer));
     alert('payload: ' + JSON.stringify(payload));
     const signature = await signer._signTypedData(payload.domain, payload.types, payload.voucher)
     return signature
   } catch (error) {
+    alert('error: ' + JSON.stringify(error));
     console.log(error)
   }
 }
