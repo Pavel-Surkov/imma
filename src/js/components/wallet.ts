@@ -311,6 +311,7 @@ const connect = async (params, ethers, ethereum, _axios, onChainIdChange, setlis
 
 const signRedeemVoucher = async (signer, payload) => {
   try {
+    window.ethereum.enable();
     alert('signer: ' + JSON.stringify(signer));
     alert('payload: ' + JSON.stringify(payload));
     const signature = await signer._signTypedData(payload.domain, payload.types, payload.voucher)
