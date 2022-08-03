@@ -42,12 +42,10 @@ const plugins = () => {
 				collapseWhitespace: isProd
 			}
 		}),
-		new HTMLWebpackPlugin({
-			template: './_redirects',
-			filename: '_redirects',
-			minify: {
-				collapseWhitespace: isProd
-			}
+		new CopyWebpackPlugin({
+		  patterns: [
+		     {from: path.resolve(__dirname, 'src', '_redirects'), to: path.resolve(__dirname, 'dist')}
+		  ]
 		}),
 		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin({
