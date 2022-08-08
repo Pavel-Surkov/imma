@@ -36,16 +36,18 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 		const scale: HTMLDivElement = scaleRef.current;
 		const toggle: HTMLDivElement = toggleRef.current;
 
-		const paddingLeft: number = parseInt(getComputedStyle(scale)['padding-left']);
-		const paddingRight: number = parseInt(getComputedStyle(scale)['padding-right']);
+		if (scale && toggle) {
+			const paddingLeft: number = parseInt(getComputedStyle(scale)['padding-left']);
+			const paddingRight: number = parseInt(getComputedStyle(scale)['padding-right']);
 
-		const scaleWidth: number = scale.clientWidth - (paddingLeft + paddingRight);
+			const scaleWidth: number = scale.clientWidth - (paddingLeft + paddingRight);
 
-		const toggleWidth: number = toggle.clientWidth;
+			const toggleWidth: number = toggle.clientWidth;
 
-		const bound: number = scaleWidth - toggleWidth;
+			const bound: number = scaleWidth - toggleWidth;
 
-		setBoundRight(bound);
+			setBoundRight(bound);
+		}
 	}, []);
 
 	/*useEffect(() => {
@@ -107,7 +109,7 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 				</div>
 				<div className="step-submit-content">
 					<h3 className="title title_size-s step-submit-content__title">Perfect!</h3>
-					{iOS() ? <a style={{fontSize: 50}} onClick={handleSubmit}>SUBMIT</a>
+					{iOS() ? <a className="form-submit-mobile" onClick={handleSubmit}>SUBMIT</a>
 					:
 					<>
 					<p className="title title_size-xs">Swipe right to create IMMA NFT</p>
