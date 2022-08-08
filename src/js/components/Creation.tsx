@@ -77,16 +77,16 @@ export const Creation = (props) => {
 
   const handleOnlyPreSignRedeemVoucher = async (_rid) => {
     try {
-      alert('rid in only pre... ' + _rid);
+      // alert('rid in only pre... ' + _rid);
       const presigned_response = await getOnlyPreSignRedeemVoucher(
         _rid,
         api_details_ref.current.api_base_url,
         session.current
       );
-      //alert(JSON.stringify(presigned_response));
-      if (!presigned_response) return alert("something went wrong");
+      //// alert(JSON.stringify(presigned_response));
+      if (!presigned_response) return // alert("something went wrong");
       if (presigned_response.status !== 200) {
-        return alert("status code " + presigned_response.status);
+        return // alert("status code " + presigned_response.status);
       } else {
         console.log("OnlyPreSign fields________");
         console.log("OnlyPreSign status code " + presigned_response.status);
@@ -103,9 +103,9 @@ export const Creation = (props) => {
         console.log("Signer ");
         console.log(signer);
         const signature = await signRedeemVoucher(signer, results);
-        if (!signature) return alert('signature failed');
+        if (!signature) return // alert('signature failed');
         const verify_response = await verifySignature(_rid, api_details_ref.current.api_base_url, _rid, signature);
-        if (!verify_response) return alert('verify failed');
+        if (!verify_response) return // alert('verify failed');
         setIpfsCid(verify_response.data.results.ipfs_cid);
       }
     } catch (error) {
@@ -218,8 +218,8 @@ export const Creation = (props) => {
     try {
       console.log("in confirm_code");
       event.preventDefault();
-      if (confirmCodeVal) return /*alert("code already confirm")*/;
-      if (!socialCode) return /*alert("no code")*/;
+      if (confirmCodeVal) return /*// alert("code already confirm")*/;
+      if (!socialCode) return /*// alert("no code")*/;
       const code = parseInt(socialCode);
       const codeSession = session.current;
       const response = await confirmCode(api_details_ref.current.api_base_url, codeSession, code, rid);
@@ -271,9 +271,9 @@ export const Creation = (props) => {
 
   const upload_video_file = async () => {
     try {
-      if (!state.video) return /*alert(`no video file`)*/;
+      if (!state.video) return /*// alert(`no video file`)*/;
       const signed_url_response = await get_signed_url("video");
-      if (!signed_url_response) return /*alert("failed signing url")*/;
+      if (!signed_url_response) return /*// alert("failed signing url")*/;
       const download_url = signed_url_response.data.results.downloadURL;
       const upload_url = signed_url_response.data.results.uploadURL;
       console.log("downloadURL: ", download_url);
@@ -288,7 +288,7 @@ export const Creation = (props) => {
     try {
       if (!state.signature || state.signature.size === emptySignSize) return console.log(`no signature file`);
       const signed_url_response = await get_signed_url("signature");
-      if (!signed_url_response) return /*alert("failed signing url")*/;
+      if (!signed_url_response) return /*// alert("failed signing url")*/;
       const download_url = signed_url_response.data.results.downloadURL;
       const upload_url = signed_url_response.data.results.uploadURL;
       console.log("downloadURL: ", download_url);
@@ -376,8 +376,8 @@ export const Creation = (props) => {
       event.preventDefault();
       console.log("in handle_create");
       const response = gatherPreSignedData();
-      if (!response) return alert('error in gather');
-      if (!response.valid) return alert('missing data: ' + response.invalid.join(', '));
+      if (!response) return // alert('error in gather');
+      if (!response.valid) return // alert('missing data: ' + response.invalid.join(', '));
       console.log(response);
       const presigned_response = await setPreSignRedeemVoucher(
         rid,
@@ -385,16 +385,16 @@ export const Creation = (props) => {
         session.current,
         response.essentials
       );
-      if (!presigned_response) return alert("something went wrong");
+      if (!presigned_response) return // alert("something went wrong");
       if (presigned_response.status !== 200) {
-        return alert("status code " + presigned_response.status);
+        return // alert("status code " + presigned_response.status);
       }
       if (isMobileDevice()) {
-        alert('mobile device')
+        // alert('mobile device')
         //const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
         window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
-        alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
+        // alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
         //document.getElementById("creation-redirect").click();
       }
       const results = presigned_response.data.results;
@@ -409,11 +409,11 @@ export const Creation = (props) => {
       console.log(signer);
       const signature = await signRedeemVoucher(signer, results);
       console.log("signature: ", signature);
-      if (!signature) return /*alert('signature failed')*/;
+      if (!signature) return /*// alert('signature failed')*/;
       console.log('rid: ', rid);
       console.log('session: ', session.current);
       const verify_response = await verifySignature(rid, api_details_ref.current.api_base_url, session.current, signature);
-      if (!verify_response) return /*alert('verify failed')*/;
+      if (!verify_response) return /*// alert('verify failed')*/;
       setIpfsCid(verify_response.data.results.ipfs_cid);
     } catch (error) {
       console.log(error);
@@ -430,8 +430,8 @@ export const Creation = (props) => {
         console.log('event: ', event.target);
         console.log('address: ', address);
         const check_response = await check_address(api_details_ref.current.api_base_url, session.current,address);
-        if (!check_response) return /*alert('failed check call')*/;
-        if (check_response.status !== 200) return /*alert('failed check call')*/;
+        if (!check_response) return /* alert('failed check call')*/;
+        if (check_response.status !== 200) return /* alert('failed check call')*/;
         const check_partner_address = check_response.data.results.valid;
         const check_partner_address_msg = check_partner_address?'':<div className="filed-error">Code error</div>;
         setCheckPartnerAddressMsg(check_partner_address_msg);
@@ -453,8 +453,8 @@ export const Creation = (props) => {
         console.log('event: ', event.target);
         console.log('address: ', address);
         const check_response = await check_address(api_details_ref.current.api_base_url, session.current,address);
-        if (!check_response) return /*alert('failed check call')*/;
-        if (check_response.status !== 200) return /*alert('failed check call')*/;
+        if (!check_response) return /*// alert('failed check call')*/;
+        if (check_response.status !== 200) return /*// alert('failed check call')*/;
         const check_creator_wallet = check_response.data.results.valid;
         const check_creator_wallet_msg = check_creator_wallet?'':<div className="filed-error">Code error</div>;
         setCheckCreatorWalletMsg(check_creator_wallet_msg);
@@ -471,7 +471,7 @@ export const Creation = (props) => {
         }
         return;
       }
-      return /*alert('unknown id')*/;
+      return /*// alert('unknown id')*/;
     } catch (error) {
       console.log(error);
     }
@@ -488,8 +488,8 @@ export const Creation = (props) => {
         console.log('original_nft: ', original_nft);
         const [sc,tokenId] = original_nft.split('/');
         const check_response = await checkNFT(api_details_ref.current.api_base_url, session.current,sc, tokenId);
-        if (!check_response) return /*alert('failed check call')*/;
-        if (check_response.status!==200) return /*alert('failed check call')*/;
+        if (!check_response) return /*// alert('failed check call')*/;
+        if (check_response.status!==200) return /*// alert('failed check call')*/;
         const check_original_nft = check_response.data.results.valid;
         const check_original_nft_msg = check_original_nft?'':<div className="filed-error">Code error</div>;
         setCheckOriginalNftMsg(check_original_nft_msg);
@@ -506,7 +506,7 @@ export const Creation = (props) => {
         }
         return;
       }
-      return /*alert('unknown id')*/;
+      return /*// alert('unknown id')*/;
     } catch (error) {
       console.log(error);
     }

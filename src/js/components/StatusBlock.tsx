@@ -14,7 +14,7 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 	const handleClick = (event) => {
     event.preventDefault();
 		if (!session.current) {
-			/*alert('authenticate and try again')*/;
+			/* alert('authenticate and try again')*/;
 			loginWallet(event);
 		} else {
 			handle_claim(event);

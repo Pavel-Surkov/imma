@@ -312,14 +312,14 @@ const connect = async (params, ethers, ethereum, _axios, onChainIdChange, setlis
 const signRedeemVoucher = async (signer, payload) => {
   try {
     const response = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    alert('response: ' + JSON.stringify(response));
-    alert('signer: ');
-    alert(signer);
-    alert('payload: ' + JSON.stringify(payload));
+    // alert('response: ' + JSON.stringify(response));
+    // alert('signer: ');
+    // alert(signer);
+    // alert('payload: ' + JSON.stringify(payload));
     const signature = await signer._signTypedData(payload.domain, payload.types, payload.voucher)
     return signature
   } catch (error) {
-    alert('error: ' + JSON.stringify(error));
+    // alert('error: ' + JSON.stringify(error));
     console.log(error)
   }
 }
@@ -335,7 +335,7 @@ const claim = async (signer, ethers,results) => {
     const contract = new ethers.Contract(root_address, root_abi, signer);
     const res = await contract.redeem(redeemVoucher,claimVoucher, { value }).catch((error) => {
       if (error.error) {
-        /*alert(error.error.message)*/;
+        /* alert(error.error.message)*/;
         return null;
       }
     });

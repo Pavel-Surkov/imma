@@ -215,7 +215,7 @@ export const SocialRadio = ({ type, verification, dispatch, session, rid, sendCo
 		try {
 			console.log("in send_code");
 			event.preventDefault();
-			if (!userName) return /*alert("no username")*/;
+			if (!userName) return /* alert("no username")*/;
 			const type_ = type;
 			const codeSession = session.current;
 			console.log("session: ", session);

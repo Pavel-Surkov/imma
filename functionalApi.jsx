@@ -86,8 +86,8 @@ export const Creation = (props) => {
     try {
       console.log("in send_code");
       event.preventDefault();
-      if (!socialUsername) return alert("no username");
-      if (!social) return alert("no social selection");
+      if (!socialUsername) return; /*alert("no username")*/
+      if (!social) return; /*alert("no social selection")*/
       const type_ = social.replace("social_", "");
       const username = socialUsername;
       const codeSession = session.current;
@@ -102,8 +102,8 @@ export const Creation = (props) => {
     try {
       console.log("in confirm_code");
       event.preventDefault();
-      if (confirmCode) return alert("code already confirm");
-      if (!socialCode) return alert("no code");
+      if (confirmCode) return; /*alert("code already confirm")*/
+      if (!socialCode) return; /*alert("no code")*/
       const code = parseInt(socialCode);
       const codeSession = session.current;
       const response = await confirmCode(api_details_ref.current.api_base_url, codeSession, code);
@@ -131,7 +131,7 @@ export const Creation = (props) => {
           this.video.name,
           this.video.type,
           this.video
-        );        
+        );
       }
       if (key === "signature") {
         signed_url = await getSignedUrl(
@@ -141,7 +141,7 @@ export const Creation = (props) => {
           this.signature.name,
           this.signature.type,
           this.signature
-        );       
+        );
       }
       return signed_url;
     } catch (error) {
@@ -155,22 +155,22 @@ export const Creation = (props) => {
       const id_ = event.target.id;
       const key = id_.replace("button_", "");
       if (key === "video") {
-        if (!video) return alert(`no ${key} file`);        
+        if (!video) return; /*alert(`no ${key} file`)*/
       }
       if (key === "signature") {
-        if (!signature) return alert(`no ${key} file`);        
+        if (!signature) return; /*alert(`no ${key} file`)*/
       }
       const signed_url_response = await get_signed_url(key);
-      if (!signed_url_response) return alert("failed signing url");
+      if (!signed_url_response) return; /*alert("failed signing url");*/
       const download_url = signed_url_response.data.results.downloadURL;
       const upload_url = signed_url_response.data.results.uploadURL;
       console.log("downloadURL: ", download_url);
       console.log("uploadURL: ", upload_url);
       if (key === "video") {
-        await upload(upload_url, video.type, video);    
+        await upload(upload_url, video.type, video);
       }
       if (key === "signature") {
-        await upload(upload_url, signature.type, signature);       
+        await upload(upload_url, signature.type, signature);
       }
     } catch (error) {
       console.log(error);
@@ -280,8 +280,8 @@ export const Creation = (props) => {
       event.preventDefault();
       console.log("in handle_create");
       const response = gatherPreSignedData();
-      if (!response) return alert('error in gather');
-      if (!response.valid) return alert('missing data: ' + response.invalid.join(', '));
+      if (!response) return; /*alert('error in gather');*/
+      if (!response.valid) return; /*alert('missing data: ' + response.invalid.join(', '));*/
       console.log('rid ' + rid);
       const presigned_response = await getPreSignRedeemVoucher(
         rid,
@@ -289,18 +289,18 @@ export const Creation = (props) => {
         session.current,
         response.essentials
       );
-      if (!presigned_response) return alert("something went wrong");
+      if (!presigned_response) return; /*alert("something went wrong");*/
       if (presigned_response.status !== 200)
-        return alert("status code ", presigned_response.status);
+        return; /*alert("status code ", presigned_response.status);*/
       const results = presigned_response.data.results;
       // console.log("results: ", results);
       const signature = await signRedeemVoucher(signer.current,results);
       console.log("signature: ", signature);
-      if (!signature) return alert('signature failed');
+      if (!signature) return; /*alert('signature failed');*/
       console.log('rid: ', rid);
       console.log('session: ', session.current);
       const verify_response = await verifySignature(rid, api_details_ref.current.api_base_url, session.current,signature);
-      if (!verify_response) return alert('verify failed');
+      if (!verify_response) return; /*alert('verify failed');*/
       setIpfsCid(verify_response.data.results.ipfs_cid);
       // console.log(verify_response)
     } catch (error) {
@@ -314,8 +314,8 @@ export const Creation = (props) => {
       console.log("in handle_claim");
       const ipfs_cid = ipfsCid;
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session.current, ipfs_cid);
-      if (!claim_request_response) return alert('cliam request failed');
-      if (claim_request_response.status!==200) return alert('cliam request failed');
+      if (!claim_request_response) return; /*alert('cliam request failed');*/
+      if (claim_request_response.status!==200) return; /*alert('cliam request failed');*/
       const results = claim_request_response.data.results;
       const claim_response = await claim(signer.current, ethers,results);
       console.log(claim_response);
@@ -334,14 +334,14 @@ export const Creation = (props) => {
         console.log('event: ', event.target);
         console.log('address: ', address);
         const check_response = await check_address(api_details_ref.current.api_base_url, session.current,address);
-        if (!check_response) return alert('failed check call');
-        if (check_response.status !== 200) return alert('failed check call');
+        if (!check_response) return; /*alert('failed check call');*/
+        if (check_response.status !== 200) return; /*alert('failed check call');*/
         const check_partner_address = check_response.data.results.valid;
         const check_partner_address_msg = check_partner_address ? <div style={{color:"green"}}>valid</div>:<div style={{color:"red"}}>invalid</div>;
         setCheckPartnerAddressMsg(check_partner_address_msg);
         return;
       }
-      return alert('unknown id');
+      return; /*alert('unknown id');*/
     } catch (error) {
       console.log(error);
     }
@@ -358,14 +358,14 @@ export const Creation = (props) => {
         console.log('original_nft: ', original_nft);
         const [sc,tokenId] = original_nft.split('/');
         const check_response = await checkNFT(api_details_ref.current.api_base_url, session.current,sc, tokenId);
-        if (!check_response) return alert('failed check call');
-        if (check_response.status!==200) return alert('failed check call');
+        if (!check_response) return; /*alert('failed check call');*/
+        if (check_response.status!==200) return; /*alert('failed check call');*/
         const check_original_nft = check_response.data.results.valid;
         const check_original_nft_msg = check_original_nft?<div style={{color:"green"}}>valid</div>:<div style={{color:"red"}}>invalid</div>;
         setCheckOriginalNftMsg(check_original_nft_msg);
         return;
       }
-      return alert('unknown id');
+      return; /*alert('unknown id');*/
     } catch (error) {
       console.log(error);
     }

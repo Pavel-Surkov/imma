@@ -154,7 +154,7 @@ function isMobileDevice() {
 
 async function connect(onConnected) {
   if (!window.ethereum) {
-    /*alert("Get MetaMask!")*/;
+    /* alert("Get MetaMask!")*/;
     return;
   }
 

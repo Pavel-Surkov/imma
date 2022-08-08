@@ -60,17 +60,17 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 			console.log(session.current);
 			//if (!session.current) {
 				//while (!session.current) {
-					//alert('authenticate and try again');
+					//// alert('authenticate and try again');
 					//loginWallet();
 					//if (session.current) {
 						handle_create(e);
-						//alert('create');
+						//// alert('create');
 					//}
 				//}
 			//} else {
 			//loginWallet();
 			//handle_create(e);
-				//alert('create');
+				//// alert('create');
 			//}
 			// TODO: Here must be a function that sends filled form of nft creation
 		}
@@ -82,7 +82,6 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 
 	return (
 		<div className="step">
-			<a style={{fontSize: 50}} onClick={handleSubmit}>SUBMIT</a>
 			<div className="step-submit">
 				<div className="step-submit__img">
 					<img

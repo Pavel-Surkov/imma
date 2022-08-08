@@ -116,11 +116,11 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 
 	const createVideo = (): void => {
 		if (!hasGetUserMedia()) {
-			/*alert('getUserMedia() is not supported by your browser')*/;
+			/* alert('getUserMedia() is not supported by your browser')*/;
 		}
 
 
-		//alert('stream');
+		// alert('stream');
 
 		// Disables scroll (fixes the screen)
 		const htmlEl = document.documentElement;
@@ -140,7 +140,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 				video.srcObject = stream;
 				setStream(stream);
 			} catch (err) {
-				alert('stream error');
+				// alert('stream error');
 				console.log(err);
 			}
 		};
