@@ -80,6 +80,19 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 		handle_create(e);
 	}
 
+	function iOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+    // iPad on iOS 13+ detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+  }
+
 	return (
 		<div className="step">
 			<div className="step-submit">
@@ -94,6 +107,9 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 				</div>
 				<div className="step-submit-content">
 					<h3 className="title title_size-s step-submit-content__title">Perfect!</h3>
+					{iOS() ? <a style={{fontSize: 50}} onClick={handleSubmit}>SUBMIT</a>
+					:
+					<>
 					<p className="title title_size-xs">Swipe right to create IMMA NFT</p>
 					<div className="slider-wrapper">
 						<div className="slider-field" ref={scaleRef}>
@@ -144,6 +160,7 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 							</svg>
 						</button>
 					</div>
+					</>}
 				</div>
 			</div>
 		</div>

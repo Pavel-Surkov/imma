@@ -512,19 +512,6 @@ export const Creation = (props) => {
     }
   }
 
-  function iOS() {
-    return [
-      'iPad Simulator',
-      'iPhone Simulator',
-      'iPod Simulator',
-      'iPad',
-      'iPhone',
-      'iPod'
-    ].includes(navigator.platform)
-    // iPad on iOS 13 detection
-    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-  }
-
 	return (
 		<section id="creation" className="section creation" ref={containerRef}>
       <a id="creation-redirect" href={`https://metamask.app.link/dapp/${domain}/?rid=${rid}`}>redirect</a>
@@ -828,7 +815,6 @@ export const Creation = (props) => {
             session={session}
             rid={rid}
           />
-          {iOS() ? 'iphone' : 'android' }
 				</div>
 			</div>
 		</section>
