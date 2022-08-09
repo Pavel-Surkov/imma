@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { OriginalNftInfo } from '../components/OriginalNftInfo';
 import nftPicture from '../../assets/images/nft-picture.png';
 import nftPicture2x from '../../assets/images/nft-picture@2x.png';
+import etherumIcon from '../../assets/images/etherum.svg';
+import usdIcon from '../../assets/images/usd.svg';
 import axios from 'axios';
 import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
 import { Result } from '../helpers/getLiveFeedTypes';
@@ -53,6 +55,22 @@ export const OriginalNft = () => {
 									src={inft.nfta.metadata.image}
 									alt=""
 								/>
+								<div className="last-price">
+									<div className="last-price__label">
+										Price:
+									</div>
+									<div className="last-price__values">
+										<div className="last-price__etherum-value">
+											<img alt="icon" src={etherumIcon} />
+											<p>{inft.nfta.price_history[0].priceEth}</p>
+										</div>
+										<div className="last-price__usd-value">
+											<img alt="icon" src={usdIcon} />
+											<p>{inft.nfta.price_history[0].priceUSD}</p>
+										</div>
+									</div>
+
+								</div>
 							</div>
 							<OriginalNftInfo inft={inft} />
 							</>
