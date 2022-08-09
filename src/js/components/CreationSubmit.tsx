@@ -109,7 +109,56 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 				</div>
 				<div className="step-submit-content">
 					<h3 className="title title_size-s step-submit-content__title">Perfect!</h3>
-					{iOS() ? <a className="form-submit-mobile" onClick={handleSubmit}>SUBMIT</a>
+					{iOS() ?
+					<div className="slider-wrapper">
+						<div className="slider-field">
+							<span className="slider-field__placeholder">
+								Create IMMA NFT
+								<svg
+									width="26"
+									height="10"
+									viewBox="0 0 26 10"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M0 5.04736H25M25 5.04736L20.2381 0.547363M25 5.04736L20.2381 9.54736"
+										stroke="white"
+										strokeOpacity="0.5"
+									/>
+								</svg>
+							</span>
+							<Draggable
+								axis="x"
+								bounds={{ top: 0, left: 0, right: boundRight, bottom: 0 }}
+								onStop={(evt, data) => handleToggleStop(evt, data)}
+							>
+								<div className="slider-toggle" onClick={handleSubmit}></div>
+							</Draggable>
+						</div>
+						<button
+							type="button"
+							className="slider-clean"
+							onClick={() => dispatch({ type: 'CLEAN_FORM' })}
+						>
+							<svg
+								width="20"
+								height="21"
+								viewBox="0 0 20 21"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M7.5 7.77051H8.75V15.2705H7.5V7.77051ZM11.25 7.77051H12.5V15.2705H11.25V7.77051Z"
+									fill="#B8B8B8"
+								/>
+								<path
+									d="M2.5 4.02051V5.27051H3.75V17.7705C3.75 18.102 3.8817 18.42 4.11612 18.6544C4.35054 18.8888 4.66848 19.0205 5 19.0205H15C15.3315 19.0205 15.6495 18.8888 15.8839 18.6544C16.1183 18.42 16.25 18.102 16.25 17.7705V5.27051H17.5V4.02051H2.5ZM5 17.7705V5.27051H15V17.7705H5ZM7.5 1.52051H12.5V2.77051H7.5V1.52051Z"
+									fill="#B8B8B8"
+								/>
+							</svg>
+						</button>
+					</div>
 					:
 					<>
 					<p className="title title_size-xs">Swipe right to create IMMA NFT</p>
