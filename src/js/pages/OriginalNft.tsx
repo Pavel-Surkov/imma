@@ -69,7 +69,6 @@ export const OriginalNft = () => {
 											<p>{inft.nfta.price_history[0].priceUSD}</p>
 										</div>
 									</div>
-
 								</div>
 							</div>
 							<OriginalNftInfo inft={inft} />

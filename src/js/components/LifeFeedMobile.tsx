@@ -62,6 +62,7 @@ export const LifeFeedMobile = ({
 										src={row.inft.metadata.animation_url + '#t=1'}
 										preload="metadata"
 										className="video-preview"
+										poster={row.inft.poster}
 									></video>
 									<div className="video-play__wrapper">
 										<Link to={`/allnft/${row.uid}`} className="video-play">

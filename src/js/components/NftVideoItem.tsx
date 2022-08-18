@@ -70,6 +70,7 @@ export const NftVideoItem = ({
 					src={properties.inft.metadata.animation_url + '#t=1'}
 					preload="metadata"
 					className="video-preview"
+					poster={properties.inft.poster}
 				></video>
 				<div className="video-play__wrapper">
 					<Link to={`allnft/${properties.uid}`} className="video-play">

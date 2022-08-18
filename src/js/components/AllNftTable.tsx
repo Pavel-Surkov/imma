@@ -58,6 +58,7 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 												src={row.inft.metadata.animation_url + '#t=1'}
 												preload="metadata"
 												className="video-preview"
+												poster={row.inft.poster}
 											></video>
 										</Link>
 										{/*<img
@@ -214,6 +215,7 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 									src={row.inft.metadata.animation_url + '#t=1'}
 									preload="metadata"
 									className="video-preview"
+									poster={row.inft.poster}
 								></video>
 								{/*<img
 									width="138"

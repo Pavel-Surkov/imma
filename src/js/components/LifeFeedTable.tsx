@@ -202,8 +202,10 @@ export const LifeFeedTable = ({
 						const lastActivity: ActivityT | undefined = row.activity[0];
 
 						const lastActivityDate: string = convertDateToString(
-							new Date(lastActivity.epoch)
+							new Date(lastActivity.epoch * 1000)
 						);
+						console.log('row');
+						console.log(row);
 
 						const uid: string = `#${row.uid.slice(0, 5)}...`;
 
@@ -217,6 +219,7 @@ export const LifeFeedTable = ({
 											src={row.inft.metadata.animation_url + '#t=1'}
 											preload="metadata"
 											className="video-preview"
+											poster={row.inft.poster}
 										></video>
 									</Link>
 										{/*<div className="video-play__wrapper">
