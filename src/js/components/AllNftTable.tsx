@@ -56,7 +56,7 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 												width="370"
 												height="123"
 												src={row.inft.metadata.animation_url + '#t=1'}
-												preload="metadata"
+												preload="none"
 												className="video-preview"
 												poster={row.inft.poster}
 											></video>
@@ -213,7 +213,7 @@ export const AllNftMobile = ({ tableData, allTableVisible }: AllNftMobileProps) 
 								<video
 									width="138"
 									src={row.inft.metadata.animation_url + '#t=1'}
-									preload="metadata"
+									preload="none"
 									className="video-preview"
 									poster={row.inft.poster}
 								></video>

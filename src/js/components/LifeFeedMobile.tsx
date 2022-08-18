@@ -60,7 +60,7 @@ export const LifeFeedMobile = ({
 									<video
 										width="370"
 										src={row.inft.metadata.animation_url + '#t=1'}
-										preload="metadata"
+										preload="none"
 										className="video-preview"
 										poster={row.inft.poster}
 									></video>
