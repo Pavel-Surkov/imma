@@ -150,6 +150,7 @@ export const AllImmaNft = () => {
 				url: `${BASE_URL}/api/${BLOCKCHAIN}/${NETWORK_NAME}/getLiveFeed`,
 				params: {
 					nextpage: `"${_nextPage}"`,
+					sort_by: state.sortValue,
 					search: ''
 				}
 			};

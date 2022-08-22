@@ -16,13 +16,23 @@ type SortOptionsT = {
 const sortOptions: Array<SortOptionsT> = [
 	{
 		id: '1',
-		text: 'IMMA NFT token address',
-		tag: 'address'
+		text: 'Date',
+		tag: 'date'
 	},
 	{
 		id: '2',
-		text: 'IMMA NFT author',
-		tag: 'author'
+		text: 'INFT token',
+		tag: 'inft_token'
+	},
+	{
+		id: '3',
+		text: 'NFTA token',
+		tag: 'nfta_token'
+	},
+	{
+		id: '4',
+		text: 'Author name',
+		tag: 'author_name'
 	}
 ];
 
