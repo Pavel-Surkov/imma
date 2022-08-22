@@ -167,7 +167,7 @@ export const AllNftTable = ({ tableData, allTableVisible }: AllNftTableProps) =>
 							<td className="table-col">
 								<div className="table-col__wrapper">
 									<p className="title">Last Price</p>
-									<p>{row.activity[0].priceETH} ETH</p>
+									<p>{parseFloat(parseFloat(row.activity[0].priceETH).toFixed(4))} ETH</p>
 								</div>
 							</td>
 						</tr>
