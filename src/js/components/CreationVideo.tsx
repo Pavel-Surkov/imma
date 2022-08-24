@@ -294,7 +294,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 							height="660"
 							autoPlay={true}
 							ref={mediaRef}
-							style={video ? { display: 'none' } : { display: 'block' }}
+							style={video ? { display: 'block' } : { display: 'none' }}//{video ? { display: 'none' } : { display: 'block' }}
 						></video>
 						<video
 							className="video-modal__video"
