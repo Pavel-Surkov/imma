@@ -48,7 +48,7 @@ export const LifeFeedMobile = ({
 					const lastActivity: ActivityT | undefined = row.activity ? row.activity[0] : null;
 
 					const lastActivityDate: string = lastActivity ? convertDateToString(
-						new Date(lastActivity.epoch)
+						new Date(lastActivity.epoch * 1000)
 					) : null;
 
 					const uid: string = `#${row.uid.slice(0, 10)}...`;
@@ -170,7 +170,7 @@ export const LifeFeedMobile = ({
 									<p className="title">
 										by&nbsp;
 										<a className="link" href="/">
-											{lastActivity ? lastActivity.from : ''}
+											{lastActivity ? lastActivity.by : ''}
 										</a>
 									</p>
 									<p className="title">{lastActivityDate}</p>

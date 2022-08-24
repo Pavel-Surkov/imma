@@ -13,6 +13,12 @@ type SortOptionsT = {
 	tag: string;
 };
 
+type OrderOptionsT = {
+	id: string;
+	text: string;
+	tag: string;
+};
+
 const sortOptions: Array<SortOptionsT> = [
 	{
 		id: '1',
@@ -33,6 +39,19 @@ const sortOptions: Array<SortOptionsT> = [
 		id: '4',
 		text: 'Author name',
 		tag: 'author_name'
+	}
+];
+
+const orderOptions: Array<OrderOptionsT> = [
+	{
+		id: '1',
+		text: 'asc',
+		tag: 'asc'
+	},
+	{
+		id: '2',
+		text: 'des',
+		tag: 'des'
 	}
 ];
 
@@ -92,24 +111,46 @@ export const SortNft = ({ state, dispatch, handleSearch }: SortNftProps) => {
 					address or by creator name.
 				</p>
 			</div>
-			<div className="nfts-sort__sort">
-				Sort by:
-				<div className="nfts-sort__select-wrapper">
-					<select
-						className="nfts-sort__select"
-						value={state.sortValue}
-						onChange={(evt) =>
-							dispatch({ type: 'SORT_PARAMETER_CHANGE', value: evt.target.value })
-						}
-					>
-						{sortOptions.map((option) => {
-							return (
-								<option value={option.tag} key={option.id}>
-									{option.text}
-								</option>
-							);
-						})}
-					</select>
+			<div className="nfts-sort__sort-wrap">
+				<div className="nfts-sort__sort">
+					Sort by:
+					<div className="nfts-sort__select-wrapper">
+						<select
+							className="nfts-sort__select"
+							value={state.sortValue}
+							onChange={(evt) =>
+								dispatch({ type: 'SORT_PARAMETER_CHANGE', value: evt.target.value })
+							}
+						>
+							{sortOptions.map((option) => {
+								return (
+									<option value={option.tag} key={option.id}>
+										{option.text}
+									</option>
+								);
+							})}
+						</select>
+					</div>
+				</div>
+				<div className="nfts-sort__sort">
+					Order by:
+					<div className="nfts-sort__select-wrapper">
+						<select
+							className="nfts-sort__select"
+							value={state.sort_order}
+							onChange={(evt) =>
+								dispatch({ type: 'SORT_ORDER_CHANGE', value: evt.target.value })
+							}
+						>
+							{orderOptions.map((option) => {
+								return (
+									<option value={option.tag} key={option.id}>
+										{option.text}
+									</option>
+								);
+							})}
+						</select>
+					</div>
 				</div>
 			</div>
 		</div>

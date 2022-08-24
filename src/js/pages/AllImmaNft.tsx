@@ -11,10 +11,12 @@ export type TableActionType =
 	| Action<'SET_LOADED_DATA', { value: null | any }>
 	| Action<'SORT_SEARCH', {}>
 	| Action<'SORT_PARAMETER_CHANGE', { value: string }>
+	| Action<'SORT_ORDER_CHANGE', { value: string }>
 	| Action<'SORT_SEARCH_CHANGE', { value: string }>;
 
 export type AllNftStateT = {
 	searchValue: string;
+	sort_order: string;
 	sortValue: string;
 	loadedTableData: Array<ITableData>;
 	currentTableData: Array<ITableData>;
@@ -25,6 +27,7 @@ type SearchByValues = [string, string/*, string*/];
 
 const initialState: AllNftStateT = {
 	searchValue: '',
+	sort_order: 'asc',
 	sortValue: 'address',
 	loadedTableData: null,
 	currentTableData: null,
@@ -98,6 +101,12 @@ function reducer(state: AllNftStateT, action: TableActionType) {
 				return;
 			}
 		}
+		case 'SORT_ORDER_CHANGE': {
+			return {
+				...state,
+				sort_order: action.value
+			};
+		}
 		default: {
 			throw new TypeError('Action type is uncorrect');
 		}
@@ -151,6 +160,7 @@ export const AllImmaNft = () => {
 				params: {
 					nextpage: `"${_nextPage}"`,
 					sort_by: state.sortValue,
+					sort_order: state.sort_order,
 					search: ''
 				}
 			};
