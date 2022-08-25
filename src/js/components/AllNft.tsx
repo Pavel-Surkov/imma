@@ -169,7 +169,7 @@ export const AllNft: React.FC = () => {
 								spaceBetween={30}
 								slidesPerView={'auto'}
 								centeredSlides={false}
-								loop={true}
+								loop={(data.results.length > 0) ? true : false}
 								// onSlideChange={(swiper) => slideChange(swiper)}
 								// onTransitionEnd={(swiper) => slideChange(swiper)}
 								onSlideChangeTransitionStart={(swiper) =>
