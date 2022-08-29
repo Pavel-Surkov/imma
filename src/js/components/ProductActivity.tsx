@@ -11,7 +11,7 @@ export const ProductActivity = React.memo(({ video }: { video: Result }) => {
 			<div className="activity">
 				<ul className="activity-list">
 					{video.activity.map((activity, i) => {
-						const activityDate: string = convertDateToString(new Date(activity.epoch));
+						const activityDate: string = convertDateToString(new Date(activity.epoch * 1000));
 
 						return (
 							// TODO: When adding API delete 'i' from key
