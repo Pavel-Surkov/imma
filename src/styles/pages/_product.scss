@@ -3,6 +3,9 @@
 		& .video {
 			max-width: 270px;
 		}
+		& video {
+			max-height: 478px;
+		}
 	}
 	&__wrapper {
 		padding: 52px 0;
@@ -147,6 +150,13 @@
 		&__swiper {
 			& .video {
 				max-width: 100%;
+				max-height: 515px;
+			}
+			& video {
+				max-height: 515px;
+			}
+			& .swiper.more-swiper__swiper .all-nft__swiper-slide.swiper-slide-active .video {
+				max-height: 515px;
 			}
 		}
 		&__wrapper {
