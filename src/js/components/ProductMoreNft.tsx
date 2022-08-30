@@ -30,7 +30,7 @@ export const ProductMoreNft = ({ video }: { video: null | any }) => {
 					console.log(elem.inft.metadata.name === video.inft.metadata.name);
 					return elem.inft.metadata.name === video.inft.metadata.name;
 				})
-				setData(results.concat(results).concat(results));
+				setData(results);
 			})
 			.catch((error) => {
 				console.log(error);

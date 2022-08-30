@@ -139,7 +139,11 @@
 			width: 100%;
 			& .video {
 				max-width: 370px;
+				height: 515px !important;
 				margin: 0 auto;
+				video {
+					height: 515px;
+				}
 			}
 		}
 	}
