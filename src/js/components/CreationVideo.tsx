@@ -295,6 +295,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 							autoPlay={true}
 							ref={mediaRef}
 							style={video ? { display: 'none' } : { display: 'block' }}
+							playsInline={true}
 						></video>
 						<video
 							className="video-modal__video"
@@ -305,6 +306,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 							ref={videoRef}
 							style={video ? { display: 'block' } : { display: 'none' }}
 							onEnded={() => videoRef.current.play()}
+							playsInline={true}
 						>
 							Your browser doesn't support video tag
 						</video>
