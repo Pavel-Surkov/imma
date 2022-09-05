@@ -147,7 +147,7 @@ export const CreationVideo = ({ dispatch }: ICreationVideo) => {
 
 		// Options for media stream
 		const hdConstraints = {
-			audio: false,
+			audio: true,
 			video: true//{ width: { min: 0 }, height: { min: 0 }, facingMode: 'user' }
 		};
 
