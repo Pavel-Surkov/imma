@@ -309,13 +309,12 @@ export const LifeFeedTable = ({
 									<div className="table-col__wrapper">
 										<p className="title">Original NFT token</p>
 										<p>
-											<a className="link" href="/">
+											<a className="link" href={`/original-nft/${row.uid}`}>
 												{shortToken}
 											</a>
 										</p>
 										{row.inft.metadata.image && (
 											<img
-												width="100"
 												data-img="sign"
 												src={row.inft.metadata.image}
 												alt="sign"

@@ -88,6 +88,8 @@
 				width: calc((246 / 1170) * 100%);
 				& img {
 					margin-top: auto;
+					width: auto;
+					max-height: 60px;
 				}
 			}
 			&:last-child {
