@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from './Button';
 import { NftMainVideoItem, NftVideo } from './NftMainVideoItem';
-import { mainNftVideoData } from './AllNft';
 import { BASE_URL, BLOCKCHAIN, NETWORK_NAME } from '../api/Api';
 import axios from 'axios';
 
