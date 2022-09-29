@@ -21,7 +21,7 @@ import nft4_2x from '../../assets/images/nft4@2x.jpg';
 import nft5 from '../../assets/images/nft5.jpg';
 import nft5_2x from '../../assets/images/nft5@2x.jpg';
 import sign from '../../assets/images/sign.svg';
-
+/*
 export const mainNftVideoData: Array<NftVideo> = [
 	{
 		id: '1',
@@ -98,7 +98,7 @@ export const mainNftVideoData: Array<NftVideo> = [
 			quality2x: nftPicture2x
 		}
 	}
-];
+];*/
 
 export const AllNft: React.FC = () => {
 	const [data, setData] = useState(null);

@@ -284,7 +284,7 @@ export const LifeFeedTable = ({
 										<p>{row.inft.metadata.name}</p>
 									</a>
 									<p className="title">TX</p>
-									<Link to="/">
+									<Link to={`/allnft/${row.uid}`}>
 										<svg
 											width="18"
 											height="19"
