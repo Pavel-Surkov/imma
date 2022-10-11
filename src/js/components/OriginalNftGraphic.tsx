@@ -66,8 +66,16 @@ const CustomizedAxisTick = (props) => {
 	);
 }
 
+interface TooltipProps {
+	active? : any;
+	payload? : any;
+	label? : any;
+}
+
 export const OriginalNftGraphic = (props) => {
 	const [isMobile, setIsMobile] = useState(false);
+	const [lineLabel1, setLineLabel1] = useState(false);
+	const [lineLabel2, setLineLabel2] = useState(false);
 
 	useEffect(() => {
 		const windowWidth = window.innerWidth;
@@ -77,6 +85,26 @@ export const OriginalNftGraphic = (props) => {
 			setIsMobile(false);
 		}
 	}, [window.innerWidth]);
+
+	const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
+		if (active && payload && payload.length && lineLabel1) {
+			return (
+			<div className="custom-tooltip">
+				<p className="label">{`${label} : ${payload[0].value}`}</p>
+				<p className="desc">label1</p>
+			</div>
+			);
+		}
+		if (active && payload && payload.length && lineLabel2) {
+			return (
+			<div className="custom-tooltip">
+				<p className="label">{`${label} : ${payload[0].value}`}</p>
+				<p className="desc">label2</p>
+			</div>
+			);
+		}
+		return null;
+	};
 
 	const data = [];
 	const inft = props.inft;
@@ -367,10 +395,10 @@ export const OriginalNftGraphic = (props) => {
 					<line x1="0.501953" y1="6.2074" x2="9.73203" y2="6.2074" stroke="#D6FF7E" strokeWidth="2"/>
 					<line x1="0.501953" y1="11.2074" x2="9.73203" y2="11.2074" stroke="#D6FF7E" strokeWidth="2"/>
 				</svg>
-				<span>{avgPrice}</span>
+				<span>{avgPrice.toFixed(3)}</span>
 			</div>
 			<ResponsiveContainer width="100%">
-        <LineChart data={data}>
+				<LineChart data={data}>
 					<CartesianGrid x1={5000} stroke={'rgba(255, 255, 255, 0.2)'} vertical={false} />
 					{isMobile ?
 					<YAxis width={10} tick={<CustomizedAxisTick dy={3} dx={0} />} tickLine={false} axisLine={false} />
@@ -378,10 +406,14 @@ export const OriginalNftGraphic = (props) => {
 					<YAxis tick={<CustomizedAxisTick dy={5} dx={-30} />} tickLine={false} axisLine={false} />
 					}
 					<XAxis interval={0} tick={<CustomizedAxisTick dy={19} dx={20} isMobile={isMobile} />} tickLine={false} axisLine={false} dataKey="dateLabel" />
-          <Line type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={2} dot={null} />
-          <Line type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={2} dot={null} />
-        </LineChart>
-      </ResponsiveContainer>
+					<Line dot={false} onMouseEnter={() => setLineLabel1(true)} onMouseLeave={() => setLineLabel1(false)} type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={2} dot={null} />
+					<Line dot={false} onMouseEnter={() => setLineLabel2(true)} onMouseLeave={() => setLineLabel2(false)} type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={2} dot={null} />
+					<Tooltip
+						cursor={false}
+						content={<CustomTooltip />}
+					/>
+				</LineChart>
+			</ResponsiveContainer>
 			{isMobile ?
 				<div className="price-graphic__description">
 					<div className="price-graphic__description-item">

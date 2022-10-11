@@ -62,11 +62,11 @@ export const OriginalNft = () => {
 									<div className="last-price__values">
 										<div className="last-price__etherum-value">
 											<img alt="icon" src={etherumIcon} />
-											<p>{inft.nfta.price_history[0] ? inft.nfta.price_history[0].priceEth : ''}</p>
+											<p>{inft.nfta.price_history[0] ? inft.nfta.price_history[0].priceEth.toFixed(3) : '0.000'}</p>
 										</div>
 										<div className="last-price__usd-value">
 											<img alt="icon" src={usdIcon} />
-											<p>{inft.nfta.price_history[0] ? inft.nfta.price_history[0].priceUSD : ''}</p>
+											<p>{inft.nfta.price_history[0] ? inft.nfta.price_history[0].priceUSD.toFixed(3) : '0.000'}</p>
 										</div>
 									</div>
 								</div>
