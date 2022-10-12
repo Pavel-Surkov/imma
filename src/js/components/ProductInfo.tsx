@@ -14,9 +14,10 @@ type ProductInfoProps = {
 	loginWallet: (event: any) => void;
 	handle_claim: (event: any) => void;
 	session: any;
+	network: any;
 };
 
-export const ProductInfo = React.memo(({ video, status, coupled, session, handle_claim, loginWallet }: ProductInfoProps) => {
+export const ProductInfo = React.memo(({ video, status, coupled, session, network, handle_claim, loginWallet }: ProductInfoProps) => {
 	return (
 		<div className="product-page__info">
 			<h2 className="title title_size-m product-page__title">
@@ -31,7 +32,7 @@ export const ProductInfo = React.memo(({ video, status, coupled, session, handle
 			/>
 			<ProductOriginalNft video={video} />
 			<ProductAuthor video={video} />
-			<ProductActivity video={video} />
+			<ProductActivity network={network} video={video} />
 			<ProductMoreNft video={video} />
 		</div>
 	);

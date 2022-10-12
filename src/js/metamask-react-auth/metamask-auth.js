@@ -2,6 +2,8 @@ import {
   ethers
 } from 'ethers';
 import axios from 'axios'
+import { NETWORK_NAME } from '../api/Api';
+
 console.log('window.ethereum: ',window.ethereum)
 let provider = null
 if (window.ethereum)provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -87,7 +89,7 @@ async function loginConfirm(login_response) {
     data.append('voucher', JSON.stringify(login_response.voucher));
     var config = {
       method: 'post',
-      url: `${globals[server]}/api/ethereum/rinkeby/loginConfirm`,
+      url: `${globals[server]}/api/ethereum/${NETWORK_NAME}/loginConfirm`,
       headers: {},
       data : data
     };
@@ -106,7 +108,7 @@ async function loginRequest(address) {
     data.append('address', address);
     var config = {
       method: 'post',
-      url: `${globals[server]}/api/ethereum/rinkeby/loginRequest`,
+      url: `${globals[server]}/api/ethereum/${NETWORK_NAME}/loginRequest`,
       headers: {},
       data : data
     };
