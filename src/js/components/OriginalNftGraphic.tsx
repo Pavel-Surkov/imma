@@ -406,8 +406,8 @@ export const OriginalNftGraphic = (props) => {
 					<YAxis tick={<CustomizedAxisTick dy={5} dx={-30} />} tickLine={false} axisLine={false} />
 					}
 					<XAxis interval={0} tick={<CustomizedAxisTick dy={19} dx={20} isMobile={isMobile} />} tickLine={false} axisLine={false} dataKey="dateLabel" />
-					<Line dot={false} onMouseEnter={() => setLineLabel1(true)} onMouseLeave={() => setLineLabel1(false)} type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={2} dot={null} />
-					<Line dot={false} onMouseEnter={() => setLineLabel2(true)} onMouseLeave={() => setLineLabel2(false)} type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={2} dot={null} />
+					<Line dot={false} onMouseEnter={() => setLineLabel1(true)} onMouseLeave={() => setLineLabel1(false)} type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={2} />
+					<Line dot={false} onMouseEnter={() => setLineLabel2(true)} onMouseLeave={() => setLineLabel2(false)} type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={2} />
 					<Tooltip
 						cursor={false}
 						content={<CustomTooltip />}
