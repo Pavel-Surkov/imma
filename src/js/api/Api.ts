@@ -5,7 +5,7 @@ export const BASE_URL_LOCAL: string = 'http://localhost:3000'; // http://localho
 
 export const BLOCKCHAIN: 'ethereum' | 'polygon' = 'ethereum';
 
-export const NETWORK_NAME: string = 'rinkeby';
+export const NETWORK_NAME: string = 'goerli';
 
 export const NETWORK_ID: number = 4;
 

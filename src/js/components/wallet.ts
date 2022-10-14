@@ -1,3 +1,5 @@
+import { NETWORK_NAME } from '../api/Api';
+
 const axios_call = async (payload) => {
   return await axios(payload)
     .then((response) => {
@@ -35,7 +37,7 @@ async function loginConfirm(login_response) {
 
     const payload = {
       method: 'post',
-      url: `${server}/api/ethereum/rinkeby/loginConfirm`,
+      url: `${server}/api/ethereum/${NETWORK_NAME}/loginConfirm`,
       headers: {},
       data: data
     };
@@ -57,6 +59,7 @@ async function loginRequest(address) {
     const network_to_chainId = {
       1: 'main',
       4: 'rinkeby',
+      420: 'goerli',
     }
     const blockchain = 'ethereum'
     const network = network_to_chainId[chainId]

@@ -3,8 +3,9 @@ import { ITableData } from '../helpers/nftTableData';
 import avatar from '../../assets/images/icons/avatar.svg';
 import { Result } from '../helpers/getLiveFeedTypes';
 import { convertDateToString } from '../helpers/nftTableData';
+import { NETWORK_NAME } from '../api/Api';
 
-export const ProductActivity = React.memo(({ video }: { video: Result }) => {
+export const ProductActivity = React.memo(({ network, video }: { network: any, video: Result }) => {
 	return (
 		<div className="product-block product-page__activity">
 			<h4 className="title product-block__title">Activity:</h4>
@@ -31,7 +32,7 @@ export const ProductActivity = React.memo(({ video }: { video: Result }) => {
 												by{' '}
 												<a
 													className="link link_hover_green"
-													href={`https://rinkeby.etherscan.io/address/${activity.by}`}
+													href={network !== 'main' ? `https://${network}.etherscan.io/address/${activity.by}` : `https://etherscan.io/address/${activity.by}`}
 												>
 													{activity.by}
 												</a>

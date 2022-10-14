@@ -8,7 +8,7 @@
         "selected":{
             "environment":"beta",
             "blockchain":"ethereum",
-            "network":"rinkeby"
+            "network":"goerli"
         },
         "network_id": 4,
         "ipfs_url":"https://ipfs.infura.io:5001/api/v0",
@@ -19,6 +19,9 @@
                 },
                 "rinkeby":{
                     "id":4
+                },
+                "goerli":{
+                    "id":420
                 }
             }
         }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { tableData } from '../helpers/nftTableData';
 import { ProductMoreNft } from './ProductMoreNft';
 import { OriginalNftGraphic } from './OriginalNftGraphic';
+import { NETWORK_NAME } from '../api/Api';
 
 export const OriginalNftInfo = (props) => {
 	const inft = props.inft;
@@ -38,7 +39,7 @@ export const OriginalNftInfo = (props) => {
 				<h4 className="title product-block__title">Price History</h4>
 				{/* Graph */}
 				<OriginalNftGraphic inft={inft} />
-				<a href={`https://testnets.opensea.io/assets/rinkeby/${SMART_CONTRACT}/${TOKEN_ID}`} className="link original-page__graph-link">
+				<a href={`https://testnets.opensea.io/assets/${NETWORK_NAME}/${SMART_CONTRACT}/${TOKEN_ID}`} className="link original-page__graph-link">
 					See in opensea
 				</a>
 			</div>

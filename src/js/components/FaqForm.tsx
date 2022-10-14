@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NETWORK_NAME } from '../api/Api';
 
 export const FaqForm: React.FC = () => {
 	const [formValues, setFormValues] = useState({
@@ -31,7 +32,7 @@ export const FaqForm: React.FC = () => {
 				formData.append('email', formValues.email);
 				formData.append('content', formValues.question);
 		
-				let res = await fetch("https://api.imma.club/api/ethereum/rinkeby/supportQuestion", {
+				let res = await fetch(`https://api.imma.club/api/ethereum/${NETWORK_NAME}/supportQuestion`, {
 					method: "POST",
 					body: formData,
 				});
