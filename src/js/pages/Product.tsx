@@ -188,6 +188,7 @@ export const Product: React.FC = () => {
       event.preventDefault();
     }
     if (!is_connected_ref.current.connected){
+      console.log('is_connected_ref.current')
       console.log(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
         /* alert('you are not connected, please install metamask (redirect mobile)')*/
