@@ -187,6 +187,7 @@ export const Product: React.FC = () => {
     if (event) {
       event.preventDefault();
     }
+    console.log('in login wallet');
     if (!is_connected_ref.current.connected){
       console.log('is_connected_ref.current')
       console.log(is_connected_ref.current)
