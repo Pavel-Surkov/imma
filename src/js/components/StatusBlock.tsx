@@ -15,6 +15,7 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
     event.preventDefault();
 		if (!session.current) {
 			console.log('authenticate and try again');
+			console.log(session);
 			loginWallet(event);
 		} else {
 			handle_claim(event);
