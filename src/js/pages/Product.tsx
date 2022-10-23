@@ -189,7 +189,7 @@ export const Product: React.FC = () => {
     }
     console.log('in login wallet');
     console.log(session_ref);
-    if (!is_connected_ref.current.connected){
+    if (!session_ref.current){
       console.log('is_connected_ref.current')
       console.log(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
