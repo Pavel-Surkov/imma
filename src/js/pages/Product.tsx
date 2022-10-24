@@ -187,9 +187,7 @@ export const Product: React.FC = () => {
     if (event) {
       event.preventDefault();
     }
-    console.log('in login wallet');
-    console.log(is_connected_ref);
-    if (true){
+    if (!is_connected_ref.current.connected) {
       console.log('is_connected_ref.current')
       console.log(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
@@ -203,7 +201,9 @@ export const Product: React.FC = () => {
         return
       }
     }
-    if (selected_chainId!==is_connected_ref.current.chainId)return /* alert('please change wallet network for selected one' )*/
+    if (selected_chainId!==is_connected_ref.current.chainId) {
+      return alert('please change wallet network for selected one' );
+    } /* alert('please change wallet network for selected one' )*/
     init_wallet(callBack)
   }
 
