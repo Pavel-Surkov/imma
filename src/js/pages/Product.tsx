@@ -235,7 +235,7 @@ export const Product: React.FC = () => {
     const networkTochainId = {
       main:1,
       rinkeby:4,
-      goerli:420,
+      goerli:5,
     }
     return networkTochainId[name];
   }
@@ -245,7 +245,7 @@ export const Product: React.FC = () => {
       const chainIdToNetwork = {
         1:'main',
         4:'rinkeby',
-        420:'goerli',
+        5:'goerli',
       }
       const connected_network = chainIdToNetwork[is_connected_ref.current.chainId];
       console.log('connected_network: ',connected_network);
@@ -271,7 +271,7 @@ export const Product: React.FC = () => {
     const network_to_id = {
       'network_main':1,
       'network_rinkeby':4,
-      'network_goerli':420,
+      'network_goerli':5,
     }
     if (!network_to_id.hasOwnProperty(value))return;
     const selected = network_to_id[value];
