@@ -59,7 +59,7 @@ async function loginRequest(address) {
     const network_to_chainId = {
       1: 'main',
       4: 'rinkeby',
-      420: 'goerli',
+      5: 'goerli',
     }
     const blockchain = 'ethereum'
     const network = network_to_chainId[chainId]
