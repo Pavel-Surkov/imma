@@ -3,50 +3,68 @@ import { tableData } from '../helpers/nftTableData';
 import { ProductMoreNft } from './ProductMoreNft';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-/*const data = [
+const _data = [
   {
-    name: '1/13',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    date: '01/2022',
+    dateLabel: '01/22',
+    inftPrice: 0,
+    nftaPrice: 1,
   },
   {
-    name: '1/14',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    date: '02/2022',
+    dateLabel: '02/22',
+    inftPrice: 0,
+    nftaPrice: 1,
   },
   {
-    name: '1/15',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    date: '03/2022',
+    dateLabel: '03/22',
+    inftPrice: 0,
+    nftaPrice: 1,
   },
   {
-    name: '1/16',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    date: '04/2022',
+    dateLabel: '04/22',
+    inftPrice: 0,
+    nftaPrice: 1,
   },
   {
-    name: '1/17',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    date: '05/2022',
+    dateLabel: '05/22',
+    inftPrice: 0,
+    nftaPrice: 1,
   },
   {
-    name: '1/18',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    date: '06/2022',
+    dateLabel: '06/22',
+    inftPrice: 0,
+    nftaPrice: 1,
   },
   {
-    name: '1/19',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    date: '07/2022',
+    dateLabel: '07/22',
+    inftPrice: 0,
+    nftaPrice: 1,
   },
-];*/
+  {
+    date: '08/2022',
+    dateLabel: '08/22',
+    inftPrice: 0,
+    nftaPrice: 1,
+  },
+  {
+    date: '09/2022',
+    dateLabel: '09/22',
+    inftPrice: 0,
+    nftaPrice: 1,
+  },
+  {
+    date: '10/2022',
+    dateLabel: '10/22',
+    inftPrice: 0,
+    nftaPrice: 1,
+  }
+];
 
 const CustomizedAxisTick = (props) => {
 	const { x, y, stroke, payload, isMobile } = props;
@@ -398,7 +416,7 @@ export const OriginalNftGraphic = (props) => {
 				<span>{avgPrice.toFixed(3)}</span>
 			</div>
 			<ResponsiveContainer width="100%">
-				<LineChart data={data}>
+				<LineChart data={_data}>
 					<CartesianGrid x1={5000} stroke={'rgba(255, 255, 255, 0.2)'} vertical={false} />
 					{isMobile ?
 					<YAxis width={10} tick={<CustomizedAxisTick dy={3} dx={0} />} tickLine={false} axisLine={false} />
