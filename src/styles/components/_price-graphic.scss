@@ -8,6 +8,18 @@
   padding: 50px;
   box-sizing: border-box;
   margin-bottom: 30px;
+  .custom-tooltip {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(25px);
+    font-family: 'Questrial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130.6%;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    padding: 11px 15px;
+  }
   .recharts-responsive-container {
     height: 126px !important;
     text {
