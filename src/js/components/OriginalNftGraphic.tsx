@@ -109,7 +109,7 @@ export const OriginalNftGraphic = (props) => {
 			return (
 			<div className="custom-tooltip">
 				<p className="label">{`${label} : ${payload[0].value}`}</p>
-				<p className="desc">label1</p>
+				<p className="desc">The price of the original NFT</p>
 			</div>
 			);
 		}
@@ -117,7 +117,7 @@ export const OriginalNftGraphic = (props) => {
 			return (
 			<div className="custom-tooltip">
 				<p className="label">{`${label} : ${payload[0].value}`}</p>
-				<p className="desc">label2</p>
+				<p className="desc">The price of the IMMA NFT</p>
 			</div>
 			);
 		}
