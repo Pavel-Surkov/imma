@@ -105,7 +105,7 @@ export const OriginalNftGraphic = (props) => {
 	}, [window.innerWidth]);
 
 	const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
-		if (active && payload && payload.length && lineLabel1) {
+		if (active && payload && payload.length/* && lineLabel1*/) {
 			return (
 			<div className="custom-tooltip">
 				{/*<p className="label">{`${label} : ${payload[0].value}`}</p>*/}
@@ -113,7 +113,7 @@ export const OriginalNftGraphic = (props) => {
 			</div>
 			);
 		}
-		if (active && payload && payload.length && lineLabel2) {
+		if (active && payload && payload.length/* && lineLabel2*/) {
 			return (
 			<div className="custom-tooltip">
 				{/*<p className="label">{`${label} : ${payload[0].value}`}</p>*/}
