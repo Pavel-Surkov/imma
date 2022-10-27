@@ -108,7 +108,7 @@ export const OriginalNftGraphic = (props) => {
 		if (active && payload && payload.length && lineLabel1) {
 			return (
 			<div className="custom-tooltip">
-				<p className="label">{`${label} : ${payload[0].value}`}</p>
+				{/*<p className="label">{`${label} : ${payload[0].value}`}</p>*/}
 				<p className="desc">The price of the original NFT</p>
 			</div>
 			);
@@ -116,7 +116,7 @@ export const OriginalNftGraphic = (props) => {
 		if (active && payload && payload.length && lineLabel2) {
 			return (
 			<div className="custom-tooltip">
-				<p className="label">{`${label} : ${payload[0].value}`}</p>
+				{/*<p className="label">{`${label} : ${payload[0].value}`}</p>*/}
 				<p className="desc">The price of the IMMA NFT</p>
 			</div>
 			);
