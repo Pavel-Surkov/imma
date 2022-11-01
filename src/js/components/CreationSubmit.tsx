@@ -131,7 +131,7 @@ export const CreationSubmit = ({ loginWallet, state, dispatch, handle_create, se
 							<Draggable
 								axis="x"
 								bounds={{ top: 0, left: 0, right: boundRight, bottom: 0 }}
-								onStop={(evt, data) => {}}
+								onStop={(evt, data) => handleToggleStop(evt, data)}
 							>
 								<div className="slider-toggle" onClick={handleSubmit}></div>
 							</Draggable>
