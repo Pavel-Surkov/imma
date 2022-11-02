@@ -817,13 +817,13 @@ export const Creation = (props) => {
           />
 				</div>
 			</div>
-      <a href="https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d">Test link</a>
+      <a href="https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d&r=12345">Test link</a>
       <br />
-      <button onClick={() => window.open('https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d')}>Test button window open</button>
+      <button onClick={() => window.open('https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d&r=12345')}>Test button window open</button>
       <br />
-      <button onClick={() => {window.location.href = 'https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d'}}>Test button simulate a mouse click</button>
+      <button onClick={() => {window.location.href = 'https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d&r=12345'}}>Test button simulate a mouse click</button>
       <br />
-      <button onClick={() => {window.location.replace('https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d')}}>Test button simulate an HTTP redirect</button>
+      <button onClick={() => {window.location.replace('https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d&r=12345')}}>Test button simulate an HTTP redirect</button>
 		</section>
 	);
 };
