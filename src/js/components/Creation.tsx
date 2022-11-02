@@ -817,6 +817,8 @@ export const Creation = (props) => {
           />
 				</div>
 			</div>
+      <a href="https://metamask.app.link/dapp/testnets.dev-webapp.com/?rid=e4b086a3-b119-4770-b49e-f8a0f212756d">Test a-link</a>
+      <button onClick={() => window.open('http://www.example.com')}>Test button-link</button>
 		</section>
 	);
 };
