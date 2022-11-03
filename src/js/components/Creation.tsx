@@ -817,6 +817,6 @@ export const Creation = (props) => {
           />
 				</div>
 			</div>
-		</section>
+    </section>
 	);
 };
