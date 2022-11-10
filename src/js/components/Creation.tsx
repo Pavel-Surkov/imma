@@ -393,7 +393,7 @@ export const Creation = (props) => {
         // alert('mobile device')
         //const domain = window.location.hostname;
         //window.location.replace(`https://metamask.app.link/dapp/${domain}?rid=${rid}`)
-        window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
+        window.location.replace(`https://metamask.app.link/dapp/${domain}/?rid=${rid}&r=${Math.floor(Math.random() * 90000) + 10000}`);
         // alert(`https://metamask.app.link/dapp/${domain}/?rid=${rid}`);
         //document.getElementById("creation-redirect").click();
       }
