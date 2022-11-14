@@ -406,7 +406,7 @@ export const OriginalNftGraphic = (props) => {
 		<div className="price-graphic">
 			<div className="price-graphic__title">
 				All Time Avg. Price
-			</div>
+			</div>	
 			<div className="price-graphic__number">
 				<svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<line x1="0.501953" y1="1.2074" x2="9.73203" y2="1.2074" stroke="#D6FF7E" strokeWidth="2"/>

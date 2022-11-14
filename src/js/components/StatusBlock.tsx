@@ -11,12 +11,13 @@ type StatusBlockProps = {
 };
 
 export const StatusBlock = React.memo(({ coupled, status, session, handle_claim, loginWallet }: StatusBlockProps) => {
-	const handleClick = (event) => {
-    event.preventDefault();
+	const handleClick  = async (event) => {
+    	event.preventDefault();
 		if (!session.current) {
 			console.log('authenticate and try again');
 			console.log(session);
-			loginWallet(event);
+			await loginWallet(event);
+			handle_claim(event);
 		} else {
 			handle_claim(event);
 		}
