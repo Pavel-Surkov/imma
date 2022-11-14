@@ -180,7 +180,7 @@ export const Product: React.FC = () => {
 			api_server:api_details_ref.current.api_server,
 		}
 		const response = await connect(params,ethers,window.ethereum,axios,onChainIdChange,setlistenersSingelton,listenersSingelton)
-		callback(response)
+		await callback(response);
 	}
 
 	const loginWallet = async (event)=>{
@@ -204,7 +204,7 @@ export const Product: React.FC = () => {
     if (selected_chainId!==is_connected_ref.current.chainId) {
       return alert('please change wallet network for selected one'+'selected_chainId'+selected_chainId+'is_connected_ref.current.chainId'+is_connected_ref.current.chainId);
     } /* alert('please change wallet network for selected one' )*/
-    init_wallet(callBack)
+    await init_wallet(callBack);
   }
 
   const getApiDetails = ()=>{
