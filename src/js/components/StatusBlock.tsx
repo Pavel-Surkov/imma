@@ -19,6 +19,7 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 			await loginWallet(event);
 			handle_claim(event);
 		} else {
+			console.log(session);
 			handle_claim(event);
 		}
 	}
