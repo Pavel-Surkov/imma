@@ -170,6 +170,7 @@ export const Product: React.FC = () => {
 				}
 			}
 			console.log('callback network_ref.current: ',network_ref.current)
+			alert('callback network_ref.current: ',network_ref.current)
 			check_network(networkNameToId(network_ref.current))
 	}
 
@@ -191,7 +192,7 @@ export const Product: React.FC = () => {
       console.log('is_connected_ref.current')
       console.log(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
-        /* alert('you are not connected, please install metamask (redirect mobile)')*/
+        alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
         window.location.replace(`https://metamask.app.link/dapp/${domain}`)
         return
