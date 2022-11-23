@@ -194,7 +194,9 @@ export const Product: React.FC = () => {
       if (is_connected_ref.current.mobile){
         alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
-        window.location.replace(`https://metamask.app.link/dapp/${domain}`)
+        if (video) {
+          window.location.replace(`https://metamask.app.link/dapp/${domain}/${video.uid}`);
+        }
         return
       }else{
         /* alert('you are not connected, please install metamask (redirect desktop)')*/
