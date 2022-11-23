@@ -195,7 +195,7 @@ export const Product: React.FC = () => {
         alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
         if (video) {
-          window.location.replace(`https://metamask.app.link/dapp/${domain}/${video.uid}`);
+          window.location.replace(`https://metamask.app.link/dapp/${domain}/allnft/${video.uid}`);
         }
         return
       }else{
