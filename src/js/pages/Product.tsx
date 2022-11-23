@@ -170,7 +170,7 @@ export const Product: React.FC = () => {
 				}
 			}
 			console.log('callback network_ref.current: ',network_ref.current)
-			alert('callback network_ref.current: ',network_ref.current)
+			alert('callback network_ref.current: ' + network_ref.current)
 			check_network(networkNameToId(network_ref.current))
 	}
 
