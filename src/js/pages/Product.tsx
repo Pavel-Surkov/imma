@@ -61,12 +61,11 @@ export const Product: React.FC = () => {
 	useEffect(() => {
 		setSessionRef()
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
-    const params = new URLSearchParams(window.location.pathname);
+    const params = new URLSearchParams(window.location.search);
     console.log('params______________________');
-    console.log(params);
+    console.log(params.get('claim'));
 
-    if (params.get("claim")) {
-      alert(params.get("claim"));
+    if (params.get("claim") === 'true') {
       handle_claim(null);
     }
 	}, []);
