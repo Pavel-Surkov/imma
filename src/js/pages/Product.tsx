@@ -61,6 +61,7 @@ export const Product: React.FC = () => {
 	useEffect(() => {
 		setSessionRef()
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
+    alert('loaded')
 		}, []);
 
 	useEffect(() => {
