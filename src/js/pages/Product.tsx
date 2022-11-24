@@ -61,8 +61,11 @@ export const Product: React.FC = () => {
 	useEffect(() => {
 		setSessionRef()
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
-    if (String(window.location).includes("claim=true")) {
-      alert('loaded')
+    const params = new URLSearchParams(window.location.pathname);
+
+    if (params.get("claim")) {
+      alert(params.get("claim"));
+      handle_claim(null);
     }
 	}, []);
 
@@ -110,6 +113,7 @@ export const Product: React.FC = () => {
 			.catch((error) => {
 				console.log(error);
 			});
+      
 	}, []);
 
 	const onChainIdChange = (chainIdhex)=>{
