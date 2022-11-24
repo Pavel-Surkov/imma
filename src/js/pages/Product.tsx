@@ -61,8 +61,10 @@ export const Product: React.FC = () => {
 	useEffect(() => {
 		setSessionRef()
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
-    alert('loaded')
-		}, []);
+    if (String(window.location).includes("claim=true") && String(window.location).includes(video.uid)  && session_ref.current) {
+      alert('loaded')
+    }
+	}, []);
 
 	useEffect(() => {
 		if (data && path) {
@@ -196,7 +198,7 @@ export const Product: React.FC = () => {
         // alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
         if (video) {
-          window.location.replace(`https://metamask.app.link/dapp/${domain}/allnft/${video.uid}`);
+          window.location.replace(`https://metamask.app.link/dapp/${domain}/allnft/${video.uid}?claim=true`);
         }
         return
       }else{
