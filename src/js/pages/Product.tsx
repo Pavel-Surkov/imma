@@ -61,7 +61,7 @@ export const Product: React.FC = () => {
 	useEffect(() => {
 		setSessionRef()
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
-    if (String(window.location).includes("claim=true") && session_ref.current) {
+    if (String(window.location).includes("claim=true")) {
       alert('loaded')
     }
 	}, []);
