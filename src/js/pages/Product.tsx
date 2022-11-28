@@ -203,7 +203,7 @@ export const Product: React.FC = () => {
         // alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
         if (video) {
-          window.location.replace(`https://metamask.app.link/dapp/${domain}/allnft/${video.uid}?ipfsCid=${ipfsCid}`);
+          window.location.replace(`https://metamask.app.link/dapp/${domain}/allnft/${video.uid}?ipfs_cid=${ipfsCid}`);
         }
         return
       }else{
