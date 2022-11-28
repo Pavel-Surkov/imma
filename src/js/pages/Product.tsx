@@ -63,9 +63,9 @@ export const Product: React.FC = () => {
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
     const params = new URLSearchParams(window.location.search);
     console.log('params______________________');
-    console.log(params.get('claim'));
+    console.log(params.get('ipfs_cid'));
 
-    if (params.get("claim") === 'true') {
+    if (params.get("ipfs_cid")) {
       handle_claim(null);
     }
 	}, []);
@@ -203,6 +203,7 @@ export const Product: React.FC = () => {
         // alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
         if (video) {
+          alert(ipfsCid);
           window.location.replace(`https://metamask.app.link/dapp/${domain}/allnft/${video.uid}?claim=true`);
         }
         return
