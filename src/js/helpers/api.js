@@ -141,7 +141,8 @@ const claim_request = async (api_base_url, session, ipfs_cid)=>{
         alert(JSON.stringify(response));
         return response;
     } catch (error) {
-        alert(JSON.stringify(error));
+        alert('error');
+        alert(error);
         console.log(error);
     }
 }
