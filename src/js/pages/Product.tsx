@@ -295,7 +295,7 @@ export const Product: React.FC = () => {
       if (event) {
         event.preventDefault();
       }
-      alert("in handle_claim");
+      //alert("in handle_claim");
       let ipfs_cid = ipfsCid;
       const urlParams = new URLSearchParams(window.location.search);
       console.log('params______________________');
@@ -303,7 +303,7 @@ export const Product: React.FC = () => {
       if (urlParams.get("ipfs_cid")) {
         ipfs_cid = urlParams.get("ipfs_cid");
       }
-      alert("ipfs_cid " + ipfs_cid);
+      //alert("ipfs_cid " + ipfs_cid);
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session_ref.current, ipfs_cid);
       if (!claim_request_response) return /* alert('cliam request failed')*/;
       if (claim_request_response.status!==200) return /* alert('cliam request failed')*/;
