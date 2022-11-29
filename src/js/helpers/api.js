@@ -122,8 +122,8 @@ const claim_request = async (api_base_url, session, ipfs_cid)=>{
         const urlParams = new URLSearchParams(window.location.search);
         console.log('params______________________');
         console.log(urlParams.get('ipfs_cid'));
-        if (params.get("ipfs_cid")) {
-            ipfs_cid = params.get("ipfs_cid");
+        if (urlParams.get("ipfs_cid")) {
+            ipfs_cid = urlParams.get("ipfs_cid");
         }
         const params = {
             ipfs_cid
