@@ -118,13 +118,6 @@ const setPreSignRedeemVoucher = async (rid, api_base_url, session, essentials) =
 
 const claim_request = async (api_base_url, session, ipfs_cid)=>{
     try {
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        console.log('params______________________');
-        console.log(urlParams.get('ipfs_cid'));
-        if (params.get("ipfs_cid")) {
-            ipfs_cid = params.get("ipfs_cid");
-        }
         const params = {
             ipfs_cid
         }
