@@ -14,12 +14,12 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 	const handleClick  = async (event) => {
     	event.preventDefault();
 		if (!session.current) {
-			console.log('not authorized');
-			console.log(session);
+			alert('not authorized');
+			alert(JSON.stringify(session));
 			await loginWallet(event);
 			handle_claim(event);
 		} else {
-			console.log(session);
+			alert(JSON.stringify(session));
 			handle_claim(event);
 		}
 	}
