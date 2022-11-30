@@ -302,6 +302,7 @@ export const Product: React.FC = () => {
         ipfs_cid = urlParams.get("ipfs_cid");
       }
       if (!session_ref.current) {
+        alert('no session');
 			  await loginWallet(event);
       }
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session_ref.current, ipfs_cid);
