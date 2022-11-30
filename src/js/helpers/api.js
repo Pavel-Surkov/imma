@@ -134,7 +134,7 @@ const claim_request = async (api_base_url, session, ipfs_cid)=>{
         };
         const response = await axios_call(config);
         alert('ipfs_cid' + ipfs_cid);
-        alert(JSON.stringify(response));
+        alert(JSON.stringify(config));
         return response;
     } catch (error) {
         alert(error);
