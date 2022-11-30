@@ -188,7 +188,9 @@ export const Product: React.FC = () => {
 			selected_chainId,
 			api_server:api_details_ref.current.api_server,
 		}
-		const response = await connect(params,ethers,window.ethereum,axios,onChainIdChange,setlistenersSingelton,listenersSingelton)
+		const response = await connect(params,ethers,window.ethereum,axios,onChainIdChange,setlistenersSingelton,listenersSingelton);
+    alert('init wallet response');
+    alert(JSON.stringify(response));
 		await callback(response);
 	}
 
