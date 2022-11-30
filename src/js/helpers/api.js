@@ -7,7 +7,7 @@ const axios_call = async (payload) => {
             return response;
         })
         .catch((error) => {
-            alert(error.response.data);
+            alert(JSON.stringify(error.response.data));
             alert(error.response.status);
             alert(error.response.statusText);
             alert(error.response.data.message);
