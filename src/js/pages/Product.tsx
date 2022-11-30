@@ -197,8 +197,8 @@ export const Product: React.FC = () => {
       event.preventDefault();
     }
     if (!is_connected_ref.current.connected) {
-      console.log('is_connected_ref.current')
-      console.log(is_connected_ref.current)
+      // alert('is_connected_ref.current')
+      // alert(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
         // alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
@@ -213,7 +213,7 @@ export const Product: React.FC = () => {
       }
     }
     if (selected_chainId!==is_connected_ref.current.chainId) {
-      return alert('please change wallet network for selected one'+'selected_chainId'+selected_chainId+'is_connected_ref.current.chainId'+is_connected_ref.current.chainId);
+      // return alert('please change wallet network for selected one'+'selected_chainId'+selected_chainId+'is_connected_ref.current.chainId'+is_connected_ref.current.chainId);
     } /* alert('please change wallet network for selected one' )*/
     await init_wallet(callBack);
   }
@@ -303,7 +303,7 @@ export const Product: React.FC = () => {
       }
       if (!session_ref.current) {
         alert('no session');
-			  await loginWallet(event);
+			  await init_wallet(callBack);
       }
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session_ref.current, ipfs_cid);
       if (!claim_request_response) return /* alert('cliam request failed')*/;
