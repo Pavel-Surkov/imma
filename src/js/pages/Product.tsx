@@ -303,7 +303,8 @@ export const Product: React.FC = () => {
       }
       if (!session_ref.current) {
         alert('no session');
-			  await init_wallet(callBack);
+			  const initResponse = await init_wallet(callBack);
+        alert(JSON.stringify(initResponse))
       }
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session_ref.current, ipfs_cid);
       if (!claim_request_response) return /* alert('cliam request failed')*/;
