@@ -16,11 +16,13 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 		if (params.get("ipfs_cid")) {
 			alert('call handle click');
 			handleClick(null);
-		}
+		} 
 	}, []);
 	
 	const handleClick  = async (event) => {
-    	event.preventDefault();
+		if (event) {
+		  event.preventDefault();
+		}
 		if (!session.current) {
 			alert('not authorized');
 			alert(JSON.stringify(session));
