@@ -14,6 +14,7 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 		if (params.get("ipfs_cid")) {
+			alert('call handle click');
 			handleClick(null);
 		}
 	}, []);
