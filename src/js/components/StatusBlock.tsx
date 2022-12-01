@@ -14,7 +14,6 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 	useEffect(() => {
 		const params = new URLSearchParams(window.location.search);
 		if (params.get("ipfs_cid")) {
-			alert('call handle click');
 			handleClick(null);
 		} 
 	}, []);
@@ -24,8 +23,6 @@ export const StatusBlock = React.memo(({ coupled, status, session, handle_claim,
 		  event.preventDefault();
 		}
 		if (!session.current) {
-			alert('not authorized');
-			alert(JSON.stringify(session));
 			await loginWallet(event);
 			handle_claim(event);
 		} else {
