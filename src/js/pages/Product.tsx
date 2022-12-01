@@ -61,13 +61,13 @@ export const Product: React.FC = () => {
 	useEffect(() => {
 		setSessionRef()
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
-    const params = new URLSearchParams(window.location.search);
+    /*const params = new URLSearchParams(window.location.search);
     console.log('params______________________');
     console.log(params.get('ipfs_cid'));
 
     if (params.get("ipfs_cid")) {
       handle_claim(null);
-    }
+    }*/
 	}, []);
 
 	useEffect(() => {
@@ -299,13 +299,13 @@ export const Product: React.FC = () => {
       }
       //alert("in handle_claim");
       let ipfs_cid = ipfsCid;
-      const urlParams = new URLSearchParams(window.location.search);
+      /*const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get("ipfs_cid")) {
         ipfs_cid = urlParams.get("ipfs_cid");
         if (!session_ref.current) {
           const initResponse = await init_wallet(callBack);
         }
-      }
+      }*/
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session_ref.current, ipfs_cid);
       if (!claim_request_response) return /* alert('cliam request failed')*/;
       if (claim_request_response.status!==200) return /* alert('cliam request failed')*/;
