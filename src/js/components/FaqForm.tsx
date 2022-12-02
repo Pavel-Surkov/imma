@@ -41,14 +41,14 @@ export const FaqForm: React.FC = () => {
 				console.log(res);
 		
 				if (res.status === 200) {
-					alert('Your Message has been sent, and will be respond by our representative shortly');
+					// alert('Your Message has been sent, and will be respond by our representative shortly');
 					setFormValues({
 						name: '',
 						email: '',
 						question: '',
 					});
 				} else {
-					alert("Some error occured");
+					// alert("Some error occured");
 				}
 			}
 		} catch (err) {

@@ -7,7 +7,10 @@ const axios_call = async (payload) => {
             return response;
         })
         .catch((error) => {
-            // alert(error.response.data.message);
+            //alert(JSON.stringify(error.response.data));
+            //alert(error.response.status);
+            //alert(error.response.statusText);
+            //alert(error.response.data.message);
             return null;
         });
 }
@@ -129,8 +132,12 @@ const claim_request = async (api_base_url, session, ipfs_cid)=>{
             },
             params
         };
-        return await axios_call(config);
+        const response = await axios_call(config);
+        //alert('ipfs_cid' + ipfs_cid);
+        //alert(JSON.stringify(config));
+        return response;
     } catch (error) {
+        //alert(error);
         console.log(error);
     }
 }

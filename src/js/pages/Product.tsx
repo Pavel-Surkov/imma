@@ -61,7 +61,14 @@ export const Product: React.FC = () => {
 	useEffect(() => {
 		setSessionRef()
 		isConnected(window.ethereum,ethers,isConnectedCallBack)
-		}, []);
+    /*const params = new URLSearchParams(window.location.search);
+    console.log('params______________________');
+    console.log(params.get('ipfs_cid'));
+
+    if (params.get("ipfs_cid")) {
+      handle_claim(null);
+    }*/
+	}, []);
 
 	useEffect(() => {
 		if (data && path) {
@@ -107,6 +114,7 @@ export const Product: React.FC = () => {
 			.catch((error) => {
 				console.log(error);
 			});
+      
 	}, []);
 
 	const onChainIdChange = (chainIdhex)=>{
@@ -170,6 +178,7 @@ export const Product: React.FC = () => {
 				}
 			}
 			console.log('callback network_ref.current: ',network_ref.current)
+			// alert('callback network_ref.current: ' + network_ref.current)
 			check_network(networkNameToId(network_ref.current))
 	}
 
@@ -179,8 +188,10 @@ export const Product: React.FC = () => {
 			selected_chainId,
 			api_server:api_details_ref.current.api_server,
 		}
-		const response = await connect(params,ethers,window.ethereum,axios,onChainIdChange,setlistenersSingelton,listenersSingelton)
-		callback(response)
+		const response = await connect(params,ethers,window.ethereum,axios,onChainIdChange,setlistenersSingelton,listenersSingelton);
+    //alert('init wallet response');
+    //alert(JSON.stringify(response));
+		await callback(response);
 	}
 
 	const loginWallet = async (event)=>{
@@ -188,12 +199,14 @@ export const Product: React.FC = () => {
       event.preventDefault();
     }
     if (!is_connected_ref.current.connected) {
-      console.log('is_connected_ref.current')
-      console.log(is_connected_ref.current)
+      // alert('is_connected_ref.current')
+      // alert(is_connected_ref.current)
       if (is_connected_ref.current.mobile){
-        /* alert('you are not connected, please install metamask (redirect mobile)')*/
+        // alert('you are not connected, please install metamask (redirect mobile)');
         const domain = window.location.hostname;
-        window.location.replace(`https://metamask.app.link/dapp/${domain}`)
+        if (video) {
+          window.location.replace(`https://metamask.app.link/dapp/${domain}/allnft/${video.uid}?ipfs_cid=${ipfsCid}`);
+        }
         return
       }else{
         /* alert('you are not connected, please install metamask (redirect desktop)')*/
@@ -202,9 +215,9 @@ export const Product: React.FC = () => {
       }
     }
     if (selected_chainId!==is_connected_ref.current.chainId) {
-      return alert('please change wallet network for selected one'+'selected_chainId'+selected_chainId+'is_connected_ref.current.chainId'+is_connected_ref.current.chainId);
+      // return alert('please change wallet network for selected one'+'selected_chainId'+selected_chainId+'is_connected_ref.current.chainId'+is_connected_ref.current.chainId);
     } /* alert('please change wallet network for selected one' )*/
-    init_wallet(callBack)
+    await init_wallet(callBack);
   }
 
   const getApiDetails = ()=>{
@@ -284,8 +297,15 @@ export const Product: React.FC = () => {
       if (event) {
         event.preventDefault();
       }
-      console.log("in handle_claim");
-      const ipfs_cid = ipfsCid;
+      //alert("in handle_claim");
+      let ipfs_cid = ipfsCid;
+      /*const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("ipfs_cid")) {
+        ipfs_cid = urlParams.get("ipfs_cid");
+        if (!session_ref.current) {
+          const initResponse = await init_wallet(callBack);
+        }
+      }*/
       const claim_request_response = await claim_request(api_details_ref.current.api_base_url, session_ref.current, ipfs_cid);
       if (!claim_request_response) return /* alert('cliam request failed')*/;
       if (claim_request_response.status!==200) return /* alert('cliam request failed')*/;

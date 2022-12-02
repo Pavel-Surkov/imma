@@ -406,7 +406,7 @@ export const OriginalNftGraphic = (props) => {
 		<div className="price-graphic">
 			<div className="price-graphic__title">
 				All Time Avg. Price
-			</div>
+			</div>	
 			<div className="price-graphic__number">
 				<svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<line x1="0.501953" y1="1.2074" x2="9.73203" y2="1.2074" stroke="#D6FF7E" strokeWidth="2"/>
@@ -424,8 +424,8 @@ export const OriginalNftGraphic = (props) => {
 					<YAxis tick={<CustomizedAxisTick dy={5} dx={-30} />} tickLine={false} axisLine={false} />
 					}
 					<XAxis interval={0} tick={<CustomizedAxisTick dy={19} dx={20} isMobile={isMobile} />} tickLine={false} axisLine={false} dataKey="dateLabel" />
-					<Line dot={false} onMouseEnter={() => setLineLabel1(true)} onMouseLeave={() => setLineLabel1(false)} type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={2} />
-					<Line dot={false} onMouseEnter={() => setLineLabel2(true)} onMouseLeave={() => setLineLabel2(false)} type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={2} />
+					<Line activeDot={false} dot={false} onMouseEnter={() => setLineLabel1(true)} onMouseLeave={() => setLineLabel1(false)} type="monotone" dataKey="nftaPrice" stroke="#FF7EA5" strokeWidth={3} />
+					<Line activeDot={false} dot={false} onMouseEnter={() => setLineLabel2(true)} onMouseLeave={() => setLineLabel2(false)} type="monotone" dataKey="inftPrice" stroke="#D6FF7E" strokeWidth={3} />
 					<Tooltip
 						cursor={false}
 						content={<CustomTooltip />}

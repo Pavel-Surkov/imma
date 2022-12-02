@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from './Button';
 import { Timer } from './Timer';
 
@@ -11,13 +11,22 @@ type StatusBlockProps = {
 };
 
 export const StatusBlock = React.memo(({ coupled, status, session, handle_claim, loginWallet }: StatusBlockProps) => {
-	const handleClick = (event) => {
-    event.preventDefault();
+	useEffect(() => {
+		const params = new URLSearchParams(window.location.search);
+		if (params.get("ipfs_cid")) {
+			handleClick(null);
+		} 
+	}, []);
+	
+	const handleClick  = async (event) => {
+		if (event) {
+		  event.preventDefault();
+		}
 		if (!session.current) {
-			console.log('authenticate and try again');
-			console.log(session);
-			loginWallet(event);
+			await loginWallet(event);
+			handle_claim(event);
 		} else {
+			// alert(JSON.stringify(session));
 			handle_claim(event);
 		}
 	}
