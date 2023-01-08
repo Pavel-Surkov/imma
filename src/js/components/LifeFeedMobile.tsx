@@ -138,7 +138,7 @@ export const LifeFeedMobile = ({
 								</div>
 								<div className="lifefeed-mobile__info-block">
 									<h4 className="title">TX</h4>
-									<Link to={'/'}>
+									<Link to={`/allnft/${row.uid}`}>
 										<svg
 											width="18"
 											height="19"
