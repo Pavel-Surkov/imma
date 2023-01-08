@@ -17,7 +17,7 @@ export const LifeFeedMobile = ({
 	convertDateToString
 }: LifeFeedMobileProps) => {
 	const [data, setData] = useState<null | any>(null);
-
+	// use effect
 	useEffect(() => {
 		const config = {
 			method: 'get',
